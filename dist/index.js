@@ -77,6 +77,14 @@
             input.value = value;
         }
     }
+    function set_input_type(input, type) {
+        try {
+            input.type = type;
+        }
+        catch (e) {
+            // do nothing
+        }
+    }
     function set_style(node, key, value, important) {
         node.style.setProperty(key, value, important ? 'important' : '');
     }
@@ -1751,7 +1759,7 @@
     			t2 = space();
     			div3 = element("div");
     			if (if_block2) if_block2.c();
-    			attr(input, "type", "text");
+    			set_input_type(input, "text");
     			attr(input, "class", "search-input");
     			attr(input, "placeholder", "search");
     			set_style(input, "width", (/*searchVal*/ ctx[11].length + 1) * 0.6 + "em");

@@ -10,11 +10,14 @@ export default {
 	output: [
 		{ file: pkg.module, format: 'es' },
     { file: pkg.main, format: 'umd', name },
-		{ file: 'bundle/selectmadu.js', format: 'iife', name },
-		{ file: 'bundle/selectmadu.min.js', format: 'iife', name }
+		{ file: 'bundle/selectmadu.js', format: 'iife', name, sourcemap: true },
+		{ file: 'bundle/selectmadu.min.js', format: 'iife', name, sourcemap: true }
 	],
 	plugins: [
-		svelte(),
+		svelte({
+			emitCss: false,
+			legacy: true
+		}),
 		resolve(),
 		terser({
 			include: [/^.+\.min\.js$/]

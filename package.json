@@ -4,9 +4,11 @@
   "description": "Select-madu is a replacement for the select menu, with support for searching, multiple selections, ajax based loading and more.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
-  "svelte": "src/index.js",
+  "svelte": "src/component.js",
   "scripts": {
-    "build": "rollup -c",
+    "buildStyles": "sass styles/main.scss bundle/selectmadu.css",
+    "bundle": "rollup -c",
+    "build": "npm run bundle && npm run buildStyles",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepublishOnly": "npm run build"
   },
@@ -36,6 +38,7 @@
     "rollup": "^2.3.3",
     "rollup-plugin-svelte": "^5.2.1",
     "rollup-plugin-terser": "^5.3.0",
+    "sass": "^1.26.3",
     "svelte": "^3.20.1"
   },
   "files": [
