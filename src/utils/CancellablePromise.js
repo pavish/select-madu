@@ -1,4 +1,4 @@
-import UUIDGenerator from './UUIDGenerator.js';
+import GeneralUtils from './GeneralUtils.js';
 
 class CancellablePromise {
   constructor(fn, onCancel) {
@@ -9,7 +9,7 @@ class CancellablePromise {
 
   getId() {
     if(!this._uuid) {
-      this._uuid = UUIDGenerator.generate();
+      this._uuid = GeneralUtils.getUUID();
     }
     return this._uuid;
   }

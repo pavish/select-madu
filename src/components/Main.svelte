@@ -5,6 +5,7 @@
   import OptionHolder from './options/OptionHolder.svelte';
   import FormatterUtil from './../utils/FormatterUtil.js';
   import DataFetcher from './../utils/DataFetcher.js';
+  import GeneralUtils from './../utils/GeneralUtils.js';
   
   const dispatch = createEventDispatcher();
 
@@ -90,7 +91,7 @@
     isOpen = true;
     tick().then(function() {
       if(searchInputRef) {
-        jQuery(searchInputRef).focus();
+        searchInputRef.focus();
       }
     });
   }
@@ -157,7 +158,7 @@
   function checkAndClose() {
     if(isOpen) {
       tick().then(function() {
-        if(!isInternalOp && jQuery(event.target).closest(baseRef).length === 0) {
+        if(!isInternalOp && !GeneralUtils.closest(event.target, baseRef)) {
           hide();
         }
         isInternalOp = false;
@@ -205,7 +206,7 @@
 
 <div bind:this={baseRef} class="select-madu {classes}" class:multiple class:open={isOpen} class:disabled tabindex="0" on:keydown={keyDown}>
 
-  <div bind:this={selOptRef} class="selected-option" class:is-placeholder={!selected || (multiple && selected.length === 0)}>
+  <div bind:this={selOptRef} class="selected-option" class:placeholder={!selected || (multiple && selected.length === 0)}>
     <div class="sel-inner sel-text" on:click={checkAndOpen}>
       {#if !multiple}
         {#if noSearchView}

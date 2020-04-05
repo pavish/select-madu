@@ -36,16 +36,19 @@
 
       if(elem.classList.contains("selected")) {
         elem.classList.remove("selected");
-        prevElem = jQuery(elem).prev();
+        prevElem = elem.previousElementSibling;
       }
       else {
-        prevElem = jQuery(elem);
+        prevElem = elem;
       }
 
-      if(prevElem.length === 0) {
-        prevElem = jQuery(scrollParentRef).find("li.o:last-child");
+      if(!prevElem) {
+        prevElem = scrollParentRef.querySelector("li.o:last-child");
       }
-      prevElem.addClass("selected");
+
+      if(prevElem) {
+        prevElem.classList.add("selected");
+      }
     }
     scrollToSelected();
   }
@@ -57,16 +60,19 @@
 
       if(elem.classList.contains("selected")) {
         elem.classList.remove("selected");
-        nextElem = jQuery(elem).next();
+        nextElem = elem.nextElementSibling;
       }
       else {
-        nextElem = jQuery(elem);
+        nextElem = elem;
       }
 
-      if(nextElem.length === 0) {
-        nextElem = jQuery(scrollParentRef).find("li.o:first-child");
+      if(!nextElem) {
+        nextElem = scrollParentRef.querySelector("li.o:first-child");
       }
-      nextElem.addClass("selected");
+
+      if(nextElem) {
+        nextElem.classList.add("selected");
+      }
     }
     scrollToSelected();
   }
