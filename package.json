@@ -1,0 +1,45 @@
+{
+  "name": "select-madu",
+  "version": "1.0.0",
+  "description": "Select-madu is a replacement for the select menu, with support for searching, multiple selections, ajax based loading and more.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "svelte": "src/index.js",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pavish/select-madu.git"
+  },
+  "keywords": [
+    "select",
+    "selectmenu",
+    "svelte",
+    "autocomplete",
+    "dropdown",
+    "multiselect",
+    "tag",
+    "tagging",
+    "typeahead"
+  ],
+  "author": "Pavish Kumar Ramani Gopal <pavishkumar.r@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pavish/select-madu/issues"
+  },
+  "homepage": "https://github.com/pavish/select-madu#readme",
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "rollup": "^2.3.3",
+    "rollup-plugin-svelte": "^5.2.1",
+    "rollup-plugin-terser": "^5.3.0",
+    "svelte": "^3.20.1"
+  },
+  "files": [
+    "src",
+    "dist"
+  ]
+}
