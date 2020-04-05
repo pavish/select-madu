@@ -1,6 +1,13 @@
 # SelectMadu
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
+<a href="https://www.npmjs.com/package/select-madu">
+  <img src="https://img.shields.io/npm/v/select-madu" alt="npm version">
+</a>
+
+<a href="https://github.com/pavish/select-madu/blob/master/LICENSE">
+  <img src="https://img.shields.io/npm/l/select-madu" alt="license">
+</a>
 
 ## Features
 * Searching select options.
@@ -45,10 +52,10 @@ import SelectMadu from 'SelectMadu';
 ```javascript
   //To create
   let instance = new SelectMadu({
-     <!-- SelectMadu dom elements will be rendered within the specified parent element in target. -->
+    //SelectMadu dom elements will be rendered within the specified parent element in target.
     target: document.querySelector("#parentElement"),
 
-    <!-- Properties for initializing SelectMadu. Refer Properties info below. -->
+    //Properties for initializing SelectMadu. Refer Properties info below.
     props: {
       datasource: [
         { text: "Ferrai" }, 
