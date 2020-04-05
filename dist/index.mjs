@@ -990,7 +990,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (125:2) {#if totalCount === 0}
+// (131:2) {#if totalCount === 0}
 function create_if_block$1(ctx) {
 	let div;
 
@@ -1129,16 +1129,18 @@ function instance$1($$self, $$props, $$invalidate) {
 
 			if (elem.classList.contains("selected")) {
 				elem.classList.remove("selected");
-				prevElem = jQuery(elem).prev();
+				prevElem = elem.previousElementSibling;
 			} else {
-				prevElem = jQuery(elem);
+				prevElem = elem;
 			}
 
-			if (prevElem.length === 0) {
-				prevElem = jQuery(scrollParentRef).find("li.o:last-child");
+			if (!prevElem) {
+				prevElem = scrollParentRef.querySelector("li.o:last-child");
 			}
 
-			prevElem.addClass("selected");
+			if (prevElem) {
+				prevElem.classList.add("selected");
+			}
 		}
 
 		scrollToSelected();
@@ -1152,16 +1154,18 @@ function instance$1($$self, $$props, $$invalidate) {
 
 			if (elem.classList.contains("selected")) {
 				elem.classList.remove("selected");
-				nextElem = jQuery(elem).next();
+				nextElem = elem.nextElementSibling;
 			} else {
-				nextElem = jQuery(elem);
+				nextElem = elem;
 			}
 
-			if (nextElem.length === 0) {
-				nextElem = jQuery(scrollParentRef).find("li.o:first-child");
+			if (!nextElem) {
+				nextElem = scrollParentRef.querySelector("li.o:first-child");
 			}
 
-			nextElem.addClass("selected");
+			if (nextElem) {
+				nextElem.classList.add("selected");
+			}
 		}
 
 		scrollToSelected();
@@ -1300,13 +1304,23 @@ class OptionHolder extends SvelteComponent {
 	}
 }
 
-var UUIDGenerator = {
+var GeneralUtils = {
 
-  generate() {
+  getUUID() {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
       var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
       return v.toString(16);
     });
+  },
+
+  closest(elem, refelem) {
+    while(elem !== refelem) {
+      elem = elem.parentNode;
+      if(!elem) {
+        return null;
+      }
+    }
+    return elem;
   }
 
 };
@@ -1320,7 +1334,7 @@ class CancellablePromise {
 
   getId() {
     if(!this._uuid) {
-      this._uuid = UUIDGenerator.generate();
+      this._uuid = GeneralUtils.getUUID();
     }
     return this._uuid;
   }
@@ -1441,7 +1455,7 @@ function get_each_context$1(ctx, list, i) {
 	return child_ctx;
 }
 
-// (224:29) 
+// (225:29) 
 function create_if_block_5(ctx) {
 	let t;
 
@@ -1461,7 +1475,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (215:48) 
+// (216:48) 
 function create_if_block_4(ctx) {
 	let each_blocks = [];
 	let each_1_lookup = new Map();
@@ -1506,7 +1520,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (210:6) {#if !multiple}
+// (211:6) {#if !multiple}
 function create_if_block_2(ctx) {
 	let if_block_anchor;
 	let if_block = /*noSearchView*/ ctx[17] && create_if_block_3(ctx);
@@ -1541,7 +1555,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (216:8) {#each selected as elem, index (elem[valueKey])}
+// (217:8) {#each selected as elem, index (elem[valueKey])}
 function create_each_block$1(key_1, ctx) {
 	let span1;
 	let t0_value = /*getFormatted*/ ctx[19]("selected", /*elem*/ ctx[46]) + "";
@@ -1588,7 +1602,7 @@ function create_each_block$1(key_1, ctx) {
 	};
 }
 
-// (211:8) {#if noSearchView}
+// (212:8) {#if noSearchView}
 function create_if_block_3(ctx) {
 	let t_value = (/*selected*/ ctx[0]
 	? /*getFormatted*/ ctx[19]("selected", /*selected*/ ctx[0])
@@ -1614,7 +1628,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (240:6) {:else}
+// (241:6) {:else}
 function create_else_block$1(ctx) {
 	let span;
 	let t_value = (/*isOpen*/ ctx[12] ? "chevron-up" : "chevron-down") + "";
@@ -1638,7 +1652,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (235:6) {#if state === "loading" && isOpen}
+// (236:6) {#if state === "loading" && isOpen}
 function create_if_block_1$2(ctx) {
 	let div1;
 
@@ -1658,7 +1672,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (248:4) {#if isOpen}
+// (249:4) {#if isOpen}
 function create_if_block$2(ctx) {
 	let current;
 
@@ -1761,7 +1775,7 @@ function create_fragment$2(ctx) {
 			attr(div0, "class", "sel-inner sel-text");
 			attr(div1, "class", "status-ind");
 			attr(div2, "class", "selected-option");
-			toggle_class(div2, "is-placeholder", !/*selected*/ ctx[0] || /*multiple*/ ctx[4] && /*selected*/ ctx[0].length === 0);
+			toggle_class(div2, "placeholder", !/*selected*/ ctx[0] || /*multiple*/ ctx[4] && /*selected*/ ctx[0].length === 0);
 			attr(div4, "class", div4_class_value = "select-madu " + /*classes*/ ctx[1]);
 			attr(div4, "tabindex", "0");
 			toggle_class(div4, "multiple", /*multiple*/ ctx[4]);
@@ -1836,7 +1850,7 @@ function create_fragment$2(ctx) {
 			}
 
 			if (dirty[0] & /*selected, multiple*/ 17) {
-				toggle_class(div2, "is-placeholder", !/*selected*/ ctx[0] || /*multiple*/ ctx[4] && /*selected*/ ctx[0].length === 0);
+				toggle_class(div2, "placeholder", !/*selected*/ ctx[0] || /*multiple*/ ctx[4] && /*selected*/ ctx[0].length === 0);
 			}
 
 			if (/*isOpen*/ ctx[12]) {
@@ -1983,7 +1997,7 @@ function instance$2($$self, $$props, $$invalidate) {
 
 		tick().then(function () {
 			if (searchInputRef) {
-				jQuery(searchInputRef).focus();
+				searchInputRef.focus();
 			}
 		});
 	}
@@ -2053,7 +2067,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	function checkAndClose() {
 		if (isOpen) {
 			tick().then(function () {
-				if (!isInternalOp && jQuery(event.target).closest(baseRef).length === 0) {
+				if (!isInternalOp && !GeneralUtils.closest(event.target, baseRef)) {
 					hide();
 				}
 
