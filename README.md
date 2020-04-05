@@ -1,13 +1,15 @@
 # SelectMadu
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
+
 ## Features
 * Searching select options.
 * Multi-select interface with tags.
 * Data can be provided as an array.
 * Async data load as a function returing promise, for AJAX or for any async opertion.
 * Dynamic changing of data.
-* Multi-level Nesting options as groups.
+* Multi-level nesting of options as groups.
+
 
 ## Getting started
 Look at the [docs folder][docs-folder-url] for examples on how to use SelectMadu.
@@ -60,6 +62,7 @@ import SelectMadu from 'SelectMadu';
   instance.$destroy();
 ```
 
+
 ## API
 
 ### Properties
@@ -84,8 +87,10 @@ SelectMadu can be initialized with the following properties
 |    `$set`          |  Use this method to set any of the properties dynamically.     |  `instance.$set('disabled', true)`
 |    `$destroy`      |  Destroy the SelectMadu instance                               |  `instance.$destroy()`
 
+
 ## Documentation
 All documentation can be found within the [docs folder][docs-folder-url]
+
 
 ## Contribute
 Pull requests are encouraged and always welcome. Help make SelectMadu better!
@@ -111,6 +116,7 @@ Build generates the dist folder which contains the es and umd variants for impor
 The bundle folder is also generated which contains the iife variant with and without minimization.
 
 You can also contribute by writing additional tests, adding issues that you encounter, or by helping with the documentation.
+
 
 ## License
 [MIT](LICENSE)
