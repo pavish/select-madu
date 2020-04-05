@@ -1,1 +1,1 @@
-export { default as default } from './main.svelte';
+export { default as default } from './components/Main.svelte';
