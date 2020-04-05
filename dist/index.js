@@ -1051,7 +1051,7 @@
     			t = space();
     			if (if_block) if_block.c();
     			attr(div0, "class", "opt-container");
-    			attr(div1, "class", "list-search-options");
+    			attr(div1, "class", "slmd-dropdown");
     		},
     		m(target, anchor) {
     			insert(target, div1, anchor);
@@ -1678,7 +1678,7 @@
     	};
     }
 
-    // (249:4) {#if isOpen}
+    // (248:2) {#if isOpen}
     function create_if_block$2(ctx) {
     	let current;
 
@@ -1728,7 +1728,7 @@
     }
 
     function create_fragment$2(ctx) {
-    	let div4;
+    	let div3;
     	let div2;
     	let div0;
     	let t0;
@@ -1736,8 +1736,7 @@
     	let t1;
     	let div1;
     	let t2;
-    	let div3;
-    	let div4_class_value;
+    	let div3_class_value;
     	let current;
     	let dispose;
 
@@ -1761,7 +1760,7 @@
 
     	return {
     		c() {
-    			div4 = element("div");
+    			div3 = element("div");
     			div2 = element("div");
     			div0 = element("div");
     			if (if_block0) if_block0.c();
@@ -1771,26 +1770,25 @@
     			div1 = element("div");
     			if_block1.c();
     			t2 = space();
-    			div3 = element("div");
     			if (if_block2) if_block2.c();
     			set_input_type(input, "text");
     			attr(input, "class", "search-input");
     			attr(input, "placeholder", "search");
     			set_style(input, "width", (/*searchVal*/ ctx[11].length + 1) * 0.6 + "em");
     			toggle_class(input, "hidden", /*noSearchView*/ ctx[17]);
-    			attr(div0, "class", "sel-inner sel-text");
+    			attr(div0, "class", "slmd-inner");
     			attr(div1, "class", "status-ind");
     			attr(div2, "class", "selected-option");
     			toggle_class(div2, "placeholder", !/*selected*/ ctx[0] || /*multiple*/ ctx[4] && /*selected*/ ctx[0].length === 0);
-    			attr(div4, "class", div4_class_value = "select-madu " + /*classes*/ ctx[1]);
-    			attr(div4, "tabindex", "0");
-    			toggle_class(div4, "multiple", /*multiple*/ ctx[4]);
-    			toggle_class(div4, "open", /*isOpen*/ ctx[12]);
-    			toggle_class(div4, "disabled", /*disabled*/ ctx[3]);
+    			attr(div3, "class", div3_class_value = "select-madu " + /*classes*/ ctx[1]);
+    			attr(div3, "tabindex", "0");
+    			toggle_class(div3, "multiple", /*multiple*/ ctx[4]);
+    			toggle_class(div3, "open", /*isOpen*/ ctx[12]);
+    			toggle_class(div3, "disabled", /*disabled*/ ctx[3]);
     		},
     		m(target, anchor, remount) {
-    			insert(target, div4, anchor);
-    			append(div4, div2);
+    			insert(target, div3, anchor);
+    			append(div3, div2);
     			append(div2, div0);
     			if (if_block0) if_block0.m(div0, null);
     			append(div0, t0);
@@ -1801,10 +1799,9 @@
     			append(div2, div1);
     			if_block1.m(div1, null);
     			/*div2_binding*/ ctx[43](div2);
-    			append(div4, t2);
-    			append(div4, div3);
+    			append(div3, t2);
     			if (if_block2) if_block2.m(div3, null);
-    			/*div4_binding*/ ctx[45](div4);
+    			/*div3_binding*/ ctx[45](div3);
     			current = true;
     			if (remount) run_all(dispose);
 
@@ -1815,7 +1812,7 @@
     				listen(input, "blur", /*onFocusOut*/ ctx[27]),
     				listen(div0, "click", /*checkAndOpen*/ ctx[23]),
     				listen(div1, "click", /*toggle*/ ctx[20]),
-    				listen(div4, "keydown", /*keyDown*/ ctx[25])
+    				listen(div3, "keydown", /*keyDown*/ ctx[25])
     			];
     		},
     		p(ctx, dirty) {
@@ -1879,20 +1876,20 @@
     				check_outros();
     			}
 
-    			if (!current || dirty[0] & /*classes*/ 2 && div4_class_value !== (div4_class_value = "select-madu " + /*classes*/ ctx[1])) {
-    				attr(div4, "class", div4_class_value);
+    			if (!current || dirty[0] & /*classes*/ 2 && div3_class_value !== (div3_class_value = "select-madu " + /*classes*/ ctx[1])) {
+    				attr(div3, "class", div3_class_value);
     			}
 
     			if (dirty[0] & /*classes, multiple*/ 18) {
-    				toggle_class(div4, "multiple", /*multiple*/ ctx[4]);
+    				toggle_class(div3, "multiple", /*multiple*/ ctx[4]);
     			}
 
     			if (dirty[0] & /*classes, isOpen*/ 4098) {
-    				toggle_class(div4, "open", /*isOpen*/ ctx[12]);
+    				toggle_class(div3, "open", /*isOpen*/ ctx[12]);
     			}
 
     			if (dirty[0] & /*classes, disabled*/ 10) {
-    				toggle_class(div4, "disabled", /*disabled*/ ctx[3]);
+    				toggle_class(div3, "disabled", /*disabled*/ ctx[3]);
     			}
     		},
     		i(local) {
@@ -1905,7 +1902,7 @@
     			current = false;
     		},
     		d(detaching) {
-    			if (detaching) detach(div4);
+    			if (detaching) detach(div3);
 
     			if (if_block0) {
     				if_block0.d();
@@ -1915,7 +1912,7 @@
     			if_block1.d();
     			/*div2_binding*/ ctx[43](null);
     			if (if_block2) if_block2.d();
-    			/*div4_binding*/ ctx[45](null);
+    			/*div3_binding*/ ctx[45](null);
     			run_all(dispose);
     		}
     	};
@@ -2140,7 +2137,7 @@
     		});
     	}
 
-    	function div4_binding($$value) {
+    	function div3_binding($$value) {
     		binding_callbacks[$$value ? "unshift" : "push"](() => {
     			$$invalidate(8, baseRef = $$value);
     		});
@@ -2218,7 +2215,7 @@
     		input_input_handler,
     		div2_binding,
     		optionholder_binding,
-    		div4_binding
+    		div3_binding
     	];
     }
 

@@ -41,7 +41,7 @@
   let fetchPromise;
 
   $: fetchData(datasource, searchVal, multiple);
-  $: noSearchView = (!isOpen || !search);
+  $: noSearchView = !isOpen || !search;
 
   let isSelected = function(_opt) {
     if(!multiple) {
@@ -207,7 +207,7 @@
 <div bind:this={baseRef} class="select-madu {classes}" class:multiple class:open={isOpen} class:disabled tabindex="0" on:keydown={keyDown}>
 
   <div bind:this={selOptRef} class="selected-option" class:placeholder={!selected || (multiple && selected.length === 0)}>
-    <div class="sel-inner sel-text" on:click={checkAndOpen}>
+    <div class="slmd-inner" on:click={checkAndOpen}>
       {#if !multiple}
         {#if noSearchView}
           { selected ? getFormatted("selected", selected) : placeholder }
@@ -245,12 +245,10 @@
     </div>
   </div>
 
-  <div>
-    {#if isOpen}
-      <OptionHolder bind:this={listOptsRef} options={optionsToShow} textKey={textKey} childKey={childKey}
-                    getFormatted={getFormatted}
-                    on:selection={selectOption} isSelected={isSelected} totalCount={totalCount}/>
-    {/if}
-  </div>
+  {#if isOpen}
+    <OptionHolder bind:this={listOptsRef} options={optionsToShow} textKey={textKey} childKey={childKey}
+                  getFormatted={getFormatted}
+                  on:selection={selectOption} isSelected={isSelected} totalCount={totalCount}/>
+  {/if}
 
 </div>

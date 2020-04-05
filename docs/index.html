@@ -15,8 +15,23 @@
     new SelectMadu({
       target: document.querySelector("body"),
       props: {
-        datasource: [{ text: "Test" }, { text: "Test2" }],
-        search: false
+        datasource: [
+          { text: "Test" }, 
+          { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
+          { text: "Test3" }
+        ]
+      }
+    });
+
+    new SelectMadu({
+      target: document.querySelector("body"),
+      props: {
+        multiple: true,
+        datasource: [
+          { text: "Test" }, 
+          { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
+          { text: "Test3" }
+        ]
       }
     });
   </script>

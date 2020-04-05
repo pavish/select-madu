@@ -121,7 +121,7 @@
   }
 </script>
 
-<div class="list-search-options">
+<div class="slmd-dropdown">
   <div bind:this={scrollParentRef} class="opt-container">
     <Options options={options} textKey={textKey} childKey={childKey}
              getFormatted={getFormatted}
