@@ -41,7 +41,8 @@ import SelectMadu from 'SelectMadu';
 
 ### Basic usage
 ```javascript
-  new SelectMadu({
+  //To create
+  let instance = new SelectMadu({
      <!-- SelectMadu dom elements will be rendered within the specified parent element in target. -->
     target: document.querySelector("#parentElement"),
 
@@ -54,29 +55,34 @@ import SelectMadu from 'SelectMadu';
       ]
     }
   });
+
+  //To destroy and remove
+  instance.$destroy();
 ```
 
-## Properties
+## API
+
+### Properties
 SelectMadu can be initialized with the following properties
 
 |      Property      | Required | Default Value |                            Description                            |
 | :----------------: | :------: | :-----------------------: | :-------------------------------------------------------------------: |
 |    `datasource`    |     ✔    |            `[]`           |  Array or a function returning a Promise object for async loading     |
-|     `selected`     |          | First value of datasource or undefined, if not present | Object or array of selected objects |
+|     `selected`     |          | First value of datasource or undefined if not present | Object or array of selected objects |
 |     `multiple`     |          |           `false`         |  If true, then multi selection will be used |
 |     `search`       |          |           `true`          |  For enabling/disabling searching |
-|     `textKey`      |          |           `text`          |  The key to use to display in the datasource result |
-|     `valueKey`     |          |           `text`          |  The key to use to identify the value of the results in the datasource. |
-|     `childKey`     |          |         `children`        |  The key to use to obtain the values of the nested optgroup |
-|     `disabled`     |          |           `false`         |  If true, SelectMadu will be disabled |
+|     `textKey`      |          |           `"text"`          |  The key to use to display in the datasource result |
+|     `valueKey`     |          |           `"text"`          |  The key to use to identify the value of the results in the datasource. |
+|     `childKey`     |          |         `"children"`        |  The key to use to obtain the values of the nested optgroup |
+|     `disabled`     |          |           `false`         |  If true, the instance will be disabled |
 
-## API Methods
+### Methods
 
-|      Method        |                       Description                       |
-| :----------------: | :-----------------------------------------------------: |
-|    `getSelected`   |  Returns the current selected value or values           |
-|    `$set`          |  Use this method to set any of the properties dynamically.     |
-|    `$destroy`      |  Destroy the SelectMadu instance   |
+|      Method        |                       Description                              |    Usage   |
+| :----------------: | :------------------------------------------------------------: | :--------: |
+|    `getSelected`   |  Returns the current selected value or values                  |  `instance.getSelected()`
+|    `$set`          |  Use this method to set any of the properties dynamically.     |  `instance.$set('disabled', true)`
+|    `$destroy`      |  Destroy the SelectMadu instance                               |  `instance.$destroy()`
 
 ## Documentation
 All documentation can be found within the [docs folder][docs-folder-url]
@@ -90,7 +96,10 @@ git clone https://github.com/pavish/select-madu.git
 cd select-madu
 npm install
 ```
-The component is written in [Svelte][svelte-url]. It's an awesome library, you should check it out!
+
+The component is written in [Svelte][svelte-url]. 
+It's an awesome library, you should check it out!
+
 SCSS is used for styling. It is separate from the component and is within styles folder.  
 
 To build, run
@@ -99,7 +108,7 @@ npm run build
 ```
 
 Build generates the dist folder which contains the es and umd variants for importing using npm.
-The bundle folder is also generated which contains the iife variant, with and without minimization.
+The bundle folder is also generated which contains the iife variant with and without minimization.
 
 You can also contribute by writing additional tests, adding issues that you encounter, or by helping with the documentation.
 
