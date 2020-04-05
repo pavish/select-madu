@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="ie=edge" http-equiv="x-ua-compatible">
+  <title>SelectMadu</title>
+
+  <script type="text/javascript" src="../bundle/selectmadu.min.js"></script>
+</head>
+
+<body>
+  <script>
+    new SelectMadu({
+      target: document.querySelector("body"),
+      props: {
+        datasource: [{ text: "Test" }, { text: "Test2" }],
+        search: false
+      }
+    });
+  </script>
+</body>
+
+</html>
