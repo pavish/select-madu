@@ -1,14 +1,6 @@
 # SelectMadu
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
-<a href="https://www.npmjs.com/package/select-madu">
-  <img src="https://img.shields.io/npm/v/select-madu" alt="npm version">
-</a>
-
-<a href="https://github.com/pavish/select-madu/blob/master/LICENSE">
-  <img src="https://img.shields.io/npm/l/select-madu" alt="license">
-</a>
-
 ## Features
 * Searching select options.
 * Multi-select interface with tags.
@@ -19,7 +11,7 @@ SelectMadu is a replacement for the select menu, with support for searching, mul
 
 
 ## Getting started
-Check out [Select madu home page][select-madu-url] for usage documentation and examples.
+Look at the [docs folder][docs-folder-url] for examples on how to use SelectMadu.
 
 ### Install
 You can install SelectMadu from npm using the following command
@@ -55,7 +47,7 @@ import SelectMadu from 'SelectMadu';
     //SelectMadu dom elements will be rendered within the specified parent element in target.
     target: document.querySelector("#parentElement"),
 
-    //Properties for initializing SelectMadu. Refer Select madu home page for more info.
+    //Properties for initializing SelectMadu. Refer Properties info below.
     props: {
       datasource: [
         { text: "Ferrai" }, 
@@ -70,8 +62,33 @@ import SelectMadu from 'SelectMadu';
 ```
 
 
-## API and Documentation
-Check out [SelectMadu home page][select-madu-url] for detailed documentation with Properties information and API methods.
+## API
+
+### Properties
+SelectMadu can be initialized with the following properties
+
+|      Property      | Required | Default Value |                            Description                            |
+| :----------------: | :------: | :-----------------------: | :-------------------------------------------------------------------: |
+|    `datasource`    |     ✔    |            `[]`           |  Array or a function returning a Promise object for async loading     |
+|     `selected`     |          | First value of datasource or undefined if not present | Object or array of selected objects |
+|     `multiple`     |          |           `false`         |  If true, then multi selection will be used |
+|     `search`       |          |           `true`          |  For enabling/disabling searching |
+|     `textKey`      |          |           `"text"`          |  The key to use to display in the datasource result |
+|     `valueKey`     |          |           `"text"`          |  The key to use to identify the value of the results in the datasource. |
+|     `childKey`     |          |         `"children"`        |  The key to use to obtain the values of the nested optgroup |
+|     `disabled`     |          |           `false`         |  If true, the instance will be disabled |
+
+### Methods
+
+|      Method        |                       Description                              |    Usage   |
+| :----------------: | :------------------------------------------------------------: | :--------: |
+|    `getSelected`   |  Returns the current selected value or values                  |  `instance.getSelected()`
+|    `$set`          |  Use this method to set any of the properties dynamically.     |  `instance.$set('disabled', true)`
+|    `$destroy`      |  Destroy the SelectMadu instance                               |  `instance.$destroy()`
+
+
+## Documentation
+All documentation can be found within the [docs folder][docs-folder-url]
 
 
 ## Contribute
@@ -106,4 +123,3 @@ You can also contribute by writing additional tests, adding issues that you enco
 [bundle-folder-url]: https://github.com/pavish/select-madu/tree/master/bundle
 [docs-folder-url]: https://github.com/pavish/select-madu/tree/master/docs
 [svelte-url]: https://svelte.dev/
-[select-madu-url]: https://pavishkrg.com/select-madu
