@@ -8,7 +8,7 @@ const name = 'SelectMadu';
 export default {
 	input: 'src/index.js',
 	output: [
-		{ file: pkg.module, format: 'es' },
+		{ file: pkg.module, format: 'es', name },
     { file: pkg.main, format: 'umd', name },
 		{ file: 'bundle/selectmadu.js', format: 'iife', name, sourcemap: true },
 		{ file: 'bundle/selectmadu.min.js', format: 'iife', name, sourcemap: true }

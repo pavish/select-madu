@@ -10,18 +10,10 @@ SelectMadu is a replacement for the select menu, with support for searching, mul
 * Multi-level nesting of options as groups.
 
 
-## Getting started
-Look at the [docs folder][docs-folder-url] for examples on how to use SelectMadu.
+## Installation
 
-### Install
-You can install SelectMadu from npm using the following command
-
-```bash
-npm install --save select-madu
-```
-
-
-You can also directly include the bundled javascript file and css file from the [bundle folder][bundle-folder-url].
+### Manual
+Include the bundled javascript file and css file from the [bundle folder][bundle-folder-url].
 
 ```html
 <head>
@@ -30,18 +22,37 @@ You can also directly include the bundled javascript file and css file from the 
 </head>
 ```
 
+### NPM
+You can install SelectMadu from npm using the following command.
 
+```bash
+npm install select-madu --save
+```
+and then import it in your javascript file
+```javascript
+import SelectMadu from 'select-madu';
+```
+
+Note: CSS file has to be included separately
+
+### Svelte
 Optionally, if you are using Svelte you can import SelectMadu as a component.
 
 ```javascript
-import SelectMadu from 'SelectMadu';
+import SelectMadu from 'select-madu';
 
 <SelectMadu/>
 ```
 
+Note: CSS file has to be included separately
 
-### Basic usage
+
+## Basic usage
+
+### Simple select menu
 ```javascript
+  import SelectMadu from 'select-madu';
+
   //To create
   let instance = new SelectMadu({
     //SelectMadu dom elements will be rendered within the specified parent element in target.
@@ -51,8 +62,8 @@ import SelectMadu from 'SelectMadu';
     props: {
       datasource: [
         { text: "Ferrai" }, 
-        { text: "Volkswagen group", children: [{ text: "Audi" }, { text: "Lamborghini" } ] },
-        { text: "BMW" }
+        { text: "Lamborghini" },
+        { text: "Aston Martin" }
       ]
     }
   });
@@ -85,11 +96,6 @@ SelectMadu can be initialized with the following properties
 |    `getSelected`   |  Returns the current selected value or values                  |  `instance.getSelected()`
 |    `$set`          |  Use this method to set any of the properties dynamically.     |  `instance.$set('disabled', true)`
 |    `$destroy`      |  Destroy the SelectMadu instance                               |  `instance.$destroy()`
-
-
-## Documentation
-All documentation can be found within the [docs folder][docs-folder-url]
-
 
 ## Contribute
 Pull requests are encouraged and always welcome. Help make SelectMadu better!

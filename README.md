@@ -1,5 +1,4 @@
 # SelectMadu
-SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
 <a href="https://www.npmjs.com/package/select-madu">
   <img src="https://img.shields.io/npm/v/select-madu" alt="npm version">
@@ -8,6 +7,11 @@ SelectMadu is a replacement for the select menu, with support for searching, mul
 <a href="https://github.com/pavish/select-madu/blob/master/LICENSE">
   <img src="https://img.shields.io/npm/l/select-madu" alt="license">
 </a>
+
+SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
+
+To get started, checkout documentation and examples at https://pavishkrg.com/select-madu
+
 
 ## Features
 * Searching select options.
@@ -18,60 +22,12 @@ SelectMadu is a replacement for the select menu, with support for searching, mul
 * Multi-level nesting of options as groups.
 
 
-## Getting started
+## Installation and usage
 Check out [Select madu home page][select-madu-url] for usage documentation and examples.
-
-### Install
-You can install SelectMadu from npm using the following command
-
-```bash
-npm install --save select-madu
-```
-
-
-You can also directly include the bundled javascript file and css file from the [bundle folder][bundle-folder-url].
-
-```html
-<head>
-  <script type="text/javascript" src="selectmadu.min.js"></script>
-  <link rel="stylesheet" href="selectmadu.css">
-</head>
-```
-
-
-Optionally, if you are using Svelte you can import SelectMadu as a component.
-
-```javascript
-import SelectMadu from 'SelectMadu';
-
-<SelectMadu/>
-```
-
-
-### Basic usage
-```javascript
-  //To create
-  let instance = new SelectMadu({
-    //SelectMadu dom elements will be rendered within the specified parent element in target.
-    target: document.querySelector("#parentElement"),
-
-    //Properties for initializing SelectMadu. Refer Select madu home page for more info.
-    props: {
-      datasource: [
-        { text: "Ferrai" }, 
-        { text: "Volkswagen group", children: [{ text: "Audi" }, { text: "Lamborghini" } ] },
-        { text: "BMW" }
-      ]
-    }
-  });
-
-  //To destroy and remove
-  instance.$destroy();
-```
 
 
 ## API and Documentation
-Check out [SelectMadu home page][select-madu-url] for detailed documentation with Properties information and API methods.
+Check out [SelectMadu home page][select-madu-url] for detailed documentation with properties information and API methods.
 
 
 ## Contribute
