@@ -77,6 +77,6 @@ Note: CSS file has to be included separately
 [example-page-url]: {{ site.baseurl }}/examples
 [api-document-page-url]: {{ site.baseurl }}/api
 
-[js-delivr-url]: https://www.jsdelivr.com/package/npm/select2
+[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu
 [unpkg-url]: https://unpkg.com/browse/select-madu/dist/
 [release-url]
