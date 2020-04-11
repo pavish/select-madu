@@ -35,5 +35,5 @@
           url: "examples#multiple"
         - title: "Identifier keys"
           url: "examples#keys"
-      - title: Contribution
-        url: "contribution"
+    - title: Contribution
+      url: "contribution"
