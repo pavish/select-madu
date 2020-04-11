@@ -14,7 +14,6 @@ SelectMadu is a replacement for the select menu, with support for searching, mul
 * Multi-level nesting of options as groups.
 
 ## Get started
-
 Check out the following links to get started with SelectMadu
 
 * [Getting started][getting-started-url]
