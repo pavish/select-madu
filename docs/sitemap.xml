@@ -1,0 +1,5 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+{% include sitemap.xml %}

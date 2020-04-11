@@ -1,39 +1,31 @@
-- title: Documentation
-  url: docs
+- title: "Getting Started"
+  url: "getting-started"
   links:
-    - title: "Getting Started"
-      url: "getting-started"
-      children:
-        - title: Features
-          url: "getting-started#features"
-        - title: Installation
-          url: "getting-started#installation"
-        - title: Basic Usage
-          url: "getting-started#basicusage"
-    - title: "API"
-      url: "api"
-      children:
-        - title: Properties
-          url: "api#properties"
-        - title: Methods
-          url: "api#methods"
-    - title: "Examples"
-      url: "examples"
-      children:
-        - title: Nested
-          url: "examples#nested"
-        - title: Search
-          url: "examples#search"
-        - title: Datasources
-          url: "examples#datasources"
-          children:
-            - title: Array
-              url: "examples#arraydatasource"
-            - title: Ajax (async data)
-              url: "examples#asyncdatasource"
-        - title: Multiple
-          url: "examples#multiple"
-        - title: "Identifier keys"
-          url: "examples#keys"
-    - title: Contribution
-      url: "contribution"
+    - title: Features
+      url: "getting-started#features"
+    - title: Installation
+      url: "getting-started#installation"
+    - title: Basic Usage
+      url: "getting-started#basicusage"
+- title: "API"
+  url: "api"
+  links:
+    - title: Properties
+      url: "api#properties"
+    - title: Methods
+      url: "api#methods"
+- title: "Examples"
+  url: "examples"
+  links:
+    - title: Nested options
+      url: "examples#nested"
+    - title: Search
+      url: "examples#search"
+    - title: Ajax (async data)
+      url: "examples#asyncdata"
+    - title: Multiple selection
+      url: "examples#multiple"
+    - title: "Identifier keys"
+      url: "examples#keys"
+- title: Contribution
+  url: "contribution"
