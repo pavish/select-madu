@@ -8,6 +8,7 @@
   <img src="https://img.shields.io/npm/l/select-madu" alt="license">
 </a>
 
+
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
 To get started, checkout documentation and examples at https://pavishkrg.com/select-madu
@@ -16,7 +17,6 @@ To get started, checkout documentation and examples at https://pavishkrg.com/sel
 ## Features
 * Searching select options.
 * Multi-select interface with tags.
-* Data can be provided as an array.
 * Async data load as a function returing promise, for AJAX or for any async opertion.
 * Dynamic changing of data.
 * Multi-level nesting of options as groups.

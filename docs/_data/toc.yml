@@ -2,8 +2,6 @@
   - title: "Getting Started"
     url: "getting-started"
     links:
-      - title: Features
-        url: "getting-started#features"
       - title: Installation
         url: "getting-started#installation"
       - title: Basic Usage
