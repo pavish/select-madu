@@ -1,1 +1,11 @@
 remote_theme: pavish/docsy-jekyll
+
+email: pavishkumar.r@gmail.com
+twitter: pavishkumar.r
+author: Pavish Kumar Ramani Gopal
+repo: "https://github.com/pavish/select-madu"
+github_user: "pavish"
+github_repo: "select-madu"
+
+logo_pixels: 34
+color: "#3d4251"
