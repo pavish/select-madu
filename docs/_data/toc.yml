@@ -20,20 +20,20 @@
     - title: "Examples"
       url: "examples"
       children:
-      	- title: "Nested"
-      	  url: "examples#nested"
-      	- title: "Search"
-      	  url: "examples#search"
-      	- title: "Datasources"
-      	  url: "examples#datasources"
-      	  children:
-      	    - title: Array
-      	      url: "examples#arraydatasource"
-      	    - title: Ajax (async data)
-      	      url: "examples#asyncdatasource"
-      	- title: "Multiple"
-      	  url: "examples#multiple"
+        - title: Nested
+          url: "examples#nested"
+        - title: Search
+          url: "examples#search"
+        - title: Datasources
+          url: "examples#datasources"
+          children:
+            - title: Array
+              url: "examples#arraydatasource"
+            - title: Ajax (async data)
+              url: "examples#asyncdatasource"
+        - title: Multiple
+          url: "examples#multiple"
         - title: "Identifier keys"
           url: "examples#keys"
-    - title: "Contribution"
-      url: "contribution"
+      - title: Contribution
+        url: "contribution"
