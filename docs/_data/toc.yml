@@ -1,6 +1,6 @@
 - data:
   - title: "About"
-    url: ""
+    url: "index"
   - title: "Getting Started"
     url: "getting-started"
     links:

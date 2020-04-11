@@ -34,16 +34,24 @@
     if(elem) {
       let prevElem;
 
-      if(elem.classList.contains("selected")) {
-        elem.classList.remove("selected");
-        prevElem = elem.previousElementSibling;
-      }
-      else {
-        prevElem = elem;
-      }
-
-      if(!prevElem) {
-        prevElem = scrollParentRef.querySelector("li.o:last-child");
+      let nodeList = scrollParentRef.querySelectorAll("li.o");
+      if(nodeList.length > 0) {
+        if(elem.classList.contains("selected")) {
+          let index = nodeList.length - 1;
+          for(let i=nodeList.length - 1;i >= 0;i--) {
+            if(nodeList[i].classList.contains("selected")) {
+              if(i > 0) {
+                index = i-1;
+              }
+              break;
+            }
+          }
+          prevElem = nodeList[index];
+          elem.classList.remove("selected");
+        }
+        else {
+          prevElem = nodeList[nodeList.length - 1];
+        }
       }
 
       if(prevElem) {
@@ -59,15 +67,23 @@
       let nextElem;
 
       if(elem.classList.contains("selected")) {
+        let nodeList = scrollParentRef.querySelectorAll("li.o");
+        if(nodeList.length > 0) {
+          let index = 0;
+          for(let i=0;i<nodeList.length;i++) {
+            if(nodeList[i].classList.contains("selected")) {
+              if(i < nodeList.length - 1) {
+                index = i+1;
+              }
+              break;
+            }
+          }
+          nextElem = nodeList[index];
+        }
         elem.classList.remove("selected");
-        nextElem = elem.nextElementSibling;
       }
       else {
         nextElem = elem;
-      }
-
-      if(!nextElem) {
-        nextElem = scrollParentRef.querySelector("li.o:first-child");
       }
 
       if(nextElem) {
@@ -95,14 +111,14 @@
 
   function onOptionsChange() {
     tick().then(function() {
-        scrollToSelected();
+      scrollToSelected();
     });
   }
 
   function getHovered() {
-    let hoveredElem = scrollParentRef.querySelector(".selected");
+    let hoveredElem = scrollParentRef.querySelector("li.o.selected");
     if(!hoveredElem) {
-      hoveredElem = scrollParentRef.querySelector(".o");
+      hoveredElem = scrollParentRef.querySelector("li.o");
     }
     return hoveredElem;
   }

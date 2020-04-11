@@ -993,7 +993,7 @@ var SelectMadu = (function () {
     	};
     }
 
-    // (131:2) {#if totalCount === 0}
+    // (147:2) {#if totalCount === 0}
     function create_if_block$1(ctx) {
     	let div;
 
@@ -1129,16 +1129,27 @@ var SelectMadu = (function () {
 
     		if (elem) {
     			let prevElem;
+    			let nodeList = scrollParentRef.querySelectorAll("li.o");
 
-    			if (elem.classList.contains("selected")) {
-    				elem.classList.remove("selected");
-    				prevElem = elem.previousElementSibling;
-    			} else {
-    				prevElem = elem;
-    			}
+    			if (nodeList.length > 0) {
+    				if (elem.classList.contains("selected")) {
+    					let index = nodeList.length - 1;
 
-    			if (!prevElem) {
-    				prevElem = scrollParentRef.querySelector("li.o:last-child");
+    					for (let i = nodeList.length - 1; i >= 0; i--) {
+    						if (nodeList[i].classList.contains("selected")) {
+    							if (i > 0) {
+    								index = i - 1;
+    							}
+
+    							break;
+    						}
+    					}
+
+    					prevElem = nodeList[index];
+    					elem.classList.remove("selected");
+    				} else {
+    					prevElem = nodeList[nodeList.length - 1];
+    				}
     			}
 
     			if (prevElem) {
@@ -1156,14 +1167,27 @@ var SelectMadu = (function () {
     			let nextElem;
 
     			if (elem.classList.contains("selected")) {
+    				let nodeList = scrollParentRef.querySelectorAll("li.o");
+
+    				if (nodeList.length > 0) {
+    					let index = 0;
+
+    					for (let i = 0; i < nodeList.length; i++) {
+    						if (nodeList[i].classList.contains("selected")) {
+    							if (i < nodeList.length - 1) {
+    								index = i + 1;
+    							}
+
+    							break;
+    						}
+    					}
+
+    					nextElem = nodeList[index];
+    				}
+
     				elem.classList.remove("selected");
-    				nextElem = elem.nextElementSibling;
     			} else {
     				nextElem = elem;
-    			}
-
-    			if (!nextElem) {
-    				nextElem = scrollParentRef.querySelector("li.o:first-child");
     			}
 
     			if (nextElem) {
@@ -1200,10 +1224,10 @@ var SelectMadu = (function () {
     	}
 
     	function getHovered() {
-    		let hoveredElem = scrollParentRef.querySelector(".selected");
+    		let hoveredElem = scrollParentRef.querySelector("li.o.selected");
 
     		if (!hoveredElem) {
-    			hoveredElem = scrollParentRef.querySelector(".o");
+    			hoveredElem = scrollParentRef.querySelector("li.o");
     		}
 
     		return hoveredElem;
@@ -1458,7 +1482,7 @@ var SelectMadu = (function () {
     	return child_ctx;
     }
 
-    // (225:29) 
+    // (228:29) 
     function create_if_block_5(ctx) {
     	let t;
 
@@ -1560,12 +1584,12 @@ var SelectMadu = (function () {
 
     // (217:8) {#each selected as elem, index (elem[valueKey])}
     function create_each_block$1(key_1, ctx) {
-    	let span1;
+    	let span;
     	let t0_value = /*getFormatted*/ ctx[19]("selected", /*elem*/ ctx[46]) + "";
     	let t0;
     	let t1;
-    	let span0;
-    	let t3;
+    	let div;
+    	let t2;
     	let dispose;
 
     	function click_handler(...args) {
@@ -1576,30 +1600,31 @@ var SelectMadu = (function () {
     		key: key_1,
     		first: null,
     		c() {
-    			span1 = element("span");
+    			span = element("span");
     			t0 = text(t0_value);
     			t1 = space();
-    			span0 = element("span");
-    			span0.textContent = "×";
-    			t3 = space();
-    			attr(span1, "class", "tag");
-    			this.first = span1;
+    			div = element("div");
+    			div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`;
+    			t2 = space();
+    			attr(div, "class", "it-icon-holder cl-i");
+    			attr(span, "class", "tag");
+    			this.first = span;
     		},
     		m(target, anchor, remount) {
-    			insert(target, span1, anchor);
-    			append(span1, t0);
-    			append(span1, t1);
-    			append(span1, span0);
-    			append(span1, t3);
+    			insert(target, span, anchor);
+    			append(span, t0);
+    			append(span, t1);
+    			append(span, div);
+    			append(span, t2);
     			if (remount) dispose();
-    			dispose = listen(span0, "click", click_handler);
+    			dispose = listen(div, "click", click_handler);
     		},
     		p(new_ctx, dirty) {
     			ctx = new_ctx;
     			if (dirty[0] & /*selected*/ 1 && t0_value !== (t0_value = /*getFormatted*/ ctx[19]("selected", /*elem*/ ctx[46]) + "")) set_data(t0, t0_value);
     		},
     		d(detaching) {
-    			if (detaching) detach(span1);
+    			if (detaching) detach(span);
     			dispose();
     		}
     	};
@@ -1631,31 +1656,26 @@ var SelectMadu = (function () {
     	};
     }
 
-    // (241:6) {:else}
+    // (244:6) {:else}
     function create_else_block$1(ctx) {
-    	let span;
-    	let t_value = (/*isOpen*/ ctx[12] ? "chevron-up" : "chevron-down") + "";
-    	let t;
+    	let div;
 
     	return {
     		c() {
-    			span = element("span");
-    			t = text(t_value);
+    			div = element("div");
+    			div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+    			attr(div, "class", "it-icon-holder");
     		},
     		m(target, anchor) {
-    			insert(target, span, anchor);
-    			append(span, t);
-    		},
-    		p(ctx, dirty) {
-    			if (dirty[0] & /*isOpen*/ 4096 && t_value !== (t_value = (/*isOpen*/ ctx[12] ? "chevron-up" : "chevron-down") + "")) set_data(t, t_value);
+    			insert(target, div, anchor);
     		},
     		d(detaching) {
-    			if (detaching) detach(span);
+    			if (detaching) detach(div);
     		}
     	};
     }
 
-    // (236:6) {#if state === "loading" && isOpen}
+    // (239:6) {#if state === "loading" && isOpen}
     function create_if_block_1$2(ctx) {
     	let div1;
 
@@ -1668,14 +1688,13 @@ var SelectMadu = (function () {
     		m(target, anchor) {
     			insert(target, div1, anchor);
     		},
-    		p: noop,
     		d(detaching) {
     			if (detaching) detach(div1);
     		}
     	};
     }
 
-    // (248:2) {#if isOpen}
+    // (255:2) {#if isOpen}
     function create_if_block$2(ctx) {
     	let current;
 
@@ -1837,9 +1856,7 @@ var SelectMadu = (function () {
     				toggle_class(input, "hidden", /*noSearchView*/ ctx[17]);
     			}
 
-    			if (current_block_type_1 === (current_block_type_1 = select_block_type_1(ctx)) && if_block1) {
-    				if_block1.p(ctx, dirty);
-    			} else {
+    			if (current_block_type_1 !== (current_block_type_1 = select_block_type_1(ctx))) {
     				if_block1.d(1);
     				if_block1 = current_block_type_1(ctx);
 

@@ -23,8 +23,9 @@ To build, run
 npm run build
 ```
 
-Build generates the dist folder which contains the es and umd variants for importing using npm.
-The bundle folder is also generated which contains the iife variant with and without minimization.
+Build generates the nodesrc folder which contains the es and umd variants for importing using npm.
+Dist folder is generated containing the iife variant with and without minimization.
+CSS is generated from SCSS and is present within the dist folder.
 
 You can also contribute by writing additional tests, adding issues that you encounter, or by helping with the documentation.
 

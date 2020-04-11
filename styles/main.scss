@@ -1,5 +1,4 @@
 .select-madu {
-  display       : inline-block;
   width         : 100%;
   background    : #fff;
   position      : relative;
@@ -10,17 +9,15 @@
     cursor       : pointer;
     border       : 1px solid #dfdfdf;
     border-radius: 1px;
-    height       : 100%;
+    width        : 100%;
 
     .slmd-inner {
-      width        : 100%;
-      height       : 100%;
       padding      : 9px 12px;
       padding-right: 32px;
       color        : inherit;
 
       .tag {
-        padding      : 5px 5px 5px 8px;
+        padding      : 3px 5px 3px 8px;
         background   : #efefef;
         margin       : 3px;
         display      : inline-block;
@@ -39,7 +36,7 @@
       outline  : 0;
       border   : none;
       margin   : 5px 0px;
-      padding  : 0px 5px;
+      padding  : 3px 5px;
       min-width: 65px;
       max-width: 100%;
     }
@@ -53,8 +50,7 @@
       top     : 0px;
       right   : 0px;
       bottom  : 0px;
-      padding : 9px;
-      width   : 32px;
+      padding : 11px;
     }
   }
 
@@ -68,9 +64,9 @@
     min-width : 100%;
     border    : 1px solid #339dff;
     border-top: none;
-    position: absolute;
-    top: 100%;
-    z-index: 1000;
+    position  : absolute;
+    top       : 100%;
+    z-index   : 1000;
     background: #fff;
 
     .opt-container {
@@ -113,7 +109,7 @@
         }
 
         li.o-h {
-          font-weight: 500;
+          font-weight: bold;
         }
 
         ul+li.o-h {
@@ -138,6 +134,19 @@
     }
   }
 
+  .it-icon-holder {
+    display       : inline-block;
+    vertical-align: middle;
+
+    .it-icon {
+      stroke         : currentColor;
+      fill           : none;
+      stroke-width   : 2;
+      stroke-linecap : round;
+      stroke-linejoin: round;
+    }
+  }
+
 }
 
 .select-madu:not(.multiple) .selected-option,
@@ -148,7 +157,7 @@
 
     .search-input {
       margin   : -2px 0;
-      padding  : 0 1px;
+      padding  : 3 1px;
       max-width: 100%;
     }
   }
@@ -157,9 +166,8 @@
 .select-madu.multiple {
   .selected-option:not(.placeholder) {
     .slmd-inner {
-      padding      : 3px 4px;
-      padding-right: 32px;
-      height       : auto;
+      padding: 3px 4px;
+      height : auto;
     }
   }
 }

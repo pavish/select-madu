@@ -217,8 +217,11 @@
         {#each selected as elem, index (elem[valueKey])}
           <span class="tag">
             {getFormatted("selected", elem)}
-            <span on:click={e => removeSelection(index)}>&times;</span>
-            <!-- <Icon name="x" classes="cl-i" on:click={e => removeSelection(index)}/> -->
+            <div class="it-icon-holder cl-i" on:click={e => removeSelection(index)}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
+                <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
           </span>
         {/each}
 
@@ -239,8 +242,12 @@
         </div>
     
       {:else}
-        <span>{isOpen ? 'chevron-up' : 'chevron-down'}</span>
-        <!-- <Icon name={isOpen ? 'chevron-up' : 'chevron-down'}/> -->
+        <!-- <span>{isOpen ? 'chevron-up' : 'chevron-down'}</span> -->
+        <div class="it-icon-holder">
+          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </div>
       {/if}
     </div>
   </div>

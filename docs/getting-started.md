@@ -8,7 +8,11 @@ permalink: /getting-started
 ## Installation
 
 ### Manual
-Include the bundled javascript file and css file from the [bundle folder][bundle-folder-url].
+Download or source the javascript file and css file from any of the following
+* [jsDelivr][js-delivr-url]
+* [unpkg][unpkg-url]
+
+You can also download it directly from the [releases listed in this repository][release-url]
 
 ```html
 <head>
@@ -70,6 +74,9 @@ Note: CSS file has to be included separately
 * Check out the properties and methods available in the [API documentation page][api-document-page-url]
 * Find usage examples in the [examples page][example-page-url]
 
-[bundle-folder-url]: https://github.com/pavish/select-madu/tree/master/bundle
 [example-page-url]: {{ site.baseurl }}/examples
 [api-document-page-url]: {{ site.baseurl }}/api
+
+[js-delivr-url]: https://www.jsdelivr.com/package/npm/select2
+[unpkg-url]: https://unpkg.com/browse/select-madu/dist/
+[release-url]
