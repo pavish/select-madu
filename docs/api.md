@@ -40,4 +40,4 @@ TODO: Fill methods info
 
 Find examples for all use cases in the [examples page][example-page-url]
 
-[example-page-url]: /examples
+[example-page-url]: /select-madu/examples

@@ -27,3 +27,5 @@ Build generates the dist folder which contains the es and umd variants for impor
 The bundle folder is also generated which contains the iife variant with and without minimization.
 
 You can also contribute by writing additional tests, adding issues that you encounter, or by helping with the documentation.
+
+[svelte-url]: https://svelte.dev/

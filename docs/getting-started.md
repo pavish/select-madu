@@ -71,5 +71,5 @@ Note: CSS file has to be included separately
 * Find usage examples in the [examples page][example-page-url]
 
 [bundle-folder-url]: https://github.com/pavish/select-madu/tree/master/bundle
-[example-page-url]: /examples
-[api-document-page-url]: /api
+[example-page-url]: /select-madu/examples
+[api-document-page-url]: /select-madu/api

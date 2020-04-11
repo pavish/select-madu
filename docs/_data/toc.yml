@@ -5,7 +5,7 @@
       - title: Installation
         url: "getting-started#installation"
       - title: Basic Usage
-        url: "getting-started#basicusage"
+        url: "getting-started#basic-usage"
   - title: "API"
     url: "api"
     links:

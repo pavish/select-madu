@@ -19,12 +19,11 @@ Check out the following links to get started with SelectMadu
 
 * [Getting started][getting-started-url]
 * [Examples][examples-url]
-* [API][api-url]
+* [API documentation][api-url]
 
 ## License
 [MIT](LICENSE)
 
-[svelte-url]: https://svelte.dev/
-[getting-started-url]: /getting-started
-[examples-url]: /examples
-[api-url]: /api
+[getting-started-url]: /select-madu/getting-started
+[examples-url]: /select-madu/examples
+[api-url]: /select-madu/api

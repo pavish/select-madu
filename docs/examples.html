@@ -1,40 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
+---
+layout: page
+title: SelectMadu - Examples
+permalink: /examples
+---
 
-<head>
-  <meta charset="utf-8">
-  <meta content="ie=edge" http-equiv="x-ua-compatible">
-  <title>SelectMadu</title>
+<div id="slm-1"/>
+<div id="slm-2"/>
 
-  <script type="text/javascript" src="../bundle/selectmadu.min.js"></script>
-  <link rel="stylesheet" href="../bundle/selectmadu.css">
-</head>
+<script type="text/javascript" src="../bundle/selectmadu.min.js"></script>
+<link rel="stylesheet" href="../bundle/selectmadu.css">
 
-<body>
-  <script>
-    new SelectMadu({
-      target: document.querySelector("body"),
-      props: {
-        datasource: [
-          { text: "Test" }, 
-          { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
-          { text: "Test3" }
-        ]
-      }
-    });
+<script>
+  new SelectMadu({
+    target: document.querySelector("slm-1"),
+    props: {
+      datasource: [
+        { text: "Test" }, 
+        { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
+        { text: "Test3" }
+      ]
+    }
+  });
 
-    new SelectMadu({
-      target: document.querySelector("body"),
-      props: {
-        multiple: true,
-        datasource: [
-          { text: "Test" }, 
-          { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
-          { text: "Test3" }
-        ]
-      }
-    });
-  </script>
-</body>
-
-</html>
+  new SelectMadu({
+    target: document.querySelector("slm-2"),
+    props: {
+      multiple: true,
+      datasource: [
+        { text: "Test" }, 
+        { text: "Test2", children: [{ text: "Sub test 1" }, { text: "Sub test 2" } ] },
+        { text: "Test3" }
+      ]
+    }
+  });
+</script>
