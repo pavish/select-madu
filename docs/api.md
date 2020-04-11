@@ -40,4 +40,4 @@ TODO: Fill methods info
 
 Find examples for all use cases in the [examples page][example-page-url]
 
-[example-page-url]: /select-madu/examples
+[example-page-url]: {{ site.baseurl }}/examples

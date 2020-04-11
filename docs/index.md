@@ -23,6 +23,6 @@ Check out the following links to get started with SelectMadu
 ## License
 [MIT](LICENSE)
 
-[getting-started-url]: /{{ site.baseurl }}/getting-started
-[examples-url]: /{{ site.baseurl }}/examples
-[api-url]: /{{ site.baseurl }}/api
+[getting-started-url]: {{ site.baseurl }}/getting-started
+[examples-url]: {{ site.baseurl }}/examples
+[api-url]: {{ site.baseurl }}/api
