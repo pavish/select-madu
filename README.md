@@ -61,7 +61,8 @@ import SelectMadu from 'select-madu';
 ```
 Note: CSS file has to be included separately
 
-### Basic usage
+
+## Basic usage
 ```javascript
   import SelectMadu from 'select-madu';
 
@@ -123,3 +124,7 @@ You can also contribute by writing additional tests, adding issues that you enco
 [docs-folder-url]: https://github.com/pavish/select-madu/tree/master/docs
 [svelte-url]: https://svelte.dev/
 [select-madu-url]: https://pavishkrg.com/select-madu
+
+[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu
+[unpkg-url]: https://unpkg.com/browse/select-madu/dist/
+[release-url]: https://github.com/pavish/select-madu/releases
