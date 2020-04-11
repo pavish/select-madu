@@ -8,6 +8,7 @@
   <img src="https://img.shields.io/npm/l/select-madu" alt="license">
 </a>
 
+<br/><br/>
 
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
@@ -22,7 +23,66 @@ To get started, checkout documentation and examples at https://pavishkrg.com/sel
 * Multi-level nesting of options as groups.
 
 
-## Installation and usage
+## Installation
+
+### Manual
+Download or source the javascript file and css file from any of the following links
+* [jsDelivr][js-delivr-url]
+* [unpkg][unpkg-url]
+
+You can also download it directly from the [releases listed in select-madu repository][release-url]
+
+```html
+<head>
+  <script type="text/javascript" src="selectmadu.min.js"></script>
+  <link rel="stylesheet" href="selectmadu.css">
+</head>
+```
+
+### NPM
+You can install SelectMadu from npm using the following command.
+
+```bash
+npm install select-madu --save
+```
+and then import it in your javascript file
+```javascript
+import SelectMadu from 'select-madu';
+```
+Note: CSS file has to be included separately
+
+### Svelte
+Optionally, if you are using Svelte you can import SelectMadu as a component.
+
+```javascript
+import SelectMadu from 'select-madu';
+
+<SelectMadu/>
+```
+Note: CSS file has to be included separately
+
+### Basic usage
+```javascript
+  import SelectMadu from 'select-madu';
+
+  //To create
+  let instance = new SelectMadu({
+    //SelectMadu dom elements will be rendered within the specified parent element in target.
+    target: document.querySelector("#parentElement"),
+
+    //Properties for initializing SelectMadu. Refer Properties info below.
+    props: {
+      datasource: [
+        { text: "Ferrai" }, 
+        { text: "Lamborghini" },
+        { text: "Aston Martin" }
+      ]
+    }
+  });
+
+  //To destroy and remove
+  instance.$destroy();
+```
 Check out [Select madu home page][select-madu-url] for usage documentation and examples.
 
 
