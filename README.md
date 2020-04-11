@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/npm/l/select-madu" alt="license">
 </a>
 
-&nbsp;
+<p></p>
 
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
 
