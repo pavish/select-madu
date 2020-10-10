@@ -8,6 +8,10 @@
   <img src="https://img.shields.io/npm/l/select-madu" alt="license">
 </a>
 
+<a href="https://travis-ci.com/pavish/select-madu">
+  <img src="https://travis-ci.com/pavish/select-madu.svg?branch=master" alt="build status">
+</a>
+
 <p></p>
 
 SelectMadu is a replacement for the select menu, with support for searching, multiple selections, async data loading and more.
