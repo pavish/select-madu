@@ -11,7 +11,7 @@
     "build:css": "sass styles/main.scss dist/selectmadu.css",
     "bundle": "rollup -c",
     "build": "npm run bundle && npm run build:css",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo \"No test specified\" && exit 0",
     "prepublishOnly": "npm run build"
   },
   "repository": {
