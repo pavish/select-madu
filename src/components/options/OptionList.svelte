@@ -1,16 +1,16 @@
 <svelte:options immutable={true}/>
 
-<script>
+<script lang="typescript">
   import { createEventDispatcher } from 'svelte';
 
   const dispatch = createEventDispatcher();
 
   export let options = [];
   export let optionComponent;
-  export let textKey;
-  export let childKey;
+  export let textKey: string;
+  export let childKey: string;
   export let getFormatted;
-  export let isSelected;
+  export let isSelected: (arg: any) => boolean;
 
   function selectOption(opt) {
     dispatch("selection", opt);

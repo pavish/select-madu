@@ -1,6 +1,6 @@
 <svelte:options immutable={true}/>
 
-<script>
+<script lang="typescript">
   import { createEventDispatcher, tick } from 'svelte';
   import OptionHolder from './options/OptionHolder.svelte';
   import FormatterUtil from './../utils/FormatterUtil.js';
@@ -9,19 +9,19 @@
   
   const dispatch = createEventDispatcher();
 
-  export let classes = "";
-  export let placeholder = "Select option";
+  export let classes: string = "";
+  export let placeholder: string = "Select option";
 
   export let selected;
   export let datasource = []; // [] | Function returning promise
 
-  export let disabled = false;
-  export let multiple = false;
-  export let search = true;
+  export let disabled: boolean = false;
+  export let multiple: boolean = false;
+  export let search: boolean = true;
   
-  export let textKey = "text";
-  export let valueKey = "text";
-  export let childKey = "children";
+  export let textKey: string = "text";
+  export let valueKey: string = "text";
+  export let childKey: string = "children";
   export let formatters = null;
 
   export function getSelected() {
@@ -36,7 +36,7 @@
   let optionsToShow = [];
   let state = "loading"; //loading, ready
   let isInternalOp = false;
-  let totalCount = 0;
+  let totalCount: number = 0;
   let selOptRef;
   let fetchPromise;
 

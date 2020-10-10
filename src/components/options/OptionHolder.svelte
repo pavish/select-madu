@@ -1,23 +1,21 @@
 <svelte:options immutable={true}/>
 
-<script>
-  import { onMount, tick, createEventDispatcher } from 'svelte';
+<script type="typescript">
+  import { onMount, tick } from 'svelte';
   import Options from './OptionList.svelte';
   import FormatterUtil from './../../utils/FormatterUtil.js';
-
-  const dispatch = createEventDispatcher();
 
   export let options = [];
   export let optionComponent;
 
-  export let textKey = "name";
-  export let childKey = "id";
-  export let totalCount;
+  export let textKey: string = "name";
+  export let childKey: string = "id";
+  export let totalCount: number = 0;
 
   export let getFormatted = function(type, opt) {
     return FormatterUtil.formatByType(undefined, type, opt, textKey);
   };
-  export let isSelected = function() {
+  export let isSelected: (opt: any) => boolean = function() {
     return false;
   };
 
@@ -109,7 +107,7 @@
     }
   }
 
-  function onOptionsChange() {
+  function onOptionsChange(opts) {
     tick().then(function() {
       scrollToSelected();
     });
