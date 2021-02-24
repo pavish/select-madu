@@ -1,3 +1,8 @@
+v2.0.0 : In progress
+* Typescript support
+* Eslint configuration
+* Add github actions
+
 v1.1.0
 * Docs site
 * Ability to import as Svelte component
