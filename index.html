@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="./dist/selectmadu.css"/>
+    <script type="text/javascript" src="./dist/selectmadu.js">
+    </script>
+  </head>
+  <body>
+    <div id="parent"></div>
+    <script defer="defer">
+      var sm = new SelectMadu({
+        target: document.querySelector("#parent"),
+        props: {
+          valueKey: "value",
+          animate: true,
+          datasource: [
+            {
+              text: "Parent Option",
+              children: [
+                { text: "Child 1", value: 1 },
+                { text: "Child 2", value: 2 }
+              ]
+            },
+            { text: "Option 2", value: 3 },
+            { text: "Option 3", value: 4 },
+            {
+              text: "Parent Option",
+              children: [
+                { text: "Child 1", value: 5 },
+                { text: "Child 2", value: 6 }
+              ]
+            },
+            { text: "Option 2", value: 7 },
+            { text: "Option 3", value: 8 }
+          ]
+        }
+      });
+
+      var sm1 = new SelectMadu({
+        target: document.querySelector("#parent"),
+        props: {
+          multiple: true,
+          textKey: "t1",
+          valueKey: "value",
+          datasource: [
+            { t1: "A 1", value: "cv1" },
+            { t1: "A 2", value: "cv2" },
+            { t1: "A 3", value: "cv3" }
+          ]
+        }
+      });
+
+      var sm2 = new SelectMadu({
+        target: document.querySelector("#parent"),
+        props: {
+          valueKey: "value",
+          datasource: () => {
+            return new Promise(function(resolve) {
+              setTimeout(() => {
+                resolve([
+                  {
+                    text: "Parent Option",
+                    children: [
+                      { text: "Child 1", value: 1 },
+                      { text: "Child 2", value: 2 }
+                    ]
+                  },
+                  { text: "Option 2", value: 3 },
+                  { text: "Option 3", value: 4 }
+                ])
+              }, 4000);
+            });
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -9,21 +9,25 @@ const isDev = process.env.NODE_ENV === 'development';
 const name = pkg.consName;
 
 export default {
-	input: 'src/index.ts',
-	output: [
-		{ file: pkg.module, format: 'es', name },
+  input: 'src/index.ts',
+  output: [
+    { file: pkg.module, format: 'es', name },
     { file: pkg.main, format: 'umd', name },
-		{ file: 'dist/selectmadu.js', format: 'iife', name, sourcemap: isDev },
-		{ file: 'dist/selectmadu.min.js', format: 'iife', name, sourcemap: isDev, plugins:[terser()] }
-	],
-	plugins: [
-		svelte({
-			dev: isDev,
-			emitCss: false,
-			legacy: true,
-			preprocess: preprocess()
-		}),
-		typescript({ sourceMap: isDev }),
-		resolve()
-	]
+    {
+      file: 'dist/selectmadu.js', format: 'iife', name, sourcemap: isDev,
+    },
+    {
+      file: 'dist/selectmadu.min.js', format: 'iife', name, sourcemap: isDev, plugins: [terser()],
+    },
+  ],
+  plugins: [
+    svelte({
+      dev: isDev,
+      emitCss: false,
+      legacy: true,
+      preprocess: preprocess(),
+    }),
+    typescript({ sourceMap: isDev }),
+    resolve(),
+  ],
 };

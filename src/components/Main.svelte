@@ -3,25 +3,25 @@
 <script lang="typescript">
   import { createEventDispatcher, tick } from 'svelte';
   import OptionHolder from './options/OptionHolder.svelte';
-  import FormatterUtil from './../utils/FormatterUtil.js';
-  import DataFetcher from './../utils/DataFetcher.js';
-  import GeneralUtils from './../utils/GeneralUtils.js';
+  import FormatterUtil from '../utils/FormatterUtil';
+  import DataFetcher from '../utils/DataFetcher';
+  import GeneralUtils from '../utils/GeneralUtils';
   
   const dispatch = createEventDispatcher();
 
-  export let classes: string = "";
-  export let placeholder: string = "Select option";
+  export let classes = '';
+  export let placeholder = 'Select option';
 
   export let selected;
   export let datasource = []; // [] | Function returning promise
 
-  export let disabled: boolean = false;
-  export let multiple: boolean = false;
-  export let search: boolean = true;
+  export let disabled = false;
+  export let multiple = false;
+  export let search = true;
   
-  export let textKey: string = "text";
-  export let valueKey: string = "text";
-  export let childKey: string = "children";
+  export let textKey = 'text';
+  export let valueKey = 'text';
+  export let childKey = 'children';
   export let formatters = null;
 
   export function getSelected() {
@@ -31,56 +31,55 @@
   let baseRef;
   let searchInputRef;
   let listOptsRef;
-  let searchVal = "";
+  let searchVal = '';
   let isOpen = false;
   let optionsToShow = [];
-  let state = "loading"; //loading, ready
+  let state = 'loading'; // loading, ready
   let isInternalOp = false;
-  let totalCount: number = 0;
+  let totalCount = 0;
   let selOptRef;
   let fetchPromise;
 
   $: fetchData(datasource, searchVal, multiple);
   $: noSearchView = !isOpen || !search;
 
-  let isSelected = function(_opt) {
-    if(!multiple) {
+  const isSelected = function (_opt) {
+    if (!multiple) {
       return (!_opt.disabled && selected && (selected[valueKey] === _opt[valueKey]));
     }
-    else {
-      return (selected && selected.map(elem => elem[valueKey]).indexOf(_opt[valueKey]) !== -1);
-    }
-  }
+    return (selected && selected.map((elem) => elem[valueKey]).indexOf(_opt[valueKey]) !== -1);
+  };
 
-  let getFormatted = function(_multiple, _obj) {
-    return FormatterUtil.formatByType(formatters, _multiple, _obj, textKey);
-  }
+  const getFormatted = function (_multiple, _obj) {
+    return FormatterUtil.formatByType(_multiple, _obj, textKey, formatters);
+  };
 
   function fetchData(_datasource, _searchVal, _multiple) {
-    state = "loading";
-    
-    if(fetchPromise) {
+    state = 'loading';
+  
+    if (fetchPromise) {
       fetchPromise.cancel();
     }
     fetchPromise = DataFetcher(_datasource, _searchVal, textKey, childKey);
 
     fetchPromise.then(
-      function(res) {
+      (res) => {
         setData(_multiple, res.content, res.count);
-        state = "ready";
+        state = 'ready';
       },
-      function() {
-        state = "error";
-      }
+      () => {
+        state = 'error';
+      },
     );
   }
+  
 
   function setData(_multiple, data, count) {
     optionsToShow = data;
     totalCount = count;
-    if(!_multiple && !selected && optionsToShow.length > 0) {
+    if (!_multiple && !selected && optionsToShow.length > 0) {
       let sel = optionsToShow[0];
-      while(sel[childKey]) {
+      while (sel[childKey]) {
         sel = sel[childKey][0];
       }
       setSelected(sel);
@@ -89,8 +88,8 @@
 
   function open() {
     isOpen = true;
-    tick().then(function() {
-      if(searchInputRef) {
+    tick().then(() => {
+      if (searchInputRef) {
         searchInputRef.focus();
       }
     });
@@ -98,37 +97,34 @@
 
   function toggle() {
     isInternalOp = true;
-    if(isOpen) {
+    if (isOpen) {
       hide();
-    }
-    else {
+    } else {
       open();
     }
   }
 
   function hide() {
     isOpen = false;
-    searchVal = "";
+    searchVal = '';
   }
 
   function selectOption(event) {
-    let opt = event.detail;
-    if(!multiple) {
-      if(selected !== opt) {
+    const opt = event.detail;
+    if (!multiple) {
+      if (selected !== opt) {
         setSelected(opt);
       }
       hide();
-    }
-    else {
-      if(selected) {
-        if(!selected.find(el => el[valueKey] === opt[valueKey])) {
+    } else {
+      if (selected) {
+        if (!selected.find((el) => el[valueKey] === opt[valueKey])) {
           setSelected([...selected, opt]);
         }
-      }
-      else {
+      } else {
         setSelected([opt]);
       }
-      searchVal = "";
+      searchVal = '';
       open();
     }
   }
@@ -141,14 +137,14 @@
 
   function setSelected(_selected) {
     selected = _selected;
-    tick().then(function() {
-      dispatch("selection", selected);
+    tick().then(() => {
+      dispatch('selection', selected);
     });
   }
 
   function checkAndOpen() {
-    tick().then(function() {
-      if(!isInternalOp) {
+    tick().then(() => {
+      if (!isInternalOp) {
         open();
       }
       isInternalOp = false;
@@ -156,9 +152,9 @@
   }
 
   function checkAndClose() {
-    if(isOpen) {
-      tick().then(function() {
-        if(!isInternalOp && !GeneralUtils.closest(event.target, baseRef)) {
+    if (isOpen) {
+      tick().then(() => {
+        if (!isInternalOp && !GeneralUtils.closest(event.target, baseRef)) {
           hide();
         }
         isInternalOp = false;
@@ -167,38 +163,33 @@
   }
 
   function keyDown(e) {
-    if(e.keyCode === 13) {
-      if(!isOpen) {
+    if (e.keyCode === 13) {
+      if (!isOpen) {
         open();
-      }
-      else if(listOptsRef && listOptsRef.selectFocused()) {
+      } else if (listOptsRef && listOptsRef.selectFocused()) {
         hide();
       }
-    }
-    else if(e.keyCode === 27 || e.keyCode === 9) { // esc or tab
-      if(isOpen) {
+    } else if (e.keyCode === 27 || e.keyCode === 9) { // esc or tab
+      if (isOpen) {
         hide();
       }
-    }
-    else if(e.keyCode === 40) { // down arrow
-      if(!isOpen) {
+    } else if (e.keyCode === 40) { // down arrow
+      if (!isOpen) {
         open();
-      }
-      else if(listOptsRef) {
+      } else if (listOptsRef) {
         listOptsRef.moveDown();
       }
-    }
-    else if(e.keyCode === 38 && listOptsRef) { // up arrow
+    } else if (e.keyCode === 38 && listOptsRef) { // up arrow
       listOptsRef.moveUp();
     }
   }
 
   function onFocusIn() {
-    baseRef.classList.add("focus");
+    baseRef.classList.add('focus');
   }
 
   function onFocusOut() {
-    baseRef.classList.remove("focus");
+    baseRef.classList.remove('focus');
   }
 </script>
 
@@ -210,14 +201,14 @@
     <div class="slmd-inner" on:click={checkAndOpen}>
       {#if !multiple}
         {#if noSearchView}
-          { selected ? getFormatted("selected", selected) : placeholder }
+          { selected ? getFormatted('selected', selected) : placeholder }
         {/if}
       
       {:else if selected && selected.length > 0}
         {#each selected as elem, index (elem[valueKey])}
           <span class="tag">
-            {getFormatted("selected", elem)}
-            <div class="it-icon-holder cl-i" on:click={e => removeSelection(index)}>
+            {getFormatted('selected', elem)}
+            <div class="it-icon-holder cl-i" on:click={(e) => removeSelection(index)}>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
                 <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
@@ -236,7 +227,7 @@
     </div>
 
     <div class="status-ind" on:click={toggle}>
-      {#if state === "loading" && isOpen}
+      {#if state === 'loading' && isOpen}
         <div class="loader">
           <div class="spinner-border"></div>    
         </div>
@@ -253,7 +244,7 @@
   </div>
 
   {#if isOpen}
-    <OptionHolder bind:this={listOptsRef} options={optionsToShow} textKey={textKey} childKey={childKey}
+    <OptionHolder bind:this={listOptsRef} options={optionsToShow} childKey={childKey}
                   getFormatted={getFormatted}
                   on:selection={selectOption} isSelected={isSelected} totalCount={totalCount}/>
   {/if}
