@@ -1,30 +1,31 @@
 <svelte:options immutable={true}/>
 
 <script lang="typescript">
-  import { createEventDispatcher } from 'svelte';
+  import { createEventDispatcher, SvelteComponent } from 'svelte';
+
+  import type { Option } from '../../interfaces';
 
   const dispatch = createEventDispatcher();
 
-  export let options = [];
-  export let optionComponent;
-  export let textKey: string;
+  export let options: Option[];
+  export let optionComponent: SvelteComponent;
   export let childKey: string;
-  export let getFormatted;
-  export let isSelected: (arg: any) => boolean;
+  export let getFormatted: (type: string, opt: Option) => string;
+  export let isSelected: (arg: Option) => boolean;
 
-  function selectOption(opt) {
-    dispatch("selection", opt);
-  }
+  const selectOption = (option: Option): void => {
+    dispatch('selection', option);
+  };
 </script>
 
 <ul>
   {#each options as opt}
     {#if opt[childKey]}
       <li class="o-h">
-        {getFormatted("optionParent", opt)}
+        {getFormatted('optionParent', opt)}
       </li>
       
-      <svelte:self options={opt[childKey]} textKey={textKey} childKey={childKey} 
+      <svelte:self options={opt[childKey]} childKey={childKey} 
                    getFormatted={getFormatted} 
                    on:selection isSelected={isSelected} optionComponent={optionComponent}/>
 
@@ -32,13 +33,13 @@
       <li class="o {opt.classes ? opt.classes : ''}"
           class:disabled={opt.disabled} 
           class:selected="{isSelected(opt)}"
-          on:click="{e => selectOption(opt)}">
+          on:click="{() => selectOption(opt)}">
 
           {#if optionComponent}
             <svelte:component this={optionComponent} {...opt}/>
 
           {:else}
-            {getFormatted("option", opt)}
+            {getFormatted('option', opt)}
 
           {/if}
       </li>

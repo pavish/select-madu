@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "test": "echo \"No test specified\" && exit 0",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "check": "svelte-check"
   },
   "repository": {
     "type": "git",
@@ -44,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
     "eslint": "^7.20.0",
+    "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-eslint-comments": "^3.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-promise": "^4.3.1",
@@ -63,5 +65,8 @@
     "src",
     "nodesrc",
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@popperjs/core": "^2.9.1"
+  }
 }
