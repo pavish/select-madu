@@ -54,7 +54,7 @@
       aria-label={option[keys.text]}>
     <strong>{option[keys.text]}</strong>
 
-    <ul role="none" style="margin:0;list-style:none;padding:0">
+    <ul role="none" style="margin:0;list-style:none;padding:0;position:relative;">
       <slot></slot>
     </ul>
   </li>
@@ -63,10 +63,11 @@
   <li class={classes}
       class:disabled={option.disabled} 
       class:selected={isSelectedOption}
+      class:hovered={isSelectedOption}
       style="position:relative;"
       on:click={selectOption}
       role="option"
-      aria-selected="false">
+      aria-selected="{isSelectedOption}">
 
     {#if optionComponent}
       <svelte:component this={optionComponent} {...option}/>

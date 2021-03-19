@@ -7,15 +7,14 @@
   "module": "nodesrc/index.mjs",
   "svelte": "src/index.js",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions",
-    "build:css": "sass styles/main.scss dist/selectmadu.css",
-    "bundle": "rollup -c",
+    "build:css": "sass --no-source-map styles/main.scss dist/selectmadu.css",
+    "bundle": "cross-env BUILD=production rollup -c",
     "build": "npm run bundle && npm run build:css",
+    "typeCheck": "svelte-check",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint:prod": "cross-env BUILD=production eslint .",
     "test": "echo \"No test specified\" && exit 0",
-    "prepublishOnly": "npm run build",
-    "check": "svelte-check"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -44,6 +43,7 @@
     "@tsconfig/svelte": "^1.0.10",
     "@typescript-eslint/eslint-plugin": "^4.15.2",
     "@typescript-eslint/parser": "^4.15.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.20.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-eslint-comments": "^3.2.0",

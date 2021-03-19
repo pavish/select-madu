@@ -20,7 +20,11 @@
     getAnimation,
     getAnimationParams,
     sameWidthModifier,
-  } from '../utils/GeneralUtils';
+    arrowDown,
+    arrowUp,
+    offsetTop,
+    chooseHovered,
+  } from '../utils/utilities';
 
   export let optionComponent: SvelteComponent;
   export let options: Option[];
@@ -30,37 +34,46 @@
   export let isOpen = false;
   export let state: States;
   export let animate: Animation = false;
+  export let multiple: boolean;
+  export let classes: string | string[];
+  export let componentId: number;
+
+  $: parentClass = [
+    'select-madu-dropdown',
+    (Array.isArray(classes) ? classes.join(' ') : classes),
+  ].join(' ').trim();
 
   let scrollParentRef: HTMLDivElement;
 
   function scrollToSelected(): void {
     if (scrollParentRef) {
-      const element = scrollParentRef.querySelector('.selected');
+      const element = scrollParentRef.querySelector('.hovered');
       if (element) {
         const elem = (element as HTMLElement);
+        const elemOffsetTop = offsetTop(elem, scrollParentRef);
         if (
-          elem.offsetTop + elem.clientHeight
+          elemOffsetTop + elem.clientHeight
           > (scrollParentRef.scrollTop + scrollParentRef.clientHeight)
         ) {
-          scrollParentRef.scrollTop = elem.offsetTop;
-        } else if (elem.offsetTop < scrollParentRef.scrollTop) {
-          scrollParentRef.scrollTop = elem.offsetTop;
+          scrollParentRef.scrollTop = elemOffsetTop;
+        } else if (elemOffsetTop < scrollParentRef.scrollTop) {
+          scrollParentRef.scrollTop = elemOffsetTop;
         }
       }
     }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  function onOptionsChange(_opts?: Option[]) {
+  function scrollAfterTick(_opts?: Option[]) {
     const promise: Promise<void> = tick();
     promise.then(() => scrollToSelected()).catch(() => 0);
   }
 
-  $: onOptionsChange(options);
+  $: scrollAfterTick(options);
 
   onMount(() => {
     isOpen = true;
-    onOptionsChange();
+    scrollAfterTick();
   });
 
   onDestroy(() => {
@@ -93,32 +106,54 @@
 
   $: animationFn = getAnimation(animate);
   $: animationParams = getAnimationParams(animate);
+
+  export function moveDown(): void {
+    if (scrollParentRef) {
+      arrowDown(scrollParentRef);
+      scrollToSelected();
+    }
+  }
+
+  export function moveUp(): void {
+    if (scrollParentRef) {
+      arrowUp(scrollParentRef);
+      scrollToSelected();
+    }
+  }
+
+  export function selectHovered(): void {
+    if (scrollParentRef) {
+      chooseHovered(scrollParentRef);
+    }
+  }
 </script>
 
-<div class="slmd-dropdown" use:popper
-    style="box-sizing:border-box;z-index:1000;max-width:100%;">
+<div class={parentClass} use:popper
+    style="box-sizing:border-box;z-index:1000;max-width:100%;"
+    dir="ltr">
 
     {#if isOpen}
       <div bind:this={scrollParentRef} class="opt-container"
            transition:animationFn={animationParams}
-           style="position:relative;max-height: 194px;overflow:auto;
+           style="position:relative;max-height:194px;overflow:auto;
                   border-width:1px;border-style:solid;background:#fff;
                   margin-top:4px;">
-        {#if options.length > 0}
-          <ul role="listbox" aria-multiselectable="true" aria-expanded="true"
-              style="margin:0;list-style:none;padding:0">
-            <OptionList options={options} keys={keys} optionComponent={optionComponent}
-                        selected={selected} on:selection/>
-          </ul>
-        {:else}
-          <div class="sub-text">
-            {#if state === States.Loading}
-              Loading
+        <ul role="listbox" aria-multiselectable="{multiple}" aria-expanded="true"
+            id="select-madu-{componentId}-options"
+            style="margin:0;list-style:none;padding:0;position:relative;">
+            {#if options.length > 0}
+              <OptionList options={options} keys={keys} optionComponent={optionComponent}
+                          selected={selected} on:selection/>
             {:else}
-              No results found
+              <li role="alert" aria-live="assertive" class="sub-text">
+                {#if state === States.Loading}
+                  Loading
+                {:else}
+                  No results found
+                {/if}
+              </li>
             {/if}
-          </div>
-        {/if}
+        </ul>
       </div>
     {/if}
 

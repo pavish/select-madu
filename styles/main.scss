@@ -10,17 +10,37 @@
     color        : inherit;
 
     .tag {
-      padding      : 3px 5px 3px 8px;
       background   : #efefef;
-      margin       : 3px;
       display      : inline-block;
-      border-radius: 1px;
+      border-radius: 3px;
       word-break   : break-all;
+      border: 1px solid #dfdfdf;
+      margin: 0px 3px;
+      padding: 0px 0px 0px 5px;
+      cursor: default;
 
-      .cl-i {
-        margin-left: 4px;
-        cursor     : pointer;
-        color      : #999;
+      span {
+        vertical-align: middle;
+      }
+
+      button.cl-i {
+        padding: 5px 2px;
+        border: 0px;
+        border-left: 1px solid #dfdfdf;
+        display: inline-block;
+        outline: 0;
+        cursor: pointer;
+      }
+    }
+
+    input[type='search'].search-input {
+      min-height: 18px;
+
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance:none;
       }
     }
   }
@@ -55,14 +75,13 @@
 
 .select-madu.multiple:not(.placeholder) {
   .slmd-inner {
-    padding: 3px 4px;
+    padding: 5px 4px;
     height : auto;
   }
 }
 
 .select-madu:focus,
-.select-madu.focus,
-.select-madu.open {
+.select-madu.focus {
   outline     : 0;
   border-color: #339dff;
 }
@@ -85,7 +104,7 @@
   animation         : spinner-border .75s linear infinite;
 }
 
-.slmd-dropdown .opt-container {
+.select-madu-dropdown .opt-container {
   border: none !important;
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgb(68 88 112 / 11%);
@@ -99,7 +118,7 @@
       cursor  : pointer;
     }
 
-    li.o:hover {
+    li.o:hover, li.o.hovered {
       background: #f5f5f5;
     }
 
@@ -119,10 +138,6 @@
   }
 
   .sub-text {
-    padding   : 5px 10px;
     color     : #888;
-    font-size : 12px;
-    text-align: right;
-    border-top: 1px solid #f0f1f1;
   }
 }
