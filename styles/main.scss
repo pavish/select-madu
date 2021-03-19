@@ -33,8 +33,15 @@
       }
     }
 
-    input.search-input {
+    input[type='search'].search-input {
       min-height: 18px;
+
+      &::-webkit-search-decoration,
+      &::-webkit-search-cancel-button,
+      &::-webkit-search-results-button,
+      &::-webkit-search-results-decoration {
+        -webkit-appearance:none;
+      }
     }
   }
 
@@ -131,10 +138,6 @@
   }
 
   .sub-text {
-    padding   : 5px 10px;
     color     : #888;
-    font-size : 12px;
-    text-align: right;
-    border-top: 1px solid #f0f1f1;
   }
 }

@@ -36,6 +36,7 @@
   export let animate: Animation = false;
   export let multiple: boolean;
   export let classes: string | string[];
+  export let componentId: number;
 
   $: parentClass = [
     'select-madu-dropdown',
@@ -128,7 +129,8 @@
 </script>
 
 <div class={parentClass} use:popper
-    style="box-sizing:border-box;z-index:1000;max-width:100%;">
+    style="box-sizing:border-box;z-index:1000;max-width:100%;"
+    dir="ltr">
 
     {#if isOpen}
       <div bind:this={scrollParentRef} class="opt-container"
@@ -136,21 +138,22 @@
            style="position:relative;max-height:194px;overflow:auto;
                   border-width:1px;border-style:solid;background:#fff;
                   margin-top:4px;">
-        {#if options.length > 0}
-          <ul role="listbox" aria-multiselectable="{multiple}" aria-expanded="true"
-              style="margin:0;list-style:none;padding:0;position:relative;">
-            <OptionList options={options} keys={keys} optionComponent={optionComponent}
-                        selected={selected} on:selection/>
-          </ul>
-        {:else}
-          <div class="sub-text">
-            {#if state === States.Loading}
-              Loading
+        <ul role="listbox" aria-multiselectable="{multiple}" aria-expanded="true"
+            id="select-madu-{componentId}-options"
+            style="margin:0;list-style:none;padding:0;position:relative;">
+            {#if options.length > 0}
+              <OptionList options={options} keys={keys} optionComponent={optionComponent}
+                          selected={selected} on:selection/>
             {:else}
-              No results found
+              <li role="alert" aria-live="assertive" class="sub-text">
+                {#if state === States.Loading}
+                  Loading
+                {:else}
+                  No results found
+                {/if}
+              </li>
             {/if}
-          </div>
-        {/if}
+        </ul>
       </div>
     {/if}
 

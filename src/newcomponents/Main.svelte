@@ -1,5 +1,14 @@
 <svelte:options immutable={true}/>
 
+<script lang="typescript" context="module">
+  let id = 0;
+
+  export function getId(): number {
+    id += 1;
+    return id;
+  }
+</script>
+
 <script lang="typescript">
   import { tick } from 'svelte';
   import type { SvelteComponent } from 'svelte';
@@ -15,7 +24,10 @@
     DropdownKeyboardInteractions,
   } from '../interfaces';
   import { States } from '../interfaces';
-  import { closest, fetchOptions } from '../utils/utilities';
+  import { isOutOfBounds, fetchOptions, setAttribute } from '../utils/utilities';
+
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+  const componentId: number = getId() as number;
 
   // Display and behaviour props
   export let classes: string | string[];
@@ -24,7 +36,6 @@
   export let multiple = false;
   export let search = true;
   export let optionComponent: SvelteComponent;
-  export let name = '';
   export let animate: Animation = false;
 
   export { classes as class };
@@ -113,15 +124,54 @@
   let searchInputRef: HTMLInputElement;
   let optionDropdownRef: OptionDropdown & DropdownKeyboardInteractions;
 
+  // Aria properties
+  const getAriaValue = (
+    key: string,
+    value: string,
+    condition: boolean,
+  ): { key: string, value: string } => ({
+    key,
+    value: condition ? value : '',
+  });
+
+  $: ariaDescribedBy = getAriaValue(
+    'aria-describedby',
+    `select-madu-${componentId}-value`,
+    multiple,
+  );
+
+  $: ariaOwns = getAriaValue(
+    'aria-owns',
+    `select-madu-${componentId}-options`,
+    isOpen,
+  );
+
+  $: ariaLabelledBy = getAriaValue(
+    'aria-labelledby',
+    `select-madu-${componentId}-value`,
+    !multiple,
+  );
+
+  $: ariaControls = getAriaValue(
+    'aria-controls',
+    `select-madu-${componentId}-value`,
+    !multiple,
+  );
+
+  function focusBase() {
+    baseRef.focus();
+  }
+
+  function focusSearch(): void {
+    if (searchInputRef) {
+      searchInputRef.focus();
+    }
+  }
+
   function open() {
     isOpen = true;
     const promise: Promise<void> = tick();
-    promise.then(() => {
-      if (searchInputRef) {
-        return searchInputRef.focus();
-      }
-      return null;
-    }).catch(() => null);
+    promise.then(() => focusSearch()).catch(() => null);
   }
 
   function close() {
@@ -129,29 +179,20 @@
     searchValue = '';
   }
 
-  function focusBase() {
-    baseRef.focus();
-  }
-
   function checkAndClose(event: Event) {
     if (isOpen) {
-      const promise: Promise<void> = tick();
-
-      promise.then(() => {
-        const closestParent: HTMLElement = closest(event.target, baseRef);
-        if (!closestParent) {
-          close();
-        }
-        return null;
-      }).catch(() => null);
+      const element: HTMLElement = event.target as HTMLElement;
+      if (isOutOfBounds(element, baseRef, componentId)) {
+        close();
+      }
     }
   }
 
   function checkAndOpen(): void {
     if (!isOpen) {
       open();
-    } else if (searchInputRef) {
-      searchInputRef.focus();
+    } else {
+      focusSearch();
     }
   }
 
@@ -164,20 +205,22 @@
 
   function onRemoveElement(event: { detail: { index: number } }): void {
     removeElement(event.detail.index);
+    focusSearch();
   }
 
-  function selectOption(event: { detail: Option }) {
+  function onSelection(event: { detail: Option }) {
     if (multiple) {
       if (Array.isArray(selected)) {
         selected = [...selected, event.detail];
       } else {
         selected = [event.detail];
       }
+      focusSearch();
     } else {
       selected = event.detail;
       close();
+      focusBase();
     }
-    focusBase();
   }
 
   function onKeyDown(event: KeyboardEvent) {
@@ -250,42 +293,50 @@
      on:focus={onFocusIn} on:blur={onFocusOut}
      style="position: relative;border-width:1px;border-style:solid;"
      aria-disabled="{disabled}" role="combobox" aria-haspopup="listbox"
-     aria-expanded="{isOpen}" aria-label={name}>
+     aria-expanded="{isOpen}" dir="ltr"
+     use:setAttribute={ariaOwns} use:setAttribute={ariaLabelledBy}
+     use:setAttribute={ariaControls}>
 
   <div class="slmd-inner">
     {#if multiple && Array.isArray(selected) && selected.length > 0}
-      <ul style="margin:0;list-style:none;padding:0;position:relative;display:inline-block;">
+      <ul style="margin:0;list-style:none;padding:0;position:relative;display:inline-block;"
+          id="select-madu-{componentId}-value">
         {#each selected as elem, index (elem[keys.value])}
-          <Tag option={elem} index={index} keys={keys} on:removeElement={onRemoveElement}/>
+          <Tag componentId={componentId} option={elem}
+               index={index} keys={keys} on:removeElement={onRemoveElement}/>
         {/each}
       </ul>
     {/if}
 
     {#if search && isOpen}
-      <input bind:this={searchInputRef} type="text" bind:value={searchValue}
-            class="search-input" placeholder="Search" 
-            style="width:{inputWidth}em;min-width: 50px;max-width: 100%;border:none;outline:0;"
-            aria-autocomplete="both"/>
+      <input bind:this={searchInputRef} type="search" bind:value={searchValue}
+             class="search-input" placeholder="Search" tabindex={0}
+             style="width:{inputWidth}em;min-width: 50px;max-width: 100%;border:none;outline:0;"
+             aria-autocomplete="list" autocorrect="off" autocapitalize="none" spellcheck="false"
+             autocomplete="off" role="searchbox" aria-label="Search"
+             aria-controls="select-madu-{componentId}-options"
+             use:setAttribute={ariaDescribedBy}/>
 
     {:else if isPlaceHolder}
       {placeholder}
     
     {:else if !multiple}
-      <span role="textbox" aria-readonly="true" title={selected[keys.text]}>
+      <span id="select-madu-{componentId}-value" role="textbox"
+            aria-readonly="true" title={selected[keys.text]}>
         {selected[keys.text]}
       </span>
 
     {/if}
   </div>
 
-  <div class="status-ind">
+  <div class="status-ind" role="presentation">
     {#if state === States.Loading}
-      <div class="loader">
+      <div class="loader" aria-hidden="true">
         <div class="spinner-border"></div>
       </div>
   
     {:else}
-      <div class="it-icon-holder">
+      <div class="it-icon-holder" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
@@ -295,9 +346,10 @@
 </div>
 
 {#if isOpen}
-  <OptionDropdown bind:this={optionDropdownRef} parent={baseRef} classes={classes}
+  <OptionDropdown bind:this={optionDropdownRef} componentId={componentId}
+                  parent={baseRef} classes={classes}
                   optionComponent={optionComponent} options={options} keys={keys}
                   selected={selected} multiple={multiple}
                   state={state} animate={animate}
-                  on:selection={selectOption}/>
+                  on:selection={onSelection}/>
 {/if}

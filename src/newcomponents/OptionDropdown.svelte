@@ -29,6 +29,7 @@
   export let animate: Animation;
   export let multiple: boolean;
   export let classes: string | string[];
+  export let componentId: number;
 
   let instance: OptionHolder & DropdownKeyboardInteractions;
 
@@ -47,6 +48,7 @@
     instance = new OptionHolder({
       target: document.querySelector('body'),
       props: {
+        componentId,
         optionComponent,
         options,
         keys,

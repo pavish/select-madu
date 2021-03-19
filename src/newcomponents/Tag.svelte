@@ -13,6 +13,7 @@
   export let index: number;
   export let option: Option;
   export let keys: Keys;
+  export let componentId: number;
 
   $: title = option[keys.text]?.toString();
 
@@ -24,13 +25,14 @@
   }
 </script>
 
-<li class="tag" style="position:relative;"
-    title={title}>
-  <span>{title}</span>
+<li class="tag" style="position:relative;" title={title}>
+  <span id="select-madu-{componentId}-tag-{index}">{title}</span>
 
-  <button tabindex="-1" title="Remove item" aria-label="Remove item"
-          class="it-icon-holder cl-i" on:click|preventDefault={removeSelection}
-          style="postition:relative;margin:0px;">
+  <button tabindex="-1" title="Remove item" class="it-icon-holder cl-i"
+          on:click|preventDefault={removeSelection}
+          style="postition:relative;margin:0px;"
+          id="select-madu-{componentId}-remove-tag-{index}"
+          aria-label="Remove item" aria-describedby="select-madu-{componentId}-tag-{index}">
     <svg xmlns="http://www.w3.org/2000/svg"
       width="14" height="14" viewBox="0 0 24 24"
       class="it-icon" aria-hidden="true">

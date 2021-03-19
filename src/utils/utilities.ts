@@ -1,15 +1,19 @@
 import type { DataSource, Keys, Option, Animation } from '../interfaces';
 import { CancellablePromise } from './CancellablePromise';
 
-export const closest = (elem: EventTarget, refelem: HTMLElement): HTMLElement | null => {
-  let parentElem = elem as HTMLElement;
-  while (parentElem !== refelem) {
+export const isOutOfBounds = (elem: HTMLElement, refElem: HTMLElement, componentId: number): boolean => {
+  const subString = `select-madu-${componentId}`;
+  let parentElem = elem;
+  while (parentElem !== refElem) {
+    if (parentElem.id && parentElem.id.indexOf(subString) > -1) {
+      return false;
+    }
     parentElem = parentElem.parentElement;
     if (!parentElem) {
-      return null;
+      return true;
     }
   }
-  return parentElem;
+  return (parentElem !== refElem);
 };
 
 export const offsetTop = (elem: HTMLElement, parentRefElem: HTMLElement): number => {
@@ -226,4 +230,32 @@ export const fetchOptions = (datasource: DataSource, searchVal: string, keys: Ke
   return new CancellablePromise<Option[]>((_resolve, reject) => {
     reject(new Error('select-madu datasource is empty'));
   });
+};
+
+export const setAttribute = (
+    node: HTMLElement,
+    parameters: { key: string, value?: string },
+  ): {
+    destroy: () => void,
+    update: (parameters: { key: string, value?: string }) => void,
+  } => {
+  if (parameters.value) {
+    node.setAttribute(parameters.key, parameters.value);
+  } else {
+    node.removeAttribute(parameters.key);
+  }
+  
+  return {
+    update(parameters) {
+      if (parameters.value) {
+        node.setAttribute(parameters.key, parameters.value);
+      } else {
+        node.removeAttribute(parameters.key);
+      }
+    },
+
+    destroy() {
+      node.removeAttribute(parameters.key);
+    }
+  };
 };
