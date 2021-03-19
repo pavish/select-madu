@@ -13,8 +13,8 @@
     Keys,
     Selected,
     Animation,
-  } from '../interfaces';
-  import { States } from '../interfaces';
+  } from '../types';
+  import { States } from '../types';
   import OptionList from './OptionList.svelte';
   import {
     getAnimation,
@@ -24,7 +24,7 @@
     arrowUp,
     offsetTop,
     chooseHovered,
-  } from '../utils/utilities';
+  } from '../utilities';
 
   export let optionComponent: SvelteComponent;
   export let options: Option[];

@@ -2,7 +2,7 @@
 
 <script lang="typescript">
   import { createEventDispatcher, SvelteComponent } from 'svelte';
-  import type { Option, Selected, Keys } from '../interfaces';
+  import type { Option, Selected, Keys } from '../types';
 
   const dispatch: <EventKey extends string>
     (type: EventKey, detail: Selected) => void = createEventDispatcher();

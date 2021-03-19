@@ -22,9 +22,9 @@
     CancellablePromiseLike,
     Animation,
     DropdownKeyboardInteractions,
-  } from '../interfaces';
-  import { States } from '../interfaces';
-  import { isOutOfBounds, fetchOptions, setAttribute } from '../utils/utilities';
+  } from '../types';
+  import { States } from '../types';
+  import { isOutOfBounds, fetchOptions, setAttribute } from '../utilities';
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const componentId: number = getId() as number;
@@ -77,8 +77,7 @@
     state = States.Loading;
   
     if (typeof fetchPromise !== 'undefined') {
-      // eslint-disable-next-line no-void
-      void fetchPromise.cancel();
+      fetchPromise.cancel();
     }
     fetchPromise = fetchOptions(_datasource, _searchVal, _keys);
 

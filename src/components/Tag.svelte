@@ -5,7 +5,7 @@
   import type {
     Option,
     Keys,
-  } from '../interfaces';
+  } from '../types';
 
   const dispatch: <EventKey extends string>
     (type: EventKey, detail: { option: Option, index: number }) => void = createEventDispatcher();

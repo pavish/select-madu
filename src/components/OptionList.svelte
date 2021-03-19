@@ -7,7 +7,7 @@
     Option,
     Keys,
     Selected,
-  } from '../interfaces';
+  } from '../types';
 
   export let options: Option[];
   export let optionComponent: SvelteComponent;

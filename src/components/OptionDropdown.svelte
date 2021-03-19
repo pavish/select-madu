@@ -14,7 +14,7 @@
     States,
     Animation,
     DropdownKeyboardInteractions,
-  } from '../interfaces';
+  } from '../types';
   import OptionHolder from './OptionHolder.svelte';
 
   const dispatch: <EventKey extends string>

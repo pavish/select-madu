@@ -31,7 +31,7 @@ export interface CancellablePromiseLike<T> {
   catch: (
     catcher?: (reason?: unknown) => void
   ) => void
-  cancel: () => CancellablePromiseLike<T>
+  cancel: () => void
 }
 
 export type CancellablePromiseExecutor<T> = (
@@ -45,19 +45,46 @@ export type DataSource = Option[]
                         | ((searchValue?: string) => Promise<Option[]>)
                         | ((searchValue?: string) => CancellablePromiseLike<Option[]>);
 
-interface AnimationParams {
+export interface AnimationParams {
   delay?: number
   duration?: number
 }
 
+export type TransitionFunction = (node: Element, params?: AnimationParams) => TransitionConfig;
+
 export type Animation = boolean | {
   duration?: number
   delay?: number
-  transitionFn?: (node: Element, params?: AnimationParams) => TransitionConfig;
+  transitionFn?: TransitionFunction;
 };
 
 export interface DropdownKeyboardInteractions {
   selectHovered: () => void
   moveDown: () => void
   moveUp: () => void
+}
+
+export interface PopperModifierFunctionParam {
+  state: {
+    styles: {
+      popper: {
+        minWidth: string
+      }
+    },
+    rects: {
+      reference: {
+        width: string
+      }
+    },
+    elements: {
+      popper: {
+        style: {
+          minWidth: string
+        }
+      },
+      reference: {
+        offsetWidth: string
+      }
+    }
+  }
 }
