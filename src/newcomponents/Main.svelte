@@ -12,10 +12,10 @@
     Option,
     CancellablePromiseLike,
     Animation,
+    DropdownKeyboardInteractions,
   } from '../interfaces';
   import { States } from '../interfaces';
-  import { fetchOptions } from '../utils/DataFetcher';
-  import { closest } from '../utils/GeneralUtils';
+  import { closest, fetchOptions } from '../utils/utilities';
 
   // Display and behaviour props
   export let classes: string | string[];
@@ -26,6 +26,8 @@
   export let optionComponent: SvelteComponent;
   export let name = '';
   export let animate: Animation = false;
+
+  export { classes as class };
 
   $: parentClass = [
     'select-madu',
@@ -47,6 +49,9 @@
   // Selection and datasource
   export let selected: Selected;
   export let datasource: DataSource = [];
+
+  export { selected as value };
+
   let searchValue = '';
   let options: Option[] = [];
   let state = States.Loading;
@@ -94,7 +99,7 @@
 
   // Internal
   let isOpen = false;
-  const focus = false;
+  let focus = false;
   let baseRef: HTMLDivElement;
 
   let isPlaceHolder: boolean;
@@ -106,10 +111,26 @@
 
   // Refs
   let searchInputRef: HTMLInputElement;
+  let optionDropdownRef: OptionDropdown & DropdownKeyboardInteractions;
+
+  function open() {
+    isOpen = true;
+    const promise: Promise<void> = tick();
+    promise.then(() => {
+      if (searchInputRef) {
+        return searchInputRef.focus();
+      }
+      return null;
+    }).catch(() => null);
+  }
 
   function close() {
     isOpen = false;
     searchValue = '';
+  }
+
+  function focusBase() {
+    baseRef.focus();
   }
 
   function checkAndClose(event: Event) {
@@ -117,8 +138,8 @@
       const promise: Promise<void> = tick();
 
       promise.then(() => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-        if (!closest(event.target, baseRef as Node)) {
+        const closestParent: HTMLElement = closest(event.target, baseRef);
+        if (!closestParent) {
           close();
         }
         return null;
@@ -126,28 +147,23 @@
     }
   }
 
-  function checkAndOpen() {
+  function checkAndOpen(): void {
     if (!isOpen) {
-      isOpen = true;
-
-      const promise: Promise<void> = tick();
-
-      promise.then(() => {
-        if (searchInputRef) {
-          return searchInputRef.focus();
-        }
-        return null;
-      }).catch(() => null);
+      open();
     } else if (searchInputRef) {
       searchInputRef.focus();
     }
   }
 
-  function removeElement(event: { detail: { index: number } }): void {
+  function removeElement(index: number): void {
     if (Array.isArray(selected)) {
-      selected.splice(event.detail.index, 1);
+      selected.splice(index, 1);
       selected = [...selected];
     }
+  }
+
+  function onRemoveElement(event: { detail: { index: number } }): void {
+    removeElement(event.detail.index);
   }
 
   function selectOption(event: { detail: Option }) {
@@ -161,7 +177,67 @@
       selected = event.detail;
       close();
     }
-    baseRef.focus();
+    focusBase();
+  }
+
+  function onKeyDown(event: KeyboardEvent) {
+    switch (event.key) {
+      case 'Enter':
+        if (isOpen) {
+          if (optionDropdownRef) {
+            optionDropdownRef.selectHovered();
+          }
+        } else {
+          open();
+        }
+        break;
+      case 'Escape':
+        if (isOpen) {
+          close();
+          focusBase();
+        }
+        break;
+      case 'ArrowDown':
+        if (isOpen && optionDropdownRef) {
+          optionDropdownRef.moveDown();
+        } else {
+          open();
+        }
+        break;
+      case 'ArrowUp':
+        if (isOpen && optionDropdownRef) {
+          optionDropdownRef.moveUp();
+        } else {
+          open();
+        }
+        break;
+      case 'Tab':
+        if (isOpen) {
+          close();
+        }
+        break;
+      case 'Backspace':
+        if (
+          isOpen && search
+          && multiple && !searchValue.trim()
+          && Array.isArray(selected) && selected.length > 0
+        ) {
+          const lastElement = selected[selected.length - 1];
+          removeElement(selected.length - 1);
+          searchValue = `${lastElement[keys.text]?.toString() || ''} `;
+        }
+        break;
+      default:
+        break;
+    }
+  }
+
+  function onFocusIn() {
+    focus = true;
+  }
+
+  function onFocusOut() {
+    focus = false;
   }
 </script>
 
@@ -170,16 +246,19 @@
 <div bind:this={baseRef} class={parentClass} class:multiple
      class:open={isOpen} class:focus={focus || isOpen} class:search
      class:disabled class:placeholder={isPlaceHolder}
-     tabindex={0} on:click={checkAndOpen}
+     tabindex={0} on:click={checkAndOpen} on:keydown={onKeyDown}
+     on:focus={onFocusIn} on:blur={onFocusOut}
      style="position: relative;border-width:1px;border-style:solid;"
      aria-disabled="{disabled}" role="combobox" aria-haspopup="listbox"
      aria-expanded="{isOpen}" aria-label={name}>
 
   <div class="slmd-inner">
-    {#if multiple && Array.isArray(selected)}
-      {#each selected as elem, index (elem[keys.value])}
-        <Tag option={elem} index={index} keys={keys} on:removeElement={removeElement}/>
-      {/each}
+    {#if multiple && Array.isArray(selected) && selected.length > 0}
+      <ul style="margin:0;list-style:none;padding:0;position:relative;display:inline-block;">
+        {#each selected as elem, index (elem[keys.value])}
+          <Tag option={elem} index={index} keys={keys} on:removeElement={onRemoveElement}/>
+        {/each}
+      </ul>
     {/if}
 
     {#if search && isOpen}
@@ -192,7 +271,9 @@
       {placeholder}
     
     {:else if !multiple}
-      {selected[keys.text]}
+      <span role="textbox" aria-readonly="true" title={selected[keys.text]}>
+        {selected[keys.text]}
+      </span>
 
     {/if}
   </div>
@@ -214,6 +295,9 @@
 </div>
 
 {#if isOpen}
-  <OptionDropdown parent={baseRef} optionComponent={optionComponent} options={options} keys={keys}
-                  selected={selected} state={state} animate={animate} on:selection={selectOption}/>
+  <OptionDropdown bind:this={optionDropdownRef} parent={baseRef} classes={classes}
+                  optionComponent={optionComponent} options={options} keys={keys}
+                  selected={selected} multiple={multiple}
+                  state={state} animate={animate}
+                  on:selection={selectOption}/>
 {/if}

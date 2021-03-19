@@ -55,3 +55,9 @@ export type Animation = boolean | {
   delay?: number
   transitionFn?: (node: Element, params?: AnimationParams) => TransitionConfig;
 };
+
+export interface DropdownKeyboardInteractions {
+  selectHovered: () => void
+  moveDown: () => void
+  moveUp: () => void
+}

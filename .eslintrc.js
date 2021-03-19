@@ -1,3 +1,17 @@
+const isProd = process.env.BUILD === 'production';
+
+const extentions = [
+  'airbnb-base',
+  'eslint:recommended',
+  'plugin:eslint-comments/recommended',
+  'plugin:promise/recommended',
+  'plugin:@typescript-eslint/recommended',
+];
+
+if (isProd) {
+  extentions.push('plugin:@typescript-eslint/recommended-requiring-type-checking');
+}
+
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
@@ -13,14 +27,7 @@ module.exports = {
     extraFileExtensions: ['.svelte'],
   },
   plugins: ['svelte3', '@typescript-eslint'],
-  extends: [
-    'airbnb-base',
-    'eslint:recommended',
-    'plugin:eslint-comments/recommended',
-    'plugin:promise/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-  ],
+  extends: extentions,
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'no-shadow': 'off',

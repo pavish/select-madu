@@ -5,7 +5,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import { terser } from 'rollup-plugin-terser';
 import pkg from './package.json';
 
-const isDev = process.env.NODE_ENV === 'development';
+const isProd = process.env.BUILD === 'production';
 const name = pkg.consName;
 
 export default {
@@ -14,20 +14,27 @@ export default {
     { file: pkg.module, format: 'es', name },
     { file: pkg.main, format: 'umd', name },
     {
-      file: 'dist/selectmadu.js', format: 'iife', name, sourcemap: isDev,
-    },
-    {
-      file: 'dist/selectmadu.min.js', format: 'iife', name, sourcemap: isDev, plugins: [terser()],
+      file: 'dist/selectmadu.min.js',
+      format: 'iife',
+      name,
+      sourcemap: !isProd,
+      plugins: [
+        terser({
+          format: {
+            comments: false,
+          },
+        }),
+      ],
     },
   ],
   plugins: [
     svelte({
-      dev: isDev,
+      dev: !isProd,
       emitCss: false,
       legacy: true,
       preprocess: preprocess(),
     }),
-    typescript({ sourceMap: isDev }),
+    typescript({ sourceMap: !isProd }),
     resolve(),
   ],
 };

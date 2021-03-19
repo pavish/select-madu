@@ -10,17 +10,28 @@
   color: inherit;
 }
 .select-madu .slmd-inner .tag {
-  padding: 3px 5px 3px 8px;
   background: #efefef;
-  margin: 3px;
   display: inline-block;
-  border-radius: 1px;
+  border-radius: 3px;
   word-break: break-all;
+  border: 1px solid #dfdfdf;
+  margin: 0px 3px;
+  padding: 0px 0px 0px 5px;
+  cursor: default;
 }
-.select-madu .slmd-inner .tag .cl-i {
-  margin-left: 4px;
+.select-madu .slmd-inner .tag span {
+  vertical-align: middle;
+}
+.select-madu .slmd-inner .tag button.cl-i {
+  padding: 5px 2px;
+  border: 0px;
+  border-left: 1px solid #dfdfdf;
+  display: inline-block;
+  outline: 0;
   cursor: pointer;
-  color: #999;
+}
+.select-madu .slmd-inner input.search-input {
+  min-height: 18px;
 }
 .select-madu .status-ind {
   position: absolute;
@@ -46,13 +57,12 @@
 }
 
 .select-madu.multiple:not(.placeholder) .slmd-inner {
-  padding: 3px 4px;
+  padding: 5px 4px;
   height: auto;
 }
 
 .select-madu:focus,
-.select-madu.focus,
-.select-madu.open {
+.select-madu.focus {
   outline: 0;
   border-color: #339dff;
 }
@@ -73,35 +83,33 @@
   animation: spinner-border 0.75s linear infinite;
 }
 
-.slmd-dropdown .opt-container {
+.select-madu-dropdown .opt-container {
   border: none !important;
   border-radius: 5px;
   box-shadow: 0 0 0 1px rgba(68, 88, 112, 0.11);
 }
-.slmd-dropdown .opt-container ul li {
+.select-madu-dropdown .opt-container ul li {
   padding: 9px 12px;
 }
-.slmd-dropdown .opt-container ul li.o {
+.select-madu-dropdown .opt-container ul li.o {
   cursor: pointer;
 }
-.slmd-dropdown .opt-container ul li.o:hover {
+.select-madu-dropdown .opt-container ul li.o:hover, .select-madu-dropdown .opt-container ul li.o.hovered {
   background: #f5f5f5;
 }
-.slmd-dropdown .opt-container ul li.o.selected {
+.select-madu-dropdown .opt-container ul li.o.selected {
   background: #e7e7e7;
 }
-.slmd-dropdown .opt-container ul ul + li.o-h {
+.select-madu-dropdown .opt-container ul ul + li.o-h {
   margin-top: 5px;
 }
-.slmd-dropdown .opt-container ul > ul li {
+.select-madu-dropdown .opt-container ul > ul li {
   padding: 9px 18px;
 }
-.slmd-dropdown .opt-container .sub-text {
+.select-madu-dropdown .opt-container .sub-text {
   padding: 5px 10px;
   color: #888;
   font-size: 12px;
   text-align: right;
   border-top: 1px solid #f0f1f1;
 }
-
-/*# sourceMappingURL=selectmadu.css.map */

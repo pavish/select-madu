@@ -14,6 +14,8 @@
   export let option: Option;
   export let keys: Keys;
 
+  $: title = option[keys.text]?.toString();
+
   function removeSelection() {
     dispatch('removeElement', {
       option,
@@ -22,12 +24,17 @@
   }
 </script>
 
-<span class="tag">
-  {option[keys.text]}
+<li class="tag" style="position:relative;"
+    title={title}>
+  <span>{title}</span>
 
-  <div class="it-icon-holder cl-i" on:click|preventDefault={removeSelection}>
-      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
+  <button tabindex="-1" title="Remove item" aria-label="Remove item"
+          class="it-icon-holder cl-i" on:click|preventDefault={removeSelection}
+          style="postition:relative;margin:0px;">
+    <svg xmlns="http://www.w3.org/2000/svg"
+      width="14" height="14" viewBox="0 0 24 24"
+      class="it-icon" aria-hidden="true">
       <line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
-  </div>
-</span>
+    </svg>
+  </button>
+</li>
