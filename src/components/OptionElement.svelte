@@ -11,6 +11,7 @@
   export let optionComponent: SvelteComponent;
   export let keys: Keys;
   export let selected: Selected;
+  export let level: number;
 
   function getOptionClasses(opt: Option) : string {
     let classList = opt[keys.child] ? 'o-h' : 'o';
@@ -43,16 +44,14 @@
   $: classes = getOptionClasses(option);
 
   function selectOption(): void {
-    if (!isSelectedOption) {
-      dispatch('selection', option);
-    }
+    dispatch('selection', option);
   }
 </script>
 
 {#if option[keys.child]}
   <li class={classes} role="group" style="position:relative;"
       aria-label={option[keys.text]}>
-    <strong>{option[keys.text]}</strong>
+    <strong style="display:block;padding-left:{level * 10}px;">{option[keys.text]}</strong>
 
     <ul role="none" style="margin:0;list-style:none;padding:0;position:relative;">
       <slot></slot>
@@ -64,7 +63,7 @@
       class:disabled={option.disabled} 
       class:selected={isSelectedOption}
       class:hovered={isSelectedOption}
-      style="position:relative;"
+      style="position:relative;padding-left:{level * 10}px"
       on:click={selectOption}
       role="option"
       aria-selected="{isSelectedOption}">

@@ -60,6 +60,7 @@
   // Selection and datasource
   export let selected: Selected;
   export let datasource: DataSource = [];
+  export let selectFirstElement = true;
 
   export { selected as value };
 
@@ -72,6 +73,7 @@
     _datasource: DataSource,
     _searchVal: string,
     _multiple: boolean,
+    _selectFirstElement: boolean,
     _keys: Keys,
   ) => {
     state = States.Loading;
@@ -85,7 +87,7 @@
       (res) => {
         options = res;
         state = States.Ready;
-        if (!_multiple && options.length > 0 && !selected) {
+        if (!_multiple && _selectFirstElement && options.length > 0 && !selected) {
           let [_selected] = options;
           while (_selected[_keys.child]) {
             [_selected] = _selected[_keys.child] as Option[];
@@ -105,7 +107,7 @@
   };
 
   // Option setter
-  $: setOptions(datasource, searchValue, multiple, keys);
+  $: setOptions(datasource, searchValue, multiple, selectFirstElement, keys);
 
   // Internal
   let isOpen = false;
@@ -195,6 +197,14 @@
     }
   }
 
+  function toggle(): void {
+    if (!isOpen) {
+      open();
+    } else {
+      close();
+    }
+  }
+
   function removeElement(index: number): void {
     if (Array.isArray(selected)) {
       selected.splice(index, 1);
@@ -210,7 +220,9 @@
   function onSelection(event: { detail: Option }) {
     if (multiple) {
       if (Array.isArray(selected)) {
-        selected = [...selected, event.detail];
+        if (!selected.find((elem) => elem[keys.value] === event.detail[keys.value])) {
+          selected = [...selected, event.detail];
+        }
       } else {
         selected = [event.detail];
       }
@@ -287,8 +299,8 @@
 
 <div bind:this={baseRef} class={parentClass} class:multiple
      class:open={isOpen} class:focus={focus || isOpen} class:search
-     class:disabled class:placeholder={isPlaceHolder}
-     tabindex={0} on:click={checkAndOpen} on:keydown={onKeyDown}
+     class:disabled class:placeholder={isPlaceHolder} class:animate
+     tabindex={0} on:keydown={onKeyDown}
      on:focus={onFocusIn} on:blur={onFocusOut}
      style="position: relative;border-width:1px;border-style:solid;"
      aria-disabled="{disabled}" role="combobox" aria-haspopup="listbox"
@@ -296,7 +308,7 @@
      use:setAttribute={ariaOwns} use:setAttribute={ariaLabelledBy}
      use:setAttribute={ariaControls}>
 
-  <div class="slmd-inner">
+  <div class="select-madu-inner" on:click={checkAndOpen}>
     {#if multiple && Array.isArray(selected) && selected.length > 0}
       <ul style="margin:0;list-style:none;padding:0;position:relative;display:inline-block;"
           id="select-madu-{componentId}-value">
@@ -309,7 +321,7 @@
 
     {#if search && isOpen}
       <input bind:this={searchInputRef} type="search" bind:value={searchValue}
-             class="search-input" placeholder="Search" tabindex={0}
+             class="select-madu-input" placeholder="Search" tabindex={0}
              style="width:{inputWidth}em;min-width: 50px;max-width: 100%;border:none;outline:0;"
              aria-autocomplete="list" autocorrect="off" autocapitalize="none" spellcheck="false"
              autocomplete="off" role="searchbox" aria-label="Search"
@@ -328,15 +340,16 @@
     {/if}
   </div>
 
-  <div class="status-ind" role="presentation">
+  <div class="select-madu-arrow" class:loading={state === States.Loading}
+       role="presentation" on:click={toggle}>
     {#if state === States.Loading}
-      <div class="loader" aria-hidden="true">
+      <div class="select-madu-spinner" aria-hidden="true">
         <div class="spinner-border"></div>
       </div>
   
     {:else}
-      <div class="it-icon-holder" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon">
+      <div class="select-madu-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24">
           <polyline points="6 9 12 15 18 9"></polyline>
         </svg>
       </div>

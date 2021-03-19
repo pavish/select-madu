@@ -133,7 +133,7 @@
     dir="ltr">
 
     {#if isOpen}
-      <div bind:this={scrollParentRef} class="opt-container"
+      <div bind:this={scrollParentRef} class="select-madu-options"
            transition:animationFn={animationParams}
            style="position:relative;max-height:194px;overflow:auto;
                   border-width:1px;border-style:solid;background:#fff;
@@ -145,7 +145,7 @@
               <OptionList options={options} keys={keys} optionComponent={optionComponent}
                           selected={selected} on:selection/>
             {:else}
-              <li role="alert" aria-live="assertive" class="sub-text">
+              <li role="alert" aria-live="assertive" class="select-madu-sub-text">
                 {#if state === States.Loading}
                   Loading
                 {:else}

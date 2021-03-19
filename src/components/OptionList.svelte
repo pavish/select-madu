@@ -13,13 +13,16 @@
   export let optionComponent: SvelteComponent;
   export let keys: Keys;
   export let selected: Selected;
-  export const innerTree = false;
+
+  export let level = 1;
+
+  $: nextLevel = level + 1;
 </script>
 
 {#each options as option}
   <OptionElement option={option} keys={keys} optionComponent={optionComponent}
-                 selected={selected} on:selection>
+                 selected={selected} level={level} on:selection>
     <svelte:self options={option[keys.child]} optionComponent={optionComponent}
-                  keys={keys} selected={selected} innerTree={true} on:selection/>
+                  keys={keys} selected={selected} level={nextLevel} on:selection/>
   </OptionElement>
 {/each}

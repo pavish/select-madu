@@ -71,9 +71,14 @@
   onDestroy(() => {
     setOnChange('isOpen', false);
     if (animate) {
+      let duration = 100;
+      if (typeof animate === 'object') {
+        duration = Number.isNaN(animate.duration) ? duration : animate.duration;
+      }
+
       setTimeout(() => {
         instance.$destroy();
-      }, 200);
+      }, duration + 100);
     } else {
       instance.$destroy();
     }

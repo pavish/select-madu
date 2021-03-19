@@ -1713,13 +1713,14 @@ function create_else_block(ctx) {
 		c() {
 			li = element("li");
 			if_block.c();
-			attr(li, "class", /*classes*/ ctx[4]);
+			attr(li, "class", /*classes*/ ctx[5]);
 			set_style(li, "position", "relative");
+			set_style(li, "padding-left", /*level*/ ctx[3] * 10 + "px");
 			attr(li, "role", "option");
-			attr(li, "aria-selected", /*isSelectedOption*/ ctx[3]);
+			attr(li, "aria-selected", /*isSelectedOption*/ ctx[4]);
 			toggle_class(li, "disabled", /*option*/ ctx[0].disabled);
-			toggle_class(li, "selected", /*isSelectedOption*/ ctx[3]);
-			toggle_class(li, "hovered", /*isSelectedOption*/ ctx[3]);
+			toggle_class(li, "selected", /*isSelectedOption*/ ctx[4]);
+			toggle_class(li, "hovered", /*isSelectedOption*/ ctx[4]);
 		},
 		m(target, anchor) {
 			insert(target, li, anchor);
@@ -1727,7 +1728,7 @@ function create_else_block(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(li, "click", /*selectOption*/ ctx[5]);
+				dispose = listen(li, "click", /*selectOption*/ ctx[6]);
 				mounted = true;
 			}
 		},
@@ -1758,24 +1759,28 @@ function create_else_block(ctx) {
 				if_block.m(li, null);
 			}
 
-			if (!current || dirty & /*classes*/ 16) {
-				attr(li, "class", /*classes*/ ctx[4]);
+			if (!current || dirty & /*classes*/ 32) {
+				attr(li, "class", /*classes*/ ctx[5]);
 			}
 
-			if (!current || dirty & /*isSelectedOption*/ 8) {
-				attr(li, "aria-selected", /*isSelectedOption*/ ctx[3]);
+			if (!current || dirty & /*level*/ 8) {
+				set_style(li, "padding-left", /*level*/ ctx[3] * 10 + "px");
 			}
 
-			if (dirty & /*classes, option*/ 17) {
+			if (!current || dirty & /*isSelectedOption*/ 16) {
+				attr(li, "aria-selected", /*isSelectedOption*/ ctx[4]);
+			}
+
+			if (dirty & /*classes, option*/ 33) {
 				toggle_class(li, "disabled", /*option*/ ctx[0].disabled);
 			}
 
-			if (dirty & /*classes, isSelectedOption*/ 24) {
-				toggle_class(li, "selected", /*isSelectedOption*/ ctx[3]);
+			if (dirty & /*classes, isSelectedOption*/ 48) {
+				toggle_class(li, "selected", /*isSelectedOption*/ ctx[4]);
 			}
 
-			if (dirty & /*classes, isSelectedOption*/ 24) {
-				toggle_class(li, "hovered", /*isSelectedOption*/ ctx[3]);
+			if (dirty & /*classes, isSelectedOption*/ 48) {
+				toggle_class(li, "hovered", /*isSelectedOption*/ ctx[4]);
 			}
 		},
 		i(local) {
@@ -1796,7 +1801,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (46:0) {#if option[keys.child]}
+// (45:0) {#if option[keys.child]}
 function create_if_block(ctx) {
 	let li;
 	let strong;
@@ -1806,8 +1811,8 @@ function create_if_block(ctx) {
 	let ul;
 	let li_aria_label_value;
 	let current;
-	const default_slot_template = /*#slots*/ ctx[8].default;
-	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[7], null);
+	const default_slot_template = /*#slots*/ ctx[9].default;
+	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[8], null);
 
 	return {
 		c() {
@@ -1817,12 +1822,14 @@ function create_if_block(ctx) {
 			t1 = space();
 			ul = element("ul");
 			if (default_slot) default_slot.c();
+			set_style(strong, "display", "block");
+			set_style(strong, "padding-left", /*level*/ ctx[3] * 10 + "px");
 			attr(ul, "role", "none");
 			set_style(ul, "margin", "0");
 			set_style(ul, "list-style", "none");
 			set_style(ul, "padding", "0");
 			set_style(ul, "position", "relative");
-			attr(li, "class", /*classes*/ ctx[4]);
+			attr(li, "class", /*classes*/ ctx[5]);
 			attr(li, "role", "group");
 			set_style(li, "position", "relative");
 			attr(li, "aria-label", li_aria_label_value = /*option*/ ctx[0][/*keys*/ ctx[2].text]);
@@ -1843,14 +1850,18 @@ function create_if_block(ctx) {
 		p(ctx, dirty) {
 			if ((!current || dirty & /*option, keys*/ 5) && t0_value !== (t0_value = /*option*/ ctx[0][/*keys*/ ctx[2].text] + "")) set_data(t0, t0_value);
 
+			if (!current || dirty & /*level*/ 8) {
+				set_style(strong, "padding-left", /*level*/ ctx[3] * 10 + "px");
+			}
+
 			if (default_slot) {
-				if (default_slot.p && dirty & /*$$scope*/ 128) {
-					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[7], dirty, null, null);
+				if (default_slot.p && dirty & /*$$scope*/ 256) {
+					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[8], dirty, null, null);
 				}
 			}
 
-			if (!current || dirty & /*classes*/ 16) {
-				attr(li, "class", /*classes*/ ctx[4]);
+			if (!current || dirty & /*classes*/ 32) {
+				attr(li, "class", /*classes*/ ctx[5]);
 			}
 
 			if (!current || dirty & /*option, keys*/ 5 && li_aria_label_value !== (li_aria_label_value = /*option*/ ctx[0][/*keys*/ ctx[2].text])) {
@@ -1873,7 +1884,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (69:4) {:else}
+// (68:4) {:else}
 function create_else_block_1(ctx) {
 	let t_value = /*option*/ ctx[0][/*keys*/ ctx[2].text] + "";
 	let t;
@@ -1896,7 +1907,7 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (66:4) {#if optionComponent}
+// (65:4) {#if optionComponent}
 function create_if_block_1(ctx) {
 	let switch_instance;
 	let switch_instance_anchor;
@@ -2055,6 +2066,7 @@ function instance($$self, $$props, $$invalidate) {
 	let { optionComponent } = $$props;
 	let { keys } = $$props;
 	let { selected } = $$props;
+	let { level } = $$props;
 
 	function getOptionClasses(opt) {
 		let classList = opt[keys.child] ? "o-h" : "o";
@@ -2089,26 +2101,25 @@ function instance($$self, $$props, $$invalidate) {
 	}
 
 	function selectOption() {
-		if (!isSelectedOption) {
-			dispatch("selection", option);
-		}
+		dispatch("selection", option);
 	}
 
 	$$self.$$set = $$props => {
 		if ("option" in $$props) $$invalidate(0, option = $$props.option);
 		if ("optionComponent" in $$props) $$invalidate(1, optionComponent = $$props.optionComponent);
 		if ("keys" in $$props) $$invalidate(2, keys = $$props.keys);
-		if ("selected" in $$props) $$invalidate(6, selected = $$props.selected);
-		if ("$$scope" in $$props) $$invalidate(7, $$scope = $$props.$$scope);
+		if ("selected" in $$props) $$invalidate(7, selected = $$props.selected);
+		if ("level" in $$props) $$invalidate(3, level = $$props.level);
+		if ("$$scope" in $$props) $$invalidate(8, $$scope = $$props.$$scope);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*option, selected*/ 65) {
-			$$invalidate(3, isSelectedOption = isSelected(option, selected));
+		if ($$self.$$.dirty & /*option, selected*/ 129) {
+			$$invalidate(4, isSelectedOption = isSelected(option, selected));
 		}
 
 		if ($$self.$$.dirty & /*option*/ 1) {
-			$$invalidate(4, classes = getOptionClasses(option));
+			$$invalidate(5, classes = getOptionClasses(option));
 		}
 	};
 
@@ -2116,6 +2127,7 @@ function instance($$self, $$props, $$invalidate) {
 		option,
 		optionComponent,
 		keys,
+		level,
 		isSelectedOption,
 		classes,
 		selectOption,
@@ -2133,7 +2145,8 @@ class OptionElement extends SvelteComponent {
 			option: 0,
 			optionComponent: 1,
 			keys: 2,
-			selected: 6
+			selected: 7,
+			level: 3
 		});
 	}
 }
@@ -2142,11 +2155,11 @@ class OptionElement extends SvelteComponent {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[7] = list[i];
+	child_ctx[8] = list[i];
 	return child_ctx;
 }
 
-// (14:2) <OptionElement option={option} keys={keys} optionComponent={optionComponent}                  selected={selected} on:selection>
+// (15:2) <OptionElement option={option} keys={keys} optionComponent={optionComponent}                  selected={selected} level={level} on:selection>
 function create_default_slot(ctx) {
 	let optionlist;
 	let t;
@@ -2154,15 +2167,15 @@ function create_default_slot(ctx) {
 
 	optionlist = new OptionList({
 			props: {
-				options: /*option*/ ctx[7][/*keys*/ ctx[2].child],
+				options: /*option*/ ctx[8][/*keys*/ ctx[2].child],
 				optionComponent: /*optionComponent*/ ctx[1],
 				keys: /*keys*/ ctx[2],
 				selected: /*selected*/ ctx[3],
-				innerTree: true
+				level: /*nextLevel*/ ctx[5]
 			}
 		});
 
-	optionlist.$on("selection", /*selection_handler_1*/ ctx[5]);
+	optionlist.$on("selection", /*selection_handler_1*/ ctx[6]);
 
 	return {
 		c() {
@@ -2176,10 +2189,11 @@ function create_default_slot(ctx) {
 		},
 		p(ctx, dirty) {
 			const optionlist_changes = {};
-			if (dirty & /*options, keys*/ 5) optionlist_changes.options = /*option*/ ctx[7][/*keys*/ ctx[2].child];
+			if (dirty & /*options, keys*/ 5) optionlist_changes.options = /*option*/ ctx[8][/*keys*/ ctx[2].child];
 			if (dirty & /*optionComponent*/ 2) optionlist_changes.optionComponent = /*optionComponent*/ ctx[1];
 			if (dirty & /*keys*/ 4) optionlist_changes.keys = /*keys*/ ctx[2];
 			if (dirty & /*selected*/ 8) optionlist_changes.selected = /*selected*/ ctx[3];
+			if (dirty & /*nextLevel*/ 32) optionlist_changes.level = /*nextLevel*/ ctx[5];
 			optionlist.$set(optionlist_changes);
 		},
 		i(local) {
@@ -2198,23 +2212,24 @@ function create_default_slot(ctx) {
 	};
 }
 
-// (13:0) {#each options as option}
+// (14:0) {#each options as option}
 function create_each_block(ctx) {
 	let optionelement;
 	let current;
 
 	optionelement = new OptionElement({
 			props: {
-				option: /*option*/ ctx[7],
+				option: /*option*/ ctx[8],
 				keys: /*keys*/ ctx[2],
 				optionComponent: /*optionComponent*/ ctx[1],
 				selected: /*selected*/ ctx[3],
+				level: /*level*/ ctx[4],
 				$$slots: { default: [create_default_slot] },
 				$$scope: { ctx }
 			}
 		});
 
-	optionelement.$on("selection", /*selection_handler*/ ctx[6]);
+	optionelement.$on("selection", /*selection_handler*/ ctx[7]);
 
 	return {
 		c() {
@@ -2226,12 +2241,13 @@ function create_each_block(ctx) {
 		},
 		p(ctx, dirty) {
 			const optionelement_changes = {};
-			if (dirty & /*options*/ 1) optionelement_changes.option = /*option*/ ctx[7];
+			if (dirty & /*options*/ 1) optionelement_changes.option = /*option*/ ctx[8];
 			if (dirty & /*keys*/ 4) optionelement_changes.keys = /*keys*/ ctx[2];
 			if (dirty & /*optionComponent*/ 2) optionelement_changes.optionComponent = /*optionComponent*/ ctx[1];
 			if (dirty & /*selected*/ 8) optionelement_changes.selected = /*selected*/ ctx[3];
+			if (dirty & /*level*/ 16) optionelement_changes.level = /*level*/ ctx[4];
 
-			if (dirty & /*$$scope, options, keys, optionComponent, selected*/ 1039) {
+			if (dirty & /*$$scope, options, keys, optionComponent, selected, nextLevel*/ 2095) {
 				optionelement_changes.$$scope = { dirty, ctx };
 			}
 
@@ -2283,7 +2299,7 @@ function create_fragment$1(ctx) {
 			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*options, keys, optionComponent, selected*/ 15) {
+			if (dirty & /*options, keys, optionComponent, selected, level, nextLevel*/ 63) {
 				each_value = /*options*/ ctx[0];
 				let i;
 
@@ -2336,13 +2352,14 @@ function create_fragment$1(ctx) {
 }
 
 function instance$1($$self, $$props, $$invalidate) {
+	let nextLevel;
 	
 	
 	let { options } = $$props;
 	let { optionComponent } = $$props;
 	let { keys } = $$props;
 	let { selected } = $$props;
-	const innerTree = false;
+	let { level = 1 } = $$props;
 
 	function selection_handler_1(event) {
 		bubble($$self, event);
@@ -2357,6 +2374,13 @@ function instance$1($$self, $$props, $$invalidate) {
 		if ("optionComponent" in $$props) $$invalidate(1, optionComponent = $$props.optionComponent);
 		if ("keys" in $$props) $$invalidate(2, keys = $$props.keys);
 		if ("selected" in $$props) $$invalidate(3, selected = $$props.selected);
+		if ("level" in $$props) $$invalidate(4, level = $$props.level);
+	};
+
+	$$self.$$.update = () => {
+		if ($$self.$$.dirty & /*level*/ 16) {
+			$$invalidate(5, nextLevel = level + 1);
+		}
 	};
 
 	return [
@@ -2364,7 +2388,8 @@ function instance$1($$self, $$props, $$invalidate) {
 		optionComponent,
 		keys,
 		selected,
-		innerTree,
+		level,
+		nextLevel,
 		selection_handler_1,
 		selection_handler
 	];
@@ -2379,12 +2404,8 @@ class OptionList extends SvelteComponent {
 			optionComponent: 1,
 			keys: 2,
 			selected: 3,
-			innerTree: 4
+			level: 4
 		});
-	}
-
-	get innerTree() {
-		return this.$$.ctx[4];
 	}
 }
 
@@ -2720,7 +2741,7 @@ function create_if_block$1(ctx) {
 			set_style(ul, "list-style", "none");
 			set_style(ul, "padding", "0");
 			set_style(ul, "position", "relative");
-			attr(div, "class", "opt-container");
+			attr(div, "class", "select-madu-options");
 			set_style(div, "position", "relative");
 			set_style(div, "max-height", "194px");
 			set_style(div, "overflow", "auto");
@@ -2816,7 +2837,7 @@ function create_else_block$1(ctx) {
 			if_block.c();
 			attr(li, "role", "alert");
 			attr(li, "aria-live", "assertive");
-			attr(li, "class", "sub-text");
+			attr(li, "class", "select-madu-sub-text");
 		},
 		m(target, anchor) {
 			insert(target, li, anchor);
@@ -3245,11 +3266,19 @@ function instance_1($$self, $$props, $$invalidate) {
 		setOnChange("isOpen", false);
 
 		if (animate) {
+			let duration = 100;
+
+			if (typeof animate === "object") {
+				duration = Number.isNaN(animate.duration)
+				? duration
+				: animate.duration;
+			}
+
 			setTimeout(
 				() => {
 					instance.$destroy();
 				},
-				200
+				duration + 100
 			);
 		} else {
 			instance.$destroy();
@@ -3408,17 +3437,16 @@ function create_fragment$3(ctx) {
 			attr(svg, "width", "14");
 			attr(svg, "height", "14");
 			attr(svg, "viewBox", "0 0 24 24");
-			attr(svg, "class", "it-icon");
 			attr(svg, "aria-hidden", "true");
 			attr(button, "tabindex", "-1");
 			attr(button, "title", "Remove item");
-			attr(button, "class", "it-icon-holder cl-i");
+			attr(button, "class", "select-madu-icon");
 			set_style(button, "postition", "relative");
 			set_style(button, "margin", "0px");
 			attr(button, "id", button_id_value = "select-madu-" + /*componentId*/ ctx[1] + "-remove-tag-" + /*index*/ ctx[0]);
 			attr(button, "aria-label", "Remove item");
 			attr(button, "aria-describedby", button_aria_describedby_value = "select-madu-" + /*componentId*/ ctx[1] + "-tag-" + /*index*/ ctx[0]);
-			attr(li, "class", "tag");
+			attr(li, "class", "select-madu-inner-tag");
 			set_style(li, "position", "relative");
 			attr(li, "title", /*title*/ ctx[2]);
 		},
@@ -3515,19 +3543,19 @@ class Tag extends SvelteComponent {
 
 function get_each_context$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[48] = list[i];
-	child_ctx[50] = i;
+	child_ctx[50] = list[i];
+	child_ctx[52] = i;
 	return child_ctx;
 }
 
-// (230:4) {#if multiple && Array.isArray(selected) && selected.length > 0}
+// (241:4) {#if multiple && Array.isArray(selected) && selected.length > 0}
 function create_if_block_5(ctx) {
 	let ul;
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let current;
 	let each_value = /*selected*/ ctx[1];
-	const get_key = ctx => /*elem*/ ctx[48][/*keys*/ ctx[0].value];
+	const get_key = ctx => /*elem*/ ctx[50][/*keys*/ ctx[0].value];
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context$1(ctx, each_value, i);
@@ -3560,7 +3588,7 @@ function create_if_block_5(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*componentId, selected, keys, onRemoveElement*/ 150994947) {
+			if (dirty[0] & /*componentId, selected, keys, onRemoveElement*/ 285212675) {
 				each_value = /*selected*/ ctx[1];
 				group_outros();
 				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, ul, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
@@ -3593,7 +3621,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (233:8) {#each selected as elem, index (elem[keys.value])}
+// (244:8) {#each selected as elem, index (elem[keys.value])}
 function create_each_block$1(key_1, ctx) {
 	let first;
 	let tag;
@@ -3602,13 +3630,13 @@ function create_each_block$1(key_1, ctx) {
 	tag = new Tag({
 			props: {
 				componentId: /*componentId*/ ctx[24],
-				option: /*elem*/ ctx[48],
-				index: /*index*/ ctx[50],
+				option: /*elem*/ ctx[50],
+				index: /*index*/ ctx[52],
 				keys: /*keys*/ ctx[0]
 			}
 		});
 
-	tag.$on("removeElement", /*onRemoveElement*/ ctx[27]);
+	tag.$on("removeElement", /*onRemoveElement*/ ctx[28]);
 
 	return {
 		key: key_1,
@@ -3626,8 +3654,8 @@ function create_each_block$1(key_1, ctx) {
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
 			const tag_changes = {};
-			if (dirty[0] & /*selected*/ 2) tag_changes.option = /*elem*/ ctx[48];
-			if (dirty[0] & /*selected*/ 2) tag_changes.index = /*index*/ ctx[50];
+			if (dirty[0] & /*selected*/ 2) tag_changes.option = /*elem*/ ctx[50];
+			if (dirty[0] & /*selected*/ 2) tag_changes.index = /*index*/ ctx[52];
 			if (dirty[0] & /*keys*/ 1) tag_changes.keys = /*keys*/ ctx[0];
 			tag.$set(tag_changes);
 		},
@@ -3647,7 +3675,7 @@ function create_each_block$1(key_1, ctx) {
 	};
 }
 
-// (252:24) 
+// (263:24) 
 function create_if_block_4(ctx) {
 	let span;
 	let t_value = /*selected*/ ctx[1][/*keys*/ ctx[0].text] + "";
@@ -3680,7 +3708,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (249:28) 
+// (260:28) 
 function create_if_block_3(ctx) {
 	let t;
 
@@ -3700,7 +3728,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (240:4) {#if search && isOpen}
+// (251:4) {#if search && isOpen}
 function create_if_block_2$1(ctx) {
 	let input;
 	let setAttribute_action;
@@ -3711,7 +3739,7 @@ function create_if_block_2$1(ctx) {
 		c() {
 			input = element("input");
 			set_input_type(input, "search");
-			attr(input, "class", "search-input");
+			attr(input, "class", "select-madu-input");
 			attr(input, "placeholder", "Search");
 			attr(input, "tabindex", 0);
 			set_style(input, "width", /*inputWidth*/ ctx[16] + "em");
@@ -3730,12 +3758,12 @@ function create_if_block_2$1(ctx) {
 		},
 		m(target, anchor) {
 			insert(target, input, anchor);
-			/*input_binding*/ ctx[36](input);
+			/*input_binding*/ ctx[38](input);
 			set_input_value(input, /*searchValue*/ ctx[9]);
 
 			if (!mounted) {
 				dispose = [
-					listen(input, "input", /*input_input_handler*/ ctx[37]),
+					listen(input, "input", /*input_input_handler*/ ctx[39]),
 					action_destroyer(setAttribute_action = setAttribute.call(null, input, /*ariaDescribedBy*/ ctx[20]))
 				];
 
@@ -3755,22 +3783,22 @@ function create_if_block_2$1(ctx) {
 		},
 		d(detaching) {
 			if (detaching) detach(input);
-			/*input_binding*/ ctx[36](null);
+			/*input_binding*/ ctx[38](null);
 			mounted = false;
 			run_all(dispose);
 		}
 	};
 }
 
-// (267:4) {:else}
+// (279:4) {:else}
 function create_else_block$2(ctx) {
 	let div;
 
 	return {
 		c() {
 			div = element("div");
-			div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" class="it-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
-			attr(div, "class", "it-icon-holder");
+			div.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"></polyline></svg>`;
+			attr(div, "class", "select-madu-icon");
 			attr(div, "aria-hidden", "true");
 		},
 		m(target, anchor) {
@@ -3782,7 +3810,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (262:4) {#if state === States.Loading}
+// (274:4) {#if state === States.Loading}
 function create_if_block_1$2(ctx) {
 	let div1;
 
@@ -3790,7 +3818,7 @@ function create_if_block_1$2(ctx) {
 		c() {
 			div1 = element("div");
 			div1.innerHTML = `<div class="spinner-border"></div>`;
-			attr(div1, "class", "loader");
+			attr(div1, "class", "select-madu-spinner");
 			attr(div1, "aria-hidden", "true");
 		},
 		m(target, anchor) {
@@ -3802,7 +3830,7 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (277:0) {#if isOpen}
+// (289:0) {#if isOpen}
 function create_if_block$2(ctx) {
 	let optiondropdown;
 	let current;
@@ -3821,8 +3849,8 @@ function create_if_block$2(ctx) {
 	};
 
 	optiondropdown = new OptionDropdown({ props: optiondropdown_props });
-	/*optiondropdown_binding*/ ctx[39](optiondropdown);
-	optiondropdown.$on("selection", /*onSelection*/ ctx[28]);
+	/*optiondropdown_binding*/ ctx[41](optiondropdown);
+	optiondropdown.$on("selection", /*onSelection*/ ctx[29]);
 
 	return {
 		c() {
@@ -3855,7 +3883,7 @@ function create_if_block$2(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			/*optiondropdown_binding*/ ctx[39](null);
+			/*optiondropdown_binding*/ ctx[41](null);
 			destroy_component(optiondropdown, detaching);
 		}
 	};
@@ -3909,9 +3937,10 @@ function create_fragment$4(ctx) {
 			t2 = space();
 			if (if_block3) if_block3.c();
 			if_block3_anchor = empty();
-			attr(div0, "class", "slmd-inner");
-			attr(div1, "class", "status-ind");
+			attr(div0, "class", "select-madu-inner");
+			attr(div1, "class", "select-madu-arrow");
 			attr(div1, "role", "presentation");
+			toggle_class(div1, "loading", /*state*/ ctx[12] === States.Loading);
 			attr(div2, "class", /*parentClass*/ ctx[19]);
 			attr(div2, "tabindex", 0);
 			set_style(div2, "position", "relative");
@@ -3928,6 +3957,7 @@ function create_fragment$4(ctx) {
 			toggle_class(div2, "search", /*search*/ ctx[6]);
 			toggle_class(div2, "disabled", /*disabled*/ ctx[4]);
 			toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[15]);
+			toggle_class(div2, "animate", /*animate*/ ctx[8]);
 		},
 		m(target, anchor) {
 			insert(target, div2, anchor);
@@ -3938,7 +3968,7 @@ function create_fragment$4(ctx) {
 			append(div2, t1);
 			append(div2, div1);
 			if_block2.m(div1, null);
-			/*div2_binding*/ ctx[38](div2);
+			/*div2_binding*/ ctx[40](div2);
 			insert(target, t2, anchor);
 			if (if_block3) if_block3.m(target, anchor);
 			insert(target, if_block3_anchor, anchor);
@@ -3947,10 +3977,11 @@ function create_fragment$4(ctx) {
 			if (!mounted) {
 				dispose = [
 					listen(window, "click", /*checkAndClose*/ ctx[25]),
-					listen(div2, "click", /*checkAndOpen*/ ctx[26]),
-					listen(div2, "keydown", /*onKeyDown*/ ctx[29]),
-					listen(div2, "focus", /*onFocusIn*/ ctx[30]),
-					listen(div2, "blur", /*onFocusOut*/ ctx[31]),
+					listen(div0, "click", /*checkAndOpen*/ ctx[26]),
+					listen(div1, "click", /*toggle*/ ctx[27]),
+					listen(div2, "keydown", /*onKeyDown*/ ctx[30]),
+					listen(div2, "focus", /*onFocusIn*/ ctx[31]),
+					listen(div2, "blur", /*onFocusOut*/ ctx[32]),
 					action_destroyer(setAttribute_action = setAttribute.call(null, div2, /*ariaOwns*/ ctx[21])),
 					action_destroyer(setAttribute_action_1 = setAttribute.call(null, div2, /*ariaLabelledBy*/ ctx[22])),
 					action_destroyer(setAttribute_action_2 = setAttribute.call(null, div2, /*ariaControls*/ ctx[23]))
@@ -4007,6 +4038,10 @@ function create_fragment$4(ctx) {
 				}
 			}
 
+			if (dirty[0] & /*state*/ 4096) {
+				toggle_class(div1, "loading", /*state*/ ctx[12] === States.Loading);
+			}
+
 			if (!current || dirty[0] & /*parentClass*/ 524288) {
 				attr(div2, "class", /*parentClass*/ ctx[19]);
 			}
@@ -4045,6 +4080,10 @@ function create_fragment$4(ctx) {
 
 			if (dirty[0] & /*parentClass, isPlaceHolder*/ 557056) {
 				toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[15]);
+			}
+
+			if (dirty[0] & /*parentClass, animate*/ 524544) {
+				toggle_class(div2, "animate", /*animate*/ ctx[8]);
 			}
 
 			if (/*isOpen*/ ctx[10]) {
@@ -4090,7 +4129,7 @@ function create_fragment$4(ctx) {
 			}
 
 			if_block2.d();
-			/*div2_binding*/ ctx[38](null);
+			/*div2_binding*/ ctx[40](null);
 			if (detaching) detach(t2);
 			if (if_block3) if_block3.d(detaching);
 			if (detaching) detach(if_block3_anchor);
@@ -4132,12 +4171,13 @@ function instance$4($$self, $$props, $$invalidate) {
 	let { keys } = $$props;
 	let { value: selected } = $$props;
 	let { datasource = [] } = $$props;
+	let { selectFirstElement = true } = $$props;
 	let searchValue = "";
 	let options = [];
 	let state = States.Loading;
 	let fetchPromise;
 
-	const setOptions = (_datasource, _searchVal, _multiple, _keys) => {
+	const setOptions = (_datasource, _searchVal, _multiple, _selectFirstElement, _keys) => {
 		$$invalidate(12, state = States.Loading);
 
 		if (typeof fetchPromise !== "undefined") {
@@ -4151,7 +4191,7 @@ function instance$4($$self, $$props, $$invalidate) {
 				$$invalidate(11, options = res);
 				$$invalidate(12, state = States.Ready);
 
-				if (!_multiple && options.length > 0 && !selected) {
+				if (!_multiple && _selectFirstElement && options.length > 0 && !selected) {
 					let [_selected] = options;
 
 					while (_selected[_keys.child]) {
@@ -4226,6 +4266,14 @@ function instance$4($$self, $$props, $$invalidate) {
 		}
 	}
 
+	function toggle() {
+		if (!isOpen) {
+			open();
+		} else {
+			close();
+		}
+	}
+
 	function removeElement(index) {
 		if (Array.isArray(selected)) {
 			selected.splice(index, 1);
@@ -4241,7 +4289,9 @@ function instance$4($$self, $$props, $$invalidate) {
 	function onSelection(event) {
 		if (multiple) {
 			if (Array.isArray(selected)) {
-				$$invalidate(1, selected = [...selected, event.detail]);
+				if (!selected.find(elem => elem[keys.value] === event.detail[keys.value])) {
+					$$invalidate(1, selected = [...selected, event.detail]);
+				}
 			} else {
 				$$invalidate(1, selected = [event.detail]);
 			}
@@ -4347,12 +4397,13 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ("search" in $$props) $$invalidate(6, search = $$props.search);
 		if ("optionComponent" in $$props) $$invalidate(7, optionComponent = $$props.optionComponent);
 		if ("animate" in $$props) $$invalidate(8, animate = $$props.animate);
-		if ("textKey" in $$props) $$invalidate(32, textKey = $$props.textKey);
-		if ("valueKey" in $$props) $$invalidate(33, valueKey = $$props.valueKey);
-		if ("childKey" in $$props) $$invalidate(34, childKey = $$props.childKey);
+		if ("textKey" in $$props) $$invalidate(33, textKey = $$props.textKey);
+		if ("valueKey" in $$props) $$invalidate(34, valueKey = $$props.valueKey);
+		if ("childKey" in $$props) $$invalidate(35, childKey = $$props.childKey);
 		if ("keys" in $$props) $$invalidate(0, keys = $$props.keys);
 		if ("value" in $$props) $$invalidate(1, selected = $$props.value);
-		if ("datasource" in $$props) $$invalidate(35, datasource = $$props.datasource);
+		if ("datasource" in $$props) $$invalidate(36, datasource = $$props.datasource);
+		if ("selectFirstElement" in $$props) $$invalidate(37, selectFirstElement = $$props.selectFirstElement);
 	};
 
 	$$self.$$.update = () => {
@@ -4360,7 +4411,7 @@ function instance$4($$self, $$props, $$invalidate) {
 			$$invalidate(19, parentClass = ["select-madu", Array.isArray(classes) ? classes.join(" ") : classes].join(" ").trim());
 		}
 
-		if ($$self.$$.dirty[1] & /*textKey, valueKey, childKey*/ 14) {
+		if ($$self.$$.dirty[1] & /*textKey, valueKey, childKey*/ 28) {
 			$$invalidate(0, keys = {
 				text: textKey,
 				value: valueKey,
@@ -4368,9 +4419,9 @@ function instance$4($$self, $$props, $$invalidate) {
 			});
 		}
 
-		if ($$self.$$.dirty[0] & /*searchValue, multiple, keys*/ 545 | $$self.$$.dirty[1] & /*datasource*/ 16) {
+		if ($$self.$$.dirty[0] & /*searchValue, multiple, keys*/ 545 | $$self.$$.dirty[1] & /*datasource, selectFirstElement*/ 96) {
 			// Option setter
-			setOptions(datasource, searchValue, multiple, keys);
+			setOptions(datasource, searchValue, multiple, selectFirstElement, keys);
 		}
 
 		if ($$self.$$.dirty[0] & /*selected, multiple*/ 34) {
@@ -4426,6 +4477,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		componentId,
 		checkAndClose,
 		checkAndOpen,
+		toggle,
 		onRemoveElement,
 		onSelection,
 		onKeyDown,
@@ -4435,6 +4487,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		valueKey,
 		childKey,
 		datasource,
+		selectFirstElement,
 		input_binding,
 		input_input_handler,
 		div2_binding,
@@ -4460,12 +4513,13 @@ class Main extends SvelteComponent {
 				search: 6,
 				optionComponent: 7,
 				animate: 8,
-				textKey: 32,
-				valueKey: 33,
-				childKey: 34,
+				textKey: 33,
+				valueKey: 34,
+				childKey: 35,
 				keys: 0,
 				value: 1,
-				datasource: 35
+				datasource: 36,
+				selectFirstElement: 37
 			},
 			[-1, -1]
 		);
