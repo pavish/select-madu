@@ -72,6 +72,7 @@ $disabled-text-dark-color: #777;
     right: 0;
     bottom: 0;
     padding: 11px;
+    line-height: 0;
   }
 
   &-arrow &-spinner {
@@ -117,6 +118,7 @@ $disabled-text-dark-color: #777;
     transform: translateY(-50%);
     top: 50%;
     position: relative;
+    line-height: 0px;
   }
 
   &.open &-arrow &-icon {

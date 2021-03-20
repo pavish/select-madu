@@ -7,6 +7,27 @@
       url: "getting-started#installation"
     - title: Basic Usage
       url: "getting-started#basic-usage"
+- title: "Examples"
+  url: "examples"
+  links:
+    - title: Simple
+      url: "examples#simple-selection"
+    - title: Search
+      url: "examples#search-custom-keys"
+    - title: Multiple selection
+      url: "examples#multiple-selection"
+    - title: Nested options
+      url: "examples#nested-options"
+    - title: Remote(async) data
+      url: "examples#remote-async-data"
+    - title: Disabling component
+      url: "examples#disabling-component"
+    - title: Disabling options
+      url: "examples#disabling-individual-options"
+    - title: Animations
+      url: "examples#animations"
+    - title: Custom components
+      url: "examples#custom-components"
 - title: "API"
   url: "api"
   links:
@@ -14,19 +35,6 @@
       url: "api#properties"
     - title: Methods
       url: "api#methods"
-- title: "Examples"
-  url: "examples"
-  links:
-    - title: Nested options
-      url: "examples#nested"
-    - title: Search
-      url: "examples#search"
-    - title: Ajax (async data)
-      url: "examples#asyncdata"
-    - title: Multiple selection
-      url: "examples#multiple"
-    - title: "Identifier keys"
-      url: "examples#keys"
 - title: "Migration Guide"
   url: "migration"
 - title: "v1.x"
