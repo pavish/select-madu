@@ -1,4 +1,8 @@
-v2.0.0 : In progress
+v2.1.0 - In progress
+* Docs: examples
+* Docs: migration guide
+
+v2.0.0
 * Typescript support
 * Eslint configuration
 * Github actions
