@@ -1,6 +1,11 @@
-v2.1.0 - In progress
+v2.2.0 - In progress
 * Docs: examples
-* Docs: migration guide
+* Docs: v2 API
+* Docs: Migration guide
+
+v2.1.0
+* Arrow, Loader position style fixes
+* Handled disabled options
 
 v2.0.0
 * Typescript support
