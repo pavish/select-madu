@@ -34,20 +34,7 @@ import SelectMadu from 'select-madu';
 
 Note: CSS file has to be included separately
 
-### Svelte
-Optionally, if you are using Svelte you can import SelectMadu as a component.
-
-```javascript
-import SelectMadu from 'select-madu';
-
-<SelectMadu/>
-```
-
-Note: CSS file has to be included separately
-
-## Basic usage
-
-### Simple select menu
+### Basic usage
 ```javascript
   import SelectMadu from 'select-madu';
 
@@ -70,6 +57,17 @@ Note: CSS file has to be included separately
   instance.$destroy();
 ```
 
+### Svelte
+Optionally, if you are using Svelte you can import SelectMadu as a component.
+
+```javascript
+import SelectMadu from 'select-madu';
+
+<SelectMadu/>
+```
+
+Note: CSS file has to be included separately
+
 ## Read more
 * Check out the properties and methods available in the [API documentation page][api-document-page-url]
 * Find usage examples in the [examples page][example-page-url]
@@ -77,6 +75,6 @@ Note: CSS file has to be included separately
 [example-page-url]: {{ site.baseurl }}/examples
 [api-document-page-url]: {{ site.baseurl }}/api
 
-[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu
+[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu?path=dist
 [unpkg-url]: https://unpkg.com/browse/select-madu/dist/
 [release-url]: https://github.com/pavish/select-madu/releases

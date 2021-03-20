@@ -16,11 +16,14 @@ To get started, checkout documentation and examples at https://pavishkrg.com/sel
 
 
 ## Features
-* Searching select options.
+* Searching through options.
 * Multi-select interface with tags.
-* Async data load as a function returing promise, for AJAX or for any async opertion.
-* Dynamic changing of data.
+* Async data loading.
+* Dynamic state changes.
 * Multi-level nesting of options as groups.
+* Support for custom animations.
+* Easily themable.
+* Better Accessibility.
 
 
 ## Installation
@@ -51,18 +54,7 @@ import SelectMadu from 'select-madu';
 ```
 Note: CSS file has to be included separately
 
-### Svelte
-Optionally, if you are using Svelte you can import SelectMadu as a component.
-
-```javascript
-import SelectMadu from 'select-madu';
-
-<SelectMadu/>
-```
-Note: CSS file has to be included separately
-
-
-## Basic usage
+### Basic usage
 ```javascript
   import SelectMadu from 'select-madu';
 
@@ -84,6 +76,17 @@ Note: CSS file has to be included separately
   //To destroy and remove
   instance.$destroy();
 ```
+
+### Svelte
+Optionally, if you are using Svelte you can import SelectMadu as a component.
+
+```javascript
+import SelectMadu from 'select-madu';
+
+<SelectMadu {...props}/>
+```
+Note: CSS file has to be included separately
+
 Check out [Select madu home page][select-madu-url] for usage documentation and examples.
 
 
@@ -111,8 +114,8 @@ To build, run
 npm run build
 ```
 
-Build generates the build folder, which contains the iife variant, with and without minimization
-It also generates the nodesrc folder which contains the es and umd variants for importing the component within your svelte app.
+Build generates the build folder, which contains the iife variant, with and without minimization.
+It also generates the nodesrc folder which contains the esm and umd variants for importing the component within your app.
 
 You can also contribute by writing additional tests, adding issues that you encounter, or by helping with the documentation.
 
@@ -125,6 +128,6 @@ You can also contribute by writing additional tests, adding issues that you enco
 [svelte-url]: https://svelte.dev/
 [select-madu-url]: https://pavishkrg.com/select-madu
 
-[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu
+[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu?path=dist
 [unpkg-url]: https://unpkg.com/browse/select-madu/dist/
 [release-url]: https://github.com/pavish/select-madu/releases
