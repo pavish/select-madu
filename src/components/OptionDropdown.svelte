@@ -14,7 +14,7 @@
     States,
     Animation,
     DropdownKeyboardInteractions,
-  } from '../interfaces';
+  } from '../types';
   import OptionHolder from './OptionHolder.svelte';
 
   const dispatch: <EventKey extends string>
@@ -30,12 +30,14 @@
   export let multiple: boolean;
   export let classes: string | string[];
   export let componentId: number;
+  export let paddingPerLevel: number;
 
   let instance: OptionHolder & DropdownKeyboardInteractions;
 
   function setOnChange(
     name: string,
-    value: Option[] | Keys | Selected| boolean | States | Animation | string | string[],
+    value: Option[] | Keys | Selected | boolean | number
+          | States | Animation | string | string[],
   ) {
     if (instance) {
       instance.$set({
@@ -58,6 +60,7 @@
         animate,
         multiple,
         classes,
+        paddingPerLevel,
       },
     });
 
@@ -71,9 +74,14 @@
   onDestroy(() => {
     setOnChange('isOpen', false);
     if (animate) {
+      let duration = 100;
+      if (typeof animate === 'object') {
+        duration = Number.isNaN(animate.duration) ? duration : animate.duration;
+      }
+
       setTimeout(() => {
         instance.$destroy();
-      }, 200);
+      }, duration + 100);
     } else {
       instance.$destroy();
     }
@@ -104,4 +112,5 @@
   $: setOnChange('animate', animate);
   $: setOnChange('multiple', multiple);
   $: setOnChange('classes', classes);
+  $: setOnChange('paddingPerLevel', paddingPerLevel);
 </script>

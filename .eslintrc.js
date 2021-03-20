@@ -15,7 +15,7 @@ if (isProd) {
 module.exports = {
   root: true,
   parser: '@typescript-eslint/parser',
-  ignorePatterns: ['node_modules', 'docs', 'dist', 'nodesrc', 'index.html', 'src/components', 'src/utils'],
+  ignorePatterns: ['node_modules', 'docs', 'dist', 'nodesrc', 'index.html'],
   env: {
     browser: true,
     es6: true,

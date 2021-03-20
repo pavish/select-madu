@@ -1,7 +1,21 @@
-import type { DataSource, Keys, Option, Animation } from '../interfaces';
-import { CancellablePromise } from './CancellablePromise';
+// eslint-disable-next-line import/no-unresolved
+import type { TransitionConfig } from 'svelte/types/runtime/transition';
+import type {
+  DataSource,
+  Keys,
+  Option,
+  Animation,
+  AnimationParams,
+  TransitionFunction,
+  PopperModifierFunctionParam,
+} from './types';
+import CancellablePromise from './CancellablePromise';
 
-export const isOutOfBounds = (elem: HTMLElement, refElem: HTMLElement, componentId: number): boolean => {
+export const isOutOfBounds = (
+  elem: HTMLElement,
+  refElem: HTMLElement,
+  componentId: number,
+): boolean => {
   const subString = `select-madu-${componentId}`;
   let parentElem = elem;
   while (parentElem !== refElem) {
@@ -26,39 +40,41 @@ export const offsetTop = (elem: HTMLElement, parentRefElem: HTMLElement): number
   return offset;
 };
 
-function transform (
-  node, { delay = 0, duration = 100, baseScale = 0.75 }
-) {
+const transform = (
+  node, { delay = 0, duration = 100, baseScale = 0.75 },
+): TransitionConfig => {
   const is = 1 - baseScale;
 
   return {
     delay,
     duration,
-    css: t => {
+    css: (t: number) => {
       const translate = (t - 1) * 10;
       return `opacity: ${t}; transform-origin: 60% 0;
               transform: scale(${(t * is) + baseScale}) translateY(${translate}px);
               transition: all .1s cubic-bezier(0.5, 0, 0, 1.25), opacity .15s ease-out`;
-    }
+    },
   };
 };
 
-export const getAnimation = (_animate: Animation) => {
+export const getAnimation = (_animate: Animation) : TransitionFunction => {
   if (typeof _animate === 'boolean') {
     return _animate ? transform : () => ({ delay: 0, duration: 0 });
-  } else if (_animate.transitionFn) {
+  }
+  if (_animate.transitionFn) {
     return _animate.transitionFn;
   }
   return transform;
 };
 
-export const getAnimationParams = (_animate: Animation) => {
-  let delay = 0, duration = 100;
+export const getAnimationParams = (_animate: Animation): AnimationParams => {
+  let delay = 0;
+  let duration = 100;
   if (typeof _animate !== 'boolean') {
     delay = _animate.delay || 0;
     duration = typeof _animate.duration === 'number'
-                ? _animate.duration
-                : 100;
+      ? _animate.duration
+      : 100;
   }
   return { delay, duration };
 };
@@ -68,36 +84,36 @@ export const sameWidthModifier = {
   enabled: true,
   phase: 'beforeWrite',
   requires: ['computeStyles'],
-  fn: (obj) => {
+  fn: (obj: PopperModifierFunctionParam): void => {
     // eslint-disable-next-line no-param-reassign
-    obj.state.styles.popper.minWidth = `${obj.state.rects.reference.width as string}px`;
+    obj.state.styles.popper.minWidth = `${obj.state.rects.reference.width}px`;
   },
-  effect: (obj) => {
+  effect: (obj: PopperModifierFunctionParam): void => {
     // eslint-disable-next-line no-param-reassign
     obj.state.elements.popper.style.minWidth = `${
-      obj.state.elements.reference.offsetWidth as string
+      obj.state.elements.reference.offsetWidth
     }px`;
   },
 };
 
-function getHovered(scrollParentRef) {
+function getHovered(scrollParentRef: HTMLElement): HTMLElement {
   let hoveredElem = scrollParentRef.querySelector('li.o.hovered');
   if (!hoveredElem) {
     hoveredElem = scrollParentRef.querySelector('li.o');
   }
-  return hoveredElem;
+  return hoveredElem as HTMLElement;
 }
 
-export const arrowDown = (scrollParentRef) => {
+export const arrowDown = (scrollParentRef: HTMLElement): void => {
   const elem = getHovered(scrollParentRef);
   if (elem) {
-    let nextElem;
+    let nextElem: HTMLElement;
 
     if (elem.classList.contains('hovered')) {
       const nodeList = scrollParentRef.querySelectorAll('li.o');
       if (nodeList.length > 0) {
         let index = 0;
-        for (let i = 0; i < nodeList.length; i++) {
+        for (let i = 0; i < nodeList.length; i += 1) {
           if (nodeList[i].classList.contains('hovered')) {
             if (i < nodeList.length - 1) {
               index = i + 1;
@@ -105,7 +121,7 @@ export const arrowDown = (scrollParentRef) => {
             break;
           }
         }
-        nextElem = nodeList[index];
+        nextElem = nodeList[index] as HTMLElement;
       }
       elem.classList.remove('hovered');
     } else {
@@ -118,16 +134,16 @@ export const arrowDown = (scrollParentRef) => {
   }
 };
 
-export const arrowUp = (scrollParentRef) => {
+export const arrowUp = (scrollParentRef: HTMLElement): void => {
   const elem = getHovered(scrollParentRef);
   if (elem) {
-    let prevElem;
+    let prevElem: HTMLElement;
 
     const nodeList = scrollParentRef.querySelectorAll('li.o');
     if (nodeList.length > 0) {
       if (elem.classList.contains('hovered')) {
         let index = nodeList.length - 1;
-        for (let i = nodeList.length - 1; i >= 0; i--) {
+        for (let i = nodeList.length - 1; i >= 0; i -= 1) {
           if (nodeList[i].classList.contains('hovered')) {
             if (i > 0) {
               index = i - 1;
@@ -135,10 +151,10 @@ export const arrowUp = (scrollParentRef) => {
             break;
           }
         }
-        prevElem = nodeList[index];
+        prevElem = nodeList[index] as HTMLElement;
         elem.classList.remove('hovered');
       } else {
-        prevElem = nodeList[nodeList.length - 1];
+        prevElem = nodeList[nodeList.length - 1] as HTMLElement;
       }
     }
 
@@ -148,17 +164,22 @@ export const arrowUp = (scrollParentRef) => {
   }
 };
 
-export const chooseHovered = (scrollParentRef) => {
+export const chooseHovered = (scrollParentRef: HTMLElement): void => {
   const hoveredElem = scrollParentRef.querySelector('li.o.hovered');
   if (hoveredElem) {
     // TODO: Change to custom event
-    hoveredElem.click();
+    const helem = hoveredElem as HTMLElement;
+    helem.click();
   } else {
     arrowDown(scrollParentRef);
   }
 };
 
-export const subTree = (tree: Option[], childKey: string, conditionFn: ((element: Option) => boolean)) => {
+export const subTree = (
+  tree: Option[],
+  childKey: string,
+  conditionFn: ((element: Option) => boolean),
+): Option[] => {
   const stree: Option[] = [];
   tree.forEach((elem) => {
     if (elem[childKey]) {
@@ -173,24 +194,30 @@ export const subTree = (tree: Option[], childKey: string, conditionFn: ((element
     }
   });
   return stree;
-}
+};
 
-export const stringContains = (actualString: string, searchVal: string) => {
-  return actualString.toLowerCase().trim().indexOf(searchVal.toLowerCase().trim()) !== -1;
-}
+export const stringContains = (
+  actualString: string,
+  searchVal: string,
+): boolean => actualString.toLowerCase().trim().indexOf(searchVal.toLowerCase().trim()) !== -1;
 
-export const filterTree = (tree: Option[], keys: { child: string, text: string }, searchVal: string) => {
-  return subTree(tree, keys.child, (el) => {
-    const text = el[keys.text];
-    if (typeof text === 'string') {
-      return stringContains(text, searchVal);
-    } else {
-      return false;
-    }
-  });
-}
+export const filterTree = (
+  tree: Option[],
+  keys: { child: string, text: string },
+  searchVal: string,
+): Option[] => subTree(tree, keys.child, (el) => {
+  const text = el[keys.text];
+  if (typeof text === 'string') {
+    return stringContains(text, searchVal);
+  }
+  return false;
+});
 
-export const fetchOptions = (datasource: DataSource, searchVal: string, keys: Keys) => {
+export const fetchOptions = (
+  datasource: DataSource,
+  searchVal: string,
+  keys: Keys,
+): CancellablePromise<Option[]> => {
   if (datasource) {
     if (typeof datasource === 'function') {
       const fetchResult = datasource(searchVal);
@@ -198,19 +225,21 @@ export const fetchOptions = (datasource: DataSource, searchVal: string, keys: Ke
         return new CancellablePromise<Option[]>((resolve) => {
           resolve(fetchResult);
         });
-      } else if (typeof fetchResult.then === 'function') {
+      }
+      if (typeof fetchResult.then === 'function') {
         return new CancellablePromise<Option[]>(
           (resolve, reject) => {
             fetchResult.then(
               (res: Option[]) => {
                 resolve(res);
+                return res;
               },
               (err) => {
                 reject(err);
               },
             ).catch?.((err) => {
               reject(err);
-            })
+            });
           },
           () => {
             if ('cancel' in fetchResult && typeof fetchResult.cancel === 'function') {
@@ -233,29 +262,31 @@ export const fetchOptions = (datasource: DataSource, searchVal: string, keys: Ke
 };
 
 export const setAttribute = (
-    node: HTMLElement,
-    parameters: { key: string, value?: string },
-  ): {
+  node: HTMLElement,
+  parameters: { key: string, value?: string },
+): {
     destroy: () => void,
-    update: (parameters: { key: string, value?: string }) => void,
+    update: (
+      parameters: { key: string, value?: string }
+    ) => void,
   } => {
   if (parameters.value) {
     node.setAttribute(parameters.key, parameters.value);
   } else {
     node.removeAttribute(parameters.key);
   }
-  
+
   return {
-    update(parameters) {
-      if (parameters.value) {
-        node.setAttribute(parameters.key, parameters.value);
+    update(params) {
+      if (params.value) {
+        node.setAttribute(params.key, params.value);
       } else {
-        node.removeAttribute(parameters.key);
+        node.removeAttribute(params.key);
       }
     },
 
     destroy() {
       node.removeAttribute(parameters.key);
-    }
+    },
   };
 };

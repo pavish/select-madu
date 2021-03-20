@@ -1,7 +1,11 @@
 v2.0.0 : In progress
 * Typescript support
 * Eslint configuration
-* Add github actions
+* Github actions
+* Animation support
+* Dropdown moved to body to avoid overlap issues
+* Accessibility improvements
+* Improved styling and basic layout moved as inline styles
 
 v1.1.0
 * Docs site

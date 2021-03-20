@@ -13,8 +13,8 @@
     Keys,
     Selected,
     Animation,
-  } from '../interfaces';
-  import { States } from '../interfaces';
+  } from '../types';
+  import { States } from '../types';
   import OptionList from './OptionList.svelte';
   import {
     getAnimation,
@@ -24,7 +24,7 @@
     arrowUp,
     offsetTop,
     chooseHovered,
-  } from '../utils/utilities';
+  } from '../utilities';
 
   export let optionComponent: SvelteComponent;
   export let options: Option[];
@@ -37,6 +37,7 @@
   export let multiple: boolean;
   export let classes: string | string[];
   export let componentId: number;
+  export let paddingPerLevel = 10;
 
   $: parentClass = [
     'select-madu-dropdown',
@@ -133,7 +134,7 @@
     dir="ltr">
 
     {#if isOpen}
-      <div bind:this={scrollParentRef} class="opt-container"
+      <div bind:this={scrollParentRef} class="select-madu-options"
            transition:animationFn={animationParams}
            style="position:relative;max-height:194px;overflow:auto;
                   border-width:1px;border-style:solid;background:#fff;
@@ -143,9 +144,9 @@
             style="margin:0;list-style:none;padding:0;position:relative;">
             {#if options.length > 0}
               <OptionList options={options} keys={keys} optionComponent={optionComponent}
-                          selected={selected} on:selection/>
+                          selected={selected} paddingPerLevel={paddingPerLevel} on:selection/>
             {:else}
-              <li role="alert" aria-live="assertive" class="sub-text">
+              <li role="alert" aria-live="assertive" class="select-madu-sub-text">
                 {#if state === States.Loading}
                   Loading
                 {:else}

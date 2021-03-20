@@ -3,6 +3,12 @@
     <link rel="stylesheet" href="./dist/selectmadu.css"/>
     <script type="text/javascript" src="./dist/selectmadu.min.js">
     </script>
+
+    <style>
+      .select-madu {
+        margin: 20px;
+      }
+    </style>
   </head>
   <body>
     <div id="parent"></div>
@@ -12,6 +18,7 @@
         props: {
           valueKey: "value",
           animate: true,
+          selectFirstOption: false,
           datasource: [
             {
               text: "Parent Option",
@@ -26,7 +33,14 @@
               text: "Parent Option",
               children: [
                 { text: "Child 1", value: 5 },
-                { text: "Child 2", value: 6 }
+                {
+                  text: "Child 2",
+                  value: 6,
+                  children: [
+                    { text: "Inner Child 1", value: 6.1 },
+                    { text: "Inner Child 2", value: 6.2 }
+                  ]
+                }
               ]
             },
             { text: "Option 2", value: 7 },
@@ -67,7 +81,7 @@
                   { text: "Option 2", value: 3 },
                   { text: "Option 3", value: 4 }
                 ])
-              }, 4000);
+              }, 2000);
             });
           }
         }
