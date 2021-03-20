@@ -29,9 +29,7 @@ To get started, checkout documentation and examples at https://pavishkrg.com/sel
 ## Installation
 
 ### Manual
-Download or source the javascript file and css file from any of the following links
-* [jsDelivr][js-delivr-url]
-* [unpkg][unpkg-url]
+Download or source the javascript file and css file from [unpkg][unpkg-url]
 
 You can also download it directly from the [releases listed in select-madu repository][release-url]
 
@@ -128,6 +126,5 @@ You can also contribute by writing additional tests, adding issues that you enco
 [svelte-url]: https://svelte.dev/
 [select-madu-url]: https://pavishkrg.com/select-madu
 
-[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu?path=dist
 [unpkg-url]: https://unpkg.com/browse/select-madu/dist/
 [release-url]: https://github.com/pavish/select-madu/releases

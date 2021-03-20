@@ -8,9 +8,7 @@ permalink: /getting-started
 ## Installation
 
 ### Manual
-Download or source the javascript file and css file from any of the following links
-* [jsDelivr][js-delivr-url]
-* [unpkg][unpkg-url]
+Download or source the javascript file and css file from [unpkg][unpkg-url]
 
 You can also download it directly from the [releases listed in select-madu repository][release-url]
 
@@ -75,6 +73,5 @@ Note: CSS file has to be included separately
 [example-page-url]: {{ site.baseurl }}/examples
 [api-document-page-url]: {{ site.baseurl }}/api
 
-[js-delivr-url]: https://www.jsdelivr.com/package/npm/select-madu?path=dist
 [unpkg-url]: https://unpkg.com/browse/select-madu/dist/
 [release-url]: https://github.com/pavish/select-madu/releases
