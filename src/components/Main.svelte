@@ -10,7 +10,7 @@
 </script>
 
 <script lang="typescript">
-  import { tick } from 'svelte';
+  import { tick, createEventDispatcher } from 'svelte';
   import type { SvelteComponent } from 'svelte';
   import OptionDropdown from './OptionDropdown.svelte';
   import Tag from './Tag.svelte';
@@ -25,6 +25,9 @@
   } from '../types';
   import { States } from '../types';
   import { isOutOfBounds, fetchOptions, setAttribute } from '../utilities';
+
+  const dispatch: <EventKey extends string>
+    (type: EventKey, detail: Selected) => void = createEventDispatcher();
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-call
   const componentId: number = getId() as number;
@@ -240,11 +243,13 @@
         } else {
           selected = [option];
         }
+        dispatch('change', selected);
       }
       focusSearch();
     } else {
       if (!option.disabled) {
         selected = option;
+        dispatch('change', selected);
       }
       close();
       focusBase();
