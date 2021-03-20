@@ -49,6 +49,7 @@
   export let textKey = 'text';
   export let valueKey = textKey;
   export let childKey = 'children';
+  export let paddingPerLevel = 12;
 
   export let keys: Keys;
   $: keys = {
@@ -60,7 +61,7 @@
   // Selection and datasource
   export let selected: Selected;
   export let datasource: DataSource = [];
-  export let selectFirstElement = true;
+  export let selectFirstOption = true;
 
   export { selected as value };
 
@@ -73,7 +74,7 @@
     _datasource: DataSource,
     _searchVal: string,
     _multiple: boolean,
-    _selectFirstElement: boolean,
+    _selectFirstOption: boolean,
     _keys: Keys,
   ) => {
     state = States.Loading;
@@ -87,7 +88,7 @@
       (res) => {
         options = res;
         state = States.Ready;
-        if (!_multiple && _selectFirstElement && options.length > 0 && !selected) {
+        if (!_multiple && _selectFirstOption && options.length > 0 && !selected) {
           let [_selected] = options;
           while (_selected[_keys.child]) {
             [_selected] = _selected[_keys.child] as Option[];
@@ -107,7 +108,7 @@
   };
 
   // Option setter
-  $: setOptions(datasource, searchValue, multiple, selectFirstElement, keys);
+  $: setOptions(datasource, searchValue, multiple, selectFirstOption, keys);
 
   // Internal
   let isOpen = false;
@@ -220,7 +221,16 @@
   function onSelection(event: { detail: Option }) {
     if (multiple) {
       if (Array.isArray(selected)) {
-        if (!selected.find((elem) => elem[keys.value] === event.detail[keys.value])) {
+        let index = -1;
+        for (let i = 0; i < selected.length; i += 1) {
+          if (selected[i][keys.value] === event.detail[keys.value]) {
+            index = i;
+            break;
+          }
+        }
+        if (index > -1) {
+          removeElement(index);
+        } else {
           selected = [...selected, event.detail];
         }
       } else {
@@ -322,7 +332,9 @@
     {#if search && isOpen}
       <input bind:this={searchInputRef} type="search" bind:value={searchValue}
              class="select-madu-input" placeholder="Search" tabindex={0}
-             style="width:{inputWidth}em;min-width: 50px;max-width: 100%;border:none;outline:0;"
+             style="width:{inputWidth}em;min-width: 50px;max-width: 100%;
+                    border:none;outline:0;padding:0;margin:0;box-sizing:border-box;
+                    font-family:inherit;font-size:inherit;"
              aria-autocomplete="list" autocorrect="off" autocapitalize="none" spellcheck="false"
              autocomplete="off" role="searchbox" aria-label="Search"
              aria-controls="select-madu-{componentId}-options"
@@ -362,6 +374,6 @@
                   parent={baseRef} classes={classes}
                   optionComponent={optionComponent} options={options} keys={keys}
                   selected={selected} multiple={multiple}
-                  state={state} animate={animate}
+                  state={state} animate={animate} paddingPerLevel={paddingPerLevel}
                   on:selection={onSelection}/>
 {/if}

@@ -1,7 +1,11 @@
+$base-color: #adadad;
+$highlight-color: #339dff;
+$disabled-text-color: #979797;
+
 .select-madu {
   vertical-align: middle;
   cursor: pointer;
-  border-color: #dfdfdf;
+  border-color: rgba($base-color, 0.4);
   border-radius: 5px;
 
   &-inner {
@@ -10,11 +14,11 @@
     color: inherit;
 
     &-tag {
-      background: #efefef;
+      background: rgba($base-color, 0.2);
       display: inline-block;
       border-radius: 3px;
       word-break: break-all;
-      border: 1px solid #dfdfdf;
+      border: 1px solid rgba($base-color, 0.4);
       margin: 0 3px;
       padding: 0 0 0 5px;
       cursor: default;
@@ -26,17 +30,18 @@
       button.select-madu-icon {
         padding: 5px 2px;
         border: 0;
-        border-left: 1px solid #dfdfdf;
+        border-left: 1px solid rgba($base-color, 0.4);
         display: inline-block;
         outline: 0;
         cursor: pointer;
+        background: transparent;
 
         &:hover {
-          background: #e8e8e8;
+          background: rgba($base-color, 0.3);
         }
 
         &:focus {
-          background: #dfdfdf;
+          background: rgba($base-color, 0.4);
         }
       }
     }
@@ -67,7 +72,7 @@
     position: relative;
 
     .spinner-border {
-      color: #c6c6ce;
+      color: rgba($base-color, 0.8);
       position: relative;
       display: inline-block;
       width: calc(100% - 5px);
@@ -109,7 +114,7 @@
   }
 
   &.placeholder &-inner {
-    color: #979797;
+    color: $disabled-text-color;
   }
 
   &.multiple:not(.placeholder) &-inner {
@@ -120,7 +125,7 @@
   &:focus,
   &.focus {
     outline: 0;
-    border-color: #339dff;
+    border-color: $highlight-color;
   }
 
   &.open.search &-inner {
@@ -128,7 +133,7 @@
   }
 
   &-dropdown &-options {
-    border-color: #dfdfdf;
+    border-color: rgba($base-color, 0.4);
     border-radius: 5px;
 
     ul {
@@ -140,13 +145,15 @@
         cursor: pointer;
       }
 
-      li.o:hover,
-      li.o.hovered {
-        background: #f5f5f5;
+      li.o.selected {
+        background: rgba($base-color, 0.2);
+        color: inherit;
       }
 
-      li.o.selected {
-        background: #e7e7e7;
+      li.o:hover,
+      li.o.hovered {
+        background: $highlight-color;
+        color: #fff;
       }
 
       li.o-h {
@@ -170,7 +177,7 @@
   }
 
   &-dropdown &-options &-sub-text {
-    color: #888;
+    color: $disabled-text-color;
   }
 }
 

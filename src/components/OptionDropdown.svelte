@@ -30,12 +30,14 @@
   export let multiple: boolean;
   export let classes: string | string[];
   export let componentId: number;
+  export let paddingPerLevel: number;
 
   let instance: OptionHolder & DropdownKeyboardInteractions;
 
   function setOnChange(
     name: string,
-    value: Option[] | Keys | Selected| boolean | States | Animation | string | string[],
+    value: Option[] | Keys | Selected | boolean | number
+          | States | Animation | string | string[],
   ) {
     if (instance) {
       instance.$set({
@@ -58,6 +60,7 @@
         animate,
         multiple,
         classes,
+        paddingPerLevel,
       },
     });
 
@@ -109,4 +112,5 @@
   $: setOnChange('animate', animate);
   $: setOnChange('multiple', multiple);
   $: setOnChange('classes', classes);
+  $: setOnChange('paddingPerLevel', paddingPerLevel);
 </script>

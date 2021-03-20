@@ -12,6 +12,7 @@
   export let keys: Keys;
   export let selected: Selected;
   export let level: number;
+  export let paddingPerLevel: number;
 
   function getOptionClasses(opt: Option) : string {
     let classList = opt[keys.child] ? 'o-h' : 'o';
@@ -51,7 +52,7 @@
 {#if option[keys.child]}
   <li class={classes} role="group" style="position:relative;"
       aria-label={option[keys.text]}>
-    <strong style="display:block;padding-left:{level * 10}px;">{option[keys.text]}</strong>
+    <strong style="display:block;padding-left:{level * paddingPerLevel}px;">{option[keys.text]}</strong>
 
     <ul role="none" style="margin:0;list-style:none;padding:0;position:relative;">
       <slot></slot>
@@ -63,13 +64,14 @@
       class:disabled={option.disabled} 
       class:selected={isSelectedOption}
       class:hovered={isSelectedOption}
-      style="position:relative;padding-left:{level * 10}px"
+      style="position:relative;padding-left:{level * paddingPerLevel}px"
       on:click={selectOption}
       role="option"
       aria-selected="{isSelectedOption}">
 
     {#if optionComponent}
-      <svelte:component this={optionComponent} {...option}/>
+      <svelte:component this={optionComponent} {...option}
+                        isSelected={isSelectedOption} level={level}/>
 
     {:else}
       {option[keys.text]}

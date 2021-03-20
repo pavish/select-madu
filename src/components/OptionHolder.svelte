@@ -37,6 +37,7 @@
   export let multiple: boolean;
   export let classes: string | string[];
   export let componentId: number;
+  export let paddingPerLevel = 10;
 
   $: parentClass = [
     'select-madu-dropdown',
@@ -143,7 +144,7 @@
             style="margin:0;list-style:none;padding:0;position:relative;">
             {#if options.length > 0}
               <OptionList options={options} keys={keys} optionComponent={optionComponent}
-                          selected={selected} on:selection/>
+                          selected={selected} paddingPerLevel={paddingPerLevel} on:selection/>
             {:else}
               <li role="alert" aria-live="assertive" class="select-madu-sub-text">
                 {#if state === States.Loading}

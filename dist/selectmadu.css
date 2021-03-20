@@ -1,7 +1,7 @@
 .select-madu {
   vertical-align: middle;
   cursor: pointer;
-  border-color: #dfdfdf;
+  border-color: rgba(173, 173, 173, 0.4);
   border-radius: 5px;
 }
 .select-madu-inner {
@@ -10,11 +10,11 @@
   color: inherit;
 }
 .select-madu-inner-tag {
-  background: #efefef;
+  background: rgba(173, 173, 173, 0.2);
   display: inline-block;
   border-radius: 3px;
   word-break: break-all;
-  border: 1px solid #dfdfdf;
+  border: 1px solid rgba(173, 173, 173, 0.4);
   margin: 0 3px;
   padding: 0 0 0 5px;
   cursor: default;
@@ -25,16 +25,17 @@
 .select-madu-inner-tag button.select-madu-icon {
   padding: 5px 2px;
   border: 0;
-  border-left: 1px solid #dfdfdf;
+  border-left: 1px solid rgba(173, 173, 173, 0.4);
   display: inline-block;
   outline: 0;
   cursor: pointer;
+  background: transparent;
 }
 .select-madu-inner-tag button.select-madu-icon:hover {
-  background: #e8e8e8;
+  background: rgba(173, 173, 173, 0.3);
 }
 .select-madu-inner-tag button.select-madu-icon:focus {
-  background: #dfdfdf;
+  background: rgba(173, 173, 173, 0.4);
 }
 .select-madu-inner input[type=search].select-madu-input {
   min-height: 18px;
@@ -55,7 +56,7 @@
   position: relative;
 }
 .select-madu-arrow .select-madu-spinner .spinner-border {
-  color: #c6c6ce;
+  color: rgba(173, 173, 173, 0.8);
   position: relative;
   display: inline-block;
   width: calc(100% - 5px);
@@ -104,7 +105,7 @@
   cursor: text;
 }
 .select-madu-dropdown .select-madu-options {
-  border-color: #dfdfdf;
+  border-color: rgba(173, 173, 173, 0.4);
   border-radius: 5px;
 }
 .select-madu-dropdown .select-madu-options ul li {
@@ -113,12 +114,14 @@
 .select-madu-dropdown .select-madu-options ul li.o {
   cursor: pointer;
 }
+.select-madu-dropdown .select-madu-options ul li.o.selected {
+  background: rgba(173, 173, 173, 0.2);
+  color: inherit;
+}
 .select-madu-dropdown .select-madu-options ul li.o:hover,
 .select-madu-dropdown .select-madu-options ul li.o.hovered {
-  background: #f5f5f5;
-}
-.select-madu-dropdown .select-madu-options ul li.o.selected {
-  background: #e7e7e7;
+  background: #339dff;
+  color: #fff;
 }
 .select-madu-dropdown .select-madu-options ul li.o-h {
   padding: 0;
@@ -133,7 +136,7 @@
   padding: 9px 18px;
 }
 .select-madu-dropdown .select-madu-options .select-madu-sub-text {
-  color: #888;
+  color: #979797;
 }
 
 @keyframes select-madu-spinner-border {

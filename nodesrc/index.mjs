@@ -1713,14 +1713,14 @@ function create_else_block(ctx) {
 		c() {
 			li = element("li");
 			if_block.c();
-			attr(li, "class", /*classes*/ ctx[5]);
+			attr(li, "class", /*classes*/ ctx[6]);
 			set_style(li, "position", "relative");
-			set_style(li, "padding-left", /*level*/ ctx[3] * 10 + "px");
+			set_style(li, "padding-left", /*level*/ ctx[3] * /*paddingPerLevel*/ ctx[4] + "px");
 			attr(li, "role", "option");
-			attr(li, "aria-selected", /*isSelectedOption*/ ctx[4]);
+			attr(li, "aria-selected", /*isSelectedOption*/ ctx[5]);
 			toggle_class(li, "disabled", /*option*/ ctx[0].disabled);
-			toggle_class(li, "selected", /*isSelectedOption*/ ctx[4]);
-			toggle_class(li, "hovered", /*isSelectedOption*/ ctx[4]);
+			toggle_class(li, "selected", /*isSelectedOption*/ ctx[5]);
+			toggle_class(li, "hovered", /*isSelectedOption*/ ctx[5]);
 		},
 		m(target, anchor) {
 			insert(target, li, anchor);
@@ -1728,7 +1728,7 @@ function create_else_block(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(li, "click", /*selectOption*/ ctx[6]);
+				dispose = listen(li, "click", /*selectOption*/ ctx[7]);
 				mounted = true;
 			}
 		},
@@ -1759,28 +1759,28 @@ function create_else_block(ctx) {
 				if_block.m(li, null);
 			}
 
-			if (!current || dirty & /*classes*/ 32) {
-				attr(li, "class", /*classes*/ ctx[5]);
+			if (!current || dirty & /*classes*/ 64) {
+				attr(li, "class", /*classes*/ ctx[6]);
 			}
 
-			if (!current || dirty & /*level*/ 8) {
-				set_style(li, "padding-left", /*level*/ ctx[3] * 10 + "px");
+			if (!current || dirty & /*level, paddingPerLevel*/ 24) {
+				set_style(li, "padding-left", /*level*/ ctx[3] * /*paddingPerLevel*/ ctx[4] + "px");
 			}
 
-			if (!current || dirty & /*isSelectedOption*/ 16) {
-				attr(li, "aria-selected", /*isSelectedOption*/ ctx[4]);
+			if (!current || dirty & /*isSelectedOption*/ 32) {
+				attr(li, "aria-selected", /*isSelectedOption*/ ctx[5]);
 			}
 
-			if (dirty & /*classes, option*/ 33) {
+			if (dirty & /*classes, option*/ 65) {
 				toggle_class(li, "disabled", /*option*/ ctx[0].disabled);
 			}
 
-			if (dirty & /*classes, isSelectedOption*/ 48) {
-				toggle_class(li, "selected", /*isSelectedOption*/ ctx[4]);
+			if (dirty & /*classes, isSelectedOption*/ 96) {
+				toggle_class(li, "selected", /*isSelectedOption*/ ctx[5]);
 			}
 
-			if (dirty & /*classes, isSelectedOption*/ 48) {
-				toggle_class(li, "hovered", /*isSelectedOption*/ ctx[4]);
+			if (dirty & /*classes, isSelectedOption*/ 96) {
+				toggle_class(li, "hovered", /*isSelectedOption*/ ctx[5]);
 			}
 		},
 		i(local) {
@@ -1801,7 +1801,7 @@ function create_else_block(ctx) {
 	};
 }
 
-// (45:0) {#if option[keys.child]}
+// (46:0) {#if option[keys.child]}
 function create_if_block(ctx) {
 	let li;
 	let strong;
@@ -1811,8 +1811,8 @@ function create_if_block(ctx) {
 	let ul;
 	let li_aria_label_value;
 	let current;
-	const default_slot_template = /*#slots*/ ctx[9].default;
-	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[8], null);
+	const default_slot_template = /*#slots*/ ctx[10].default;
+	const default_slot = create_slot(default_slot_template, ctx, /*$$scope*/ ctx[9], null);
 
 	return {
 		c() {
@@ -1823,13 +1823,13 @@ function create_if_block(ctx) {
 			ul = element("ul");
 			if (default_slot) default_slot.c();
 			set_style(strong, "display", "block");
-			set_style(strong, "padding-left", /*level*/ ctx[3] * 10 + "px");
+			set_style(strong, "padding-left", /*level*/ ctx[3] * /*paddingPerLevel*/ ctx[4] + "px");
 			attr(ul, "role", "none");
 			set_style(ul, "margin", "0");
 			set_style(ul, "list-style", "none");
 			set_style(ul, "padding", "0");
 			set_style(ul, "position", "relative");
-			attr(li, "class", /*classes*/ ctx[5]);
+			attr(li, "class", /*classes*/ ctx[6]);
 			attr(li, "role", "group");
 			set_style(li, "position", "relative");
 			attr(li, "aria-label", li_aria_label_value = /*option*/ ctx[0][/*keys*/ ctx[2].text]);
@@ -1850,18 +1850,18 @@ function create_if_block(ctx) {
 		p(ctx, dirty) {
 			if ((!current || dirty & /*option, keys*/ 5) && t0_value !== (t0_value = /*option*/ ctx[0][/*keys*/ ctx[2].text] + "")) set_data(t0, t0_value);
 
-			if (!current || dirty & /*level*/ 8) {
-				set_style(strong, "padding-left", /*level*/ ctx[3] * 10 + "px");
+			if (!current || dirty & /*level, paddingPerLevel*/ 24) {
+				set_style(strong, "padding-left", /*level*/ ctx[3] * /*paddingPerLevel*/ ctx[4] + "px");
 			}
 
 			if (default_slot) {
-				if (default_slot.p && dirty & /*$$scope*/ 256) {
-					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[8], dirty, null, null);
+				if (default_slot.p && dirty & /*$$scope*/ 512) {
+					update_slot(default_slot, default_slot_template, ctx, /*$$scope*/ ctx[9], dirty, null, null);
 				}
 			}
 
-			if (!current || dirty & /*classes*/ 32) {
-				attr(li, "class", /*classes*/ ctx[5]);
+			if (!current || dirty & /*classes*/ 64) {
+				attr(li, "class", /*classes*/ ctx[6]);
 			}
 
 			if (!current || dirty & /*option, keys*/ 5 && li_aria_label_value !== (li_aria_label_value = /*option*/ ctx[0][/*keys*/ ctx[2].text])) {
@@ -1884,7 +1884,7 @@ function create_if_block(ctx) {
 	};
 }
 
-// (68:4) {:else}
+// (70:4) {:else}
 function create_else_block_1(ctx) {
 	let t_value = /*option*/ ctx[0][/*keys*/ ctx[2].text] + "";
 	let t;
@@ -1907,12 +1907,18 @@ function create_else_block_1(ctx) {
 	};
 }
 
-// (65:4) {#if optionComponent}
+// (66:4) {#if optionComponent}
 function create_if_block_1(ctx) {
 	let switch_instance;
 	let switch_instance_anchor;
 	let current;
-	const switch_instance_spread_levels = [/*option*/ ctx[0]];
+
+	const switch_instance_spread_levels = [
+		/*option*/ ctx[0],
+		{ isSelected: /*isSelectedOption*/ ctx[5] },
+		{ level: /*level*/ ctx[3] }
+	];
+
 	var switch_value = /*optionComponent*/ ctx[1];
 
 	function switch_props(ctx) {
@@ -1943,8 +1949,12 @@ function create_if_block_1(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			const switch_instance_changes = (dirty & /*option*/ 1)
-			? get_spread_update(switch_instance_spread_levels, [get_spread_object(/*option*/ ctx[0])])
+			const switch_instance_changes = (dirty & /*option, isSelectedOption, level*/ 41)
+			? get_spread_update(switch_instance_spread_levels, [
+					dirty & /*option*/ 1 && get_spread_object(/*option*/ ctx[0]),
+					dirty & /*isSelectedOption*/ 32 && { isSelected: /*isSelectedOption*/ ctx[5] },
+					dirty & /*level*/ 8 && { level: /*level*/ ctx[3] }
+				])
 			: {};
 
 			if (switch_value !== (switch_value = /*optionComponent*/ ctx[1])) {
@@ -2067,6 +2077,7 @@ function instance($$self, $$props, $$invalidate) {
 	let { keys } = $$props;
 	let { selected } = $$props;
 	let { level } = $$props;
+	let { paddingPerLevel } = $$props;
 
 	function getOptionClasses(opt) {
 		let classList = opt[keys.child] ? "o-h" : "o";
@@ -2108,18 +2119,19 @@ function instance($$self, $$props, $$invalidate) {
 		if ("option" in $$props) $$invalidate(0, option = $$props.option);
 		if ("optionComponent" in $$props) $$invalidate(1, optionComponent = $$props.optionComponent);
 		if ("keys" in $$props) $$invalidate(2, keys = $$props.keys);
-		if ("selected" in $$props) $$invalidate(7, selected = $$props.selected);
+		if ("selected" in $$props) $$invalidate(8, selected = $$props.selected);
 		if ("level" in $$props) $$invalidate(3, level = $$props.level);
-		if ("$$scope" in $$props) $$invalidate(8, $$scope = $$props.$$scope);
+		if ("paddingPerLevel" in $$props) $$invalidate(4, paddingPerLevel = $$props.paddingPerLevel);
+		if ("$$scope" in $$props) $$invalidate(9, $$scope = $$props.$$scope);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*option, selected*/ 129) {
-			$$invalidate(4, isSelectedOption = isSelected(option, selected));
+		if ($$self.$$.dirty & /*option, selected*/ 257) {
+			$$invalidate(5, isSelectedOption = isSelected(option, selected));
 		}
 
 		if ($$self.$$.dirty & /*option*/ 1) {
-			$$invalidate(5, classes = getOptionClasses(option));
+			$$invalidate(6, classes = getOptionClasses(option));
 		}
 	};
 
@@ -2128,6 +2140,7 @@ function instance($$self, $$props, $$invalidate) {
 		optionComponent,
 		keys,
 		level,
+		paddingPerLevel,
 		isSelectedOption,
 		classes,
 		selectOption,
@@ -2145,8 +2158,9 @@ class OptionElement extends SvelteComponent {
 			option: 0,
 			optionComponent: 1,
 			keys: 2,
-			selected: 7,
-			level: 3
+			selected: 8,
+			level: 3,
+			paddingPerLevel: 4
 		});
 	}
 }
@@ -2155,11 +2169,11 @@ class OptionElement extends SvelteComponent {
 
 function get_each_context(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[8] = list[i];
+	child_ctx[9] = list[i];
 	return child_ctx;
 }
 
-// (15:2) <OptionElement option={option} keys={keys} optionComponent={optionComponent}                  selected={selected} level={level} on:selection>
+// (16:2) <OptionElement option={option} keys={keys} optionComponent={optionComponent}                  selected={selected} level={level} paddingPerLevel={paddingPerLevel}                  on:selection>
 function create_default_slot(ctx) {
 	let optionlist;
 	let t;
@@ -2167,15 +2181,16 @@ function create_default_slot(ctx) {
 
 	optionlist = new OptionList({
 			props: {
-				options: /*option*/ ctx[8][/*keys*/ ctx[2].child],
+				options: /*option*/ ctx[9][/*keys*/ ctx[2].child],
 				optionComponent: /*optionComponent*/ ctx[1],
 				keys: /*keys*/ ctx[2],
 				selected: /*selected*/ ctx[3],
-				level: /*nextLevel*/ ctx[5]
+				level: /*nextLevel*/ ctx[6],
+				paddingPerLevel: /*paddingPerLevel*/ ctx[5]
 			}
 		});
 
-	optionlist.$on("selection", /*selection_handler_1*/ ctx[6]);
+	optionlist.$on("selection", /*selection_handler_1*/ ctx[7]);
 
 	return {
 		c() {
@@ -2189,11 +2204,12 @@ function create_default_slot(ctx) {
 		},
 		p(ctx, dirty) {
 			const optionlist_changes = {};
-			if (dirty & /*options, keys*/ 5) optionlist_changes.options = /*option*/ ctx[8][/*keys*/ ctx[2].child];
+			if (dirty & /*options, keys*/ 5) optionlist_changes.options = /*option*/ ctx[9][/*keys*/ ctx[2].child];
 			if (dirty & /*optionComponent*/ 2) optionlist_changes.optionComponent = /*optionComponent*/ ctx[1];
 			if (dirty & /*keys*/ 4) optionlist_changes.keys = /*keys*/ ctx[2];
 			if (dirty & /*selected*/ 8) optionlist_changes.selected = /*selected*/ ctx[3];
-			if (dirty & /*nextLevel*/ 32) optionlist_changes.level = /*nextLevel*/ ctx[5];
+			if (dirty & /*nextLevel*/ 64) optionlist_changes.level = /*nextLevel*/ ctx[6];
+			if (dirty & /*paddingPerLevel*/ 32) optionlist_changes.paddingPerLevel = /*paddingPerLevel*/ ctx[5];
 			optionlist.$set(optionlist_changes);
 		},
 		i(local) {
@@ -2212,24 +2228,25 @@ function create_default_slot(ctx) {
 	};
 }
 
-// (14:0) {#each options as option}
+// (15:0) {#each options as option}
 function create_each_block(ctx) {
 	let optionelement;
 	let current;
 
 	optionelement = new OptionElement({
 			props: {
-				option: /*option*/ ctx[8],
+				option: /*option*/ ctx[9],
 				keys: /*keys*/ ctx[2],
 				optionComponent: /*optionComponent*/ ctx[1],
 				selected: /*selected*/ ctx[3],
 				level: /*level*/ ctx[4],
+				paddingPerLevel: /*paddingPerLevel*/ ctx[5],
 				$$slots: { default: [create_default_slot] },
 				$$scope: { ctx }
 			}
 		});
 
-	optionelement.$on("selection", /*selection_handler*/ ctx[7]);
+	optionelement.$on("selection", /*selection_handler*/ ctx[8]);
 
 	return {
 		c() {
@@ -2241,13 +2258,14 @@ function create_each_block(ctx) {
 		},
 		p(ctx, dirty) {
 			const optionelement_changes = {};
-			if (dirty & /*options*/ 1) optionelement_changes.option = /*option*/ ctx[8];
+			if (dirty & /*options*/ 1) optionelement_changes.option = /*option*/ ctx[9];
 			if (dirty & /*keys*/ 4) optionelement_changes.keys = /*keys*/ ctx[2];
 			if (dirty & /*optionComponent*/ 2) optionelement_changes.optionComponent = /*optionComponent*/ ctx[1];
 			if (dirty & /*selected*/ 8) optionelement_changes.selected = /*selected*/ ctx[3];
 			if (dirty & /*level*/ 16) optionelement_changes.level = /*level*/ ctx[4];
+			if (dirty & /*paddingPerLevel*/ 32) optionelement_changes.paddingPerLevel = /*paddingPerLevel*/ ctx[5];
 
-			if (dirty & /*$$scope, options, keys, optionComponent, selected, nextLevel*/ 2095) {
+			if (dirty & /*$$scope, options, keys, optionComponent, selected, nextLevel, paddingPerLevel*/ 4207) {
 				optionelement_changes.$$scope = { dirty, ctx };
 			}
 
@@ -2299,7 +2317,7 @@ function create_fragment$1(ctx) {
 			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*options, keys, optionComponent, selected, level, nextLevel*/ 63) {
+			if (dirty & /*options, keys, optionComponent, selected, level, paddingPerLevel, nextLevel*/ 127) {
 				each_value = /*options*/ ctx[0];
 				let i;
 
@@ -2360,6 +2378,7 @@ function instance$1($$self, $$props, $$invalidate) {
 	let { keys } = $$props;
 	let { selected } = $$props;
 	let { level = 1 } = $$props;
+	let { paddingPerLevel } = $$props;
 
 	function selection_handler_1(event) {
 		bubble($$self, event);
@@ -2375,11 +2394,12 @@ function instance$1($$self, $$props, $$invalidate) {
 		if ("keys" in $$props) $$invalidate(2, keys = $$props.keys);
 		if ("selected" in $$props) $$invalidate(3, selected = $$props.selected);
 		if ("level" in $$props) $$invalidate(4, level = $$props.level);
+		if ("paddingPerLevel" in $$props) $$invalidate(5, paddingPerLevel = $$props.paddingPerLevel);
 	};
 
 	$$self.$$.update = () => {
 		if ($$self.$$.dirty & /*level*/ 16) {
-			$$invalidate(5, nextLevel = level + 1);
+			$$invalidate(6, nextLevel = level + 1);
 		}
 	};
 
@@ -2389,6 +2409,7 @@ function instance$1($$self, $$props, $$invalidate) {
 		keys,
 		selected,
 		level,
+		paddingPerLevel,
 		nextLevel,
 		selection_handler_1,
 		selection_handler
@@ -2404,7 +2425,8 @@ class OptionList extends SvelteComponent {
 			optionComponent: 1,
 			keys: 2,
 			selected: 3,
-			level: 4
+			level: 4,
+			paddingPerLevel: 5
 		});
 	}
 }
@@ -2754,7 +2776,7 @@ function create_if_block$1(ctx) {
 			insert(target, div, anchor);
 			append(div, ul);
 			if_blocks[current_block_type_index].m(ul, null);
-			/*div_binding*/ ctx[20](div);
+			/*div_binding*/ ctx[21](div);
 			current = true;
 		},
 		p(new_ctx, dirty) {
@@ -2798,7 +2820,7 @@ function create_if_block$1(ctx) {
 			transition_in(if_block);
 
 			add_render_callback(() => {
-				if (!div_transition) div_transition = create_bidirectional_transition(div, /*animationFn*/ ctx[10], /*animationParams*/ ctx[11], true);
+				if (!div_transition) div_transition = create_bidirectional_transition(div, /*animationFn*/ ctx[11], /*animationParams*/ ctx[12], true);
 				div_transition.run(1);
 			});
 
@@ -2806,20 +2828,20 @@ function create_if_block$1(ctx) {
 		},
 		o(local) {
 			transition_out(if_block);
-			if (!div_transition) div_transition = create_bidirectional_transition(div, /*animationFn*/ ctx[10], /*animationParams*/ ctx[11], false);
+			if (!div_transition) div_transition = create_bidirectional_transition(div, /*animationFn*/ ctx[11], /*animationParams*/ ctx[12], false);
 			div_transition.run(0);
 			current = false;
 		},
 		d(detaching) {
 			if (detaching) detach(div);
 			if_blocks[current_block_type_index].d();
-			/*div_binding*/ ctx[20](null);
+			/*div_binding*/ ctx[21](null);
 			if (detaching && div_transition) div_transition.end();
 		}
 	};
 }
 
-// (113:12) {:else}
+// (114:12) {:else}
 function create_else_block$1(ctx) {
 	let li;
 
@@ -2863,7 +2885,7 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (110:12) {#if options.length > 0}
+// (111:12) {#if options.length > 0}
 function create_if_block_1$1(ctx) {
 	let optionlist;
 	let current;
@@ -2873,11 +2895,12 @@ function create_if_block_1$1(ctx) {
 				options: /*options*/ ctx[2],
 				keys: /*keys*/ ctx[3],
 				optionComponent: /*optionComponent*/ ctx[1],
-				selected: /*selected*/ ctx[4]
+				selected: /*selected*/ ctx[4],
+				paddingPerLevel: /*paddingPerLevel*/ ctx[8]
 			}
 		});
 
-	optionlist.$on("selection", /*selection_handler*/ ctx[19]);
+	optionlist.$on("selection", /*selection_handler*/ ctx[20]);
 
 	return {
 		c() {
@@ -2893,6 +2916,7 @@ function create_if_block_1$1(ctx) {
 			if (dirty & /*keys*/ 8) optionlist_changes.keys = /*keys*/ ctx[3];
 			if (dirty & /*optionComponent*/ 2) optionlist_changes.optionComponent = /*optionComponent*/ ctx[1];
 			if (dirty & /*selected*/ 16) optionlist_changes.selected = /*selected*/ ctx[4];
+			if (dirty & /*paddingPerLevel*/ 256) optionlist_changes.paddingPerLevel = /*paddingPerLevel*/ ctx[8];
 			optionlist.$set(optionlist_changes);
 		},
 		i(local) {
@@ -2910,7 +2934,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (117:16) {:else}
+// (118:16) {:else}
 function create_else_block_1$1(ctx) {
 	let t;
 
@@ -2927,7 +2951,7 @@ function create_else_block_1$1(ctx) {
 	};
 }
 
-// (115:16) {#if state === States.Loading}
+// (116:16) {#if state === States.Loading}
 function create_if_block_2(ctx) {
 	let t;
 
@@ -2955,7 +2979,7 @@ function create_fragment$2(ctx) {
 		c() {
 			div = element("div");
 			if (if_block) if_block.c();
-			attr(div, "class", /*parentClass*/ ctx[9]);
+			attr(div, "class", /*parentClass*/ ctx[10]);
 			set_style(div, "box-sizing", "border-box");
 			set_style(div, "z-index", "1000");
 			set_style(div, "max-width", "100%");
@@ -2967,7 +2991,7 @@ function create_fragment$2(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = action_destroyer(/*popper*/ ctx[12].call(null, div));
+				dispose = action_destroyer(/*popper*/ ctx[13].call(null, div));
 				mounted = true;
 			}
 		},
@@ -2995,8 +3019,8 @@ function create_fragment$2(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty & /*parentClass*/ 512) {
-				attr(div, "class", /*parentClass*/ ctx[9]);
+			if (!current || dirty & /*parentClass*/ 1024) {
+				attr(div, "class", /*parentClass*/ ctx[10]);
 			}
 		},
 		i(local) {
@@ -3033,6 +3057,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	let { multiple } = $$props;
 	let { classes } = $$props;
 	let { componentId } = $$props;
+	let { paddingPerLevel = 10 } = $$props;
 	let scrollParentRef;
 
 	function scrollToSelected() {
@@ -3044,9 +3069,9 @@ function instance$2($$self, $$props, $$invalidate) {
 				const elemOffsetTop = offsetTop(elem, scrollParentRef);
 
 				if (elemOffsetTop + elem.clientHeight > scrollParentRef.scrollTop + scrollParentRef.clientHeight) {
-					$$invalidate(8, scrollParentRef.scrollTop = elemOffsetTop, scrollParentRef);
+					$$invalidate(9, scrollParentRef.scrollTop = elemOffsetTop, scrollParentRef);
 				} else if (elemOffsetTop < scrollParentRef.scrollTop) {
-					$$invalidate(8, scrollParentRef.scrollTop = elemOffsetTop, scrollParentRef);
+					$$invalidate(9, scrollParentRef.scrollTop = elemOffsetTop, scrollParentRef);
 				}
 			}
 		}
@@ -3116,7 +3141,7 @@ function instance$2($$self, $$props, $$invalidate) {
 	function div_binding($$value) {
 		binding_callbacks[$$value ? "unshift" : "push"](() => {
 			scrollParentRef = $$value;
-			$$invalidate(8, scrollParentRef);
+			$$invalidate(9, scrollParentRef);
 		});
 	}
 
@@ -3125,18 +3150,19 @@ function instance$2($$self, $$props, $$invalidate) {
 		if ("options" in $$props) $$invalidate(2, options = $$props.options);
 		if ("keys" in $$props) $$invalidate(3, keys = $$props.keys);
 		if ("selected" in $$props) $$invalidate(4, selected = $$props.selected);
-		if ("parent" in $$props) $$invalidate(13, parent = $$props.parent);
+		if ("parent" in $$props) $$invalidate(14, parent = $$props.parent);
 		if ("isOpen" in $$props) $$invalidate(0, isOpen = $$props.isOpen);
 		if ("state" in $$props) $$invalidate(5, state = $$props.state);
-		if ("animate" in $$props) $$invalidate(14, animate = $$props.animate);
+		if ("animate" in $$props) $$invalidate(15, animate = $$props.animate);
 		if ("multiple" in $$props) $$invalidate(6, multiple = $$props.multiple);
-		if ("classes" in $$props) $$invalidate(15, classes = $$props.classes);
+		if ("classes" in $$props) $$invalidate(16, classes = $$props.classes);
 		if ("componentId" in $$props) $$invalidate(7, componentId = $$props.componentId);
+		if ("paddingPerLevel" in $$props) $$invalidate(8, paddingPerLevel = $$props.paddingPerLevel);
 	};
 
 	$$self.$$.update = () => {
-		if ($$self.$$.dirty & /*classes*/ 32768) {
-			$$invalidate(9, parentClass = [
+		if ($$self.$$.dirty & /*classes*/ 65536) {
+			$$invalidate(10, parentClass = [
 				"select-madu-dropdown",
 				Array.isArray(classes) ? classes.join(" ") : classes
 			].join(" ").trim());
@@ -3146,12 +3172,12 @@ function instance$2($$self, $$props, $$invalidate) {
 			scrollAfterTick();
 		}
 
-		if ($$self.$$.dirty & /*animate*/ 16384) {
-			$$invalidate(10, animationFn = getAnimation(animate));
+		if ($$self.$$.dirty & /*animate*/ 32768) {
+			$$invalidate(11, animationFn = getAnimation(animate));
 		}
 
-		if ($$self.$$.dirty & /*animate*/ 16384) {
-			$$invalidate(11, animationParams = getAnimationParams(animate));
+		if ($$self.$$.dirty & /*animate*/ 32768) {
+			$$invalidate(12, animationParams = getAnimationParams(animate));
 		}
 	};
 
@@ -3164,6 +3190,7 @@ function instance$2($$self, $$props, $$invalidate) {
 		state,
 		multiple,
 		componentId,
+		paddingPerLevel,
 		scrollParentRef,
 		parentClass,
 		animationFn,
@@ -3189,29 +3216,30 @@ class OptionHolder extends SvelteComponent {
 			options: 2,
 			keys: 3,
 			selected: 4,
-			parent: 13,
+			parent: 14,
 			isOpen: 0,
 			state: 5,
-			animate: 14,
+			animate: 15,
 			multiple: 6,
-			classes: 15,
+			classes: 16,
 			componentId: 7,
-			moveDown: 16,
-			moveUp: 17,
-			selectHovered: 18
+			paddingPerLevel: 8,
+			moveDown: 17,
+			moveUp: 18,
+			selectHovered: 19
 		});
 	}
 
 	get moveDown() {
-		return this.$$.ctx[16];
-	}
-
-	get moveUp() {
 		return this.$$.ctx[17];
 	}
 
-	get selectHovered() {
+	get moveUp() {
 		return this.$$.ctx[18];
+	}
+
+	get selectHovered() {
+		return this.$$.ctx[19];
 	}
 }
 
@@ -3230,6 +3258,7 @@ function instance_1($$self, $$props, $$invalidate) {
 	let { multiple } = $$props;
 	let { classes } = $$props;
 	let { componentId } = $$props;
+	let { paddingPerLevel } = $$props;
 	let instance;
 
 	function setOnChange(name, value) {
@@ -3251,7 +3280,8 @@ function instance_1($$self, $$props, $$invalidate) {
 					state,
 					animate,
 					multiple,
-					classes
+					classes,
+					paddingPerLevel
 				}
 			});
 
@@ -3314,6 +3344,7 @@ function instance_1($$self, $$props, $$invalidate) {
 		if ("multiple" in $$props) $$invalidate(7, multiple = $$props.multiple);
 		if ("classes" in $$props) $$invalidate(8, classes = $$props.classes);
 		if ("componentId" in $$props) $$invalidate(9, componentId = $$props.componentId);
+		if ("paddingPerLevel" in $$props) $$invalidate(10, paddingPerLevel = $$props.paddingPerLevel);
 	};
 
 	$$self.$$.update = () => {
@@ -3344,6 +3375,10 @@ function instance_1($$self, $$props, $$invalidate) {
 		if ($$self.$$.dirty & /*classes*/ 256) {
 			setOnChange("classes", classes);
 		}
+
+		if ($$self.$$.dirty & /*paddingPerLevel*/ 1024) {
+			setOnChange("paddingPerLevel", paddingPerLevel);
+		}
 	};
 
 	return [
@@ -3357,6 +3392,7 @@ function instance_1($$self, $$props, $$invalidate) {
 		multiple,
 		classes,
 		componentId,
+		paddingPerLevel,
 		moveUp,
 		moveDown,
 		selectHovered
@@ -3378,22 +3414,23 @@ class OptionDropdown extends SvelteComponent {
 			multiple: 7,
 			classes: 8,
 			componentId: 9,
-			moveUp: 10,
-			moveDown: 11,
-			selectHovered: 12
+			paddingPerLevel: 10,
+			moveUp: 11,
+			moveDown: 12,
+			selectHovered: 13
 		});
 	}
 
 	get moveUp() {
-		return this.$$.ctx[10];
-	}
-
-	get moveDown() {
 		return this.$$.ctx[11];
 	}
 
-	get selectHovered() {
+	get moveDown() {
 		return this.$$.ctx[12];
+	}
+
+	get selectHovered() {
+		return this.$$.ctx[13];
 	}
 }
 
@@ -3543,19 +3580,19 @@ class Tag extends SvelteComponent {
 
 function get_each_context$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[50] = list[i];
-	child_ctx[52] = i;
+	child_ctx[51] = list[i];
+	child_ctx[53] = i;
 	return child_ctx;
 }
 
-// (241:4) {#if multiple && Array.isArray(selected) && selected.length > 0}
+// (252:4) {#if multiple && Array.isArray(selected) && selected.length > 0}
 function create_if_block_5(ctx) {
 	let ul;
 	let each_blocks = [];
 	let each_1_lookup = new Map();
 	let current;
 	let each_value = /*selected*/ ctx[1];
-	const get_key = ctx => /*elem*/ ctx[50][/*keys*/ ctx[0].value];
+	const get_key = ctx => /*elem*/ ctx[51][/*keys*/ ctx[0].value];
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context$1(ctx, each_value, i);
@@ -3576,7 +3613,7 @@ function create_if_block_5(ctx) {
 			set_style(ul, "padding", "0");
 			set_style(ul, "position", "relative");
 			set_style(ul, "display", "inline-block");
-			attr(ul, "id", "select-madu-" + /*componentId*/ ctx[24] + "-value");
+			attr(ul, "id", "select-madu-" + /*componentId*/ ctx[25] + "-value");
 		},
 		m(target, anchor) {
 			insert(target, ul, anchor);
@@ -3588,7 +3625,7 @@ function create_if_block_5(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*componentId, selected, keys, onRemoveElement*/ 285212675) {
+			if (dirty[0] & /*componentId, selected, keys, onRemoveElement*/ 570425347) {
 				each_value = /*selected*/ ctx[1];
 				group_outros();
 				each_blocks = update_keyed_each(each_blocks, dirty, get_key, 1, ctx, each_value, each_1_lookup, ul, outro_and_destroy_block, create_each_block$1, null, get_each_context$1);
@@ -3621,7 +3658,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (244:8) {#each selected as elem, index (elem[keys.value])}
+// (255:8) {#each selected as elem, index (elem[keys.value])}
 function create_each_block$1(key_1, ctx) {
 	let first;
 	let tag;
@@ -3629,14 +3666,14 @@ function create_each_block$1(key_1, ctx) {
 
 	tag = new Tag({
 			props: {
-				componentId: /*componentId*/ ctx[24],
-				option: /*elem*/ ctx[50],
-				index: /*index*/ ctx[52],
+				componentId: /*componentId*/ ctx[25],
+				option: /*elem*/ ctx[51],
+				index: /*index*/ ctx[53],
 				keys: /*keys*/ ctx[0]
 			}
 		});
 
-	tag.$on("removeElement", /*onRemoveElement*/ ctx[28]);
+	tag.$on("removeElement", /*onRemoveElement*/ ctx[29]);
 
 	return {
 		key: key_1,
@@ -3654,8 +3691,8 @@ function create_each_block$1(key_1, ctx) {
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
 			const tag_changes = {};
-			if (dirty[0] & /*selected*/ 2) tag_changes.option = /*elem*/ ctx[50];
-			if (dirty[0] & /*selected*/ 2) tag_changes.index = /*index*/ ctx[52];
+			if (dirty[0] & /*selected*/ 2) tag_changes.option = /*elem*/ ctx[51];
+			if (dirty[0] & /*selected*/ 2) tag_changes.index = /*index*/ ctx[53];
 			if (dirty[0] & /*keys*/ 1) tag_changes.keys = /*keys*/ ctx[0];
 			tag.$set(tag_changes);
 		},
@@ -3675,7 +3712,7 @@ function create_each_block$1(key_1, ctx) {
 	};
 }
 
-// (263:24) 
+// (276:24) 
 function create_if_block_4(ctx) {
 	let span;
 	let t_value = /*selected*/ ctx[1][/*keys*/ ctx[0].text] + "";
@@ -3686,7 +3723,7 @@ function create_if_block_4(ctx) {
 		c() {
 			span = element("span");
 			t = text(t_value);
-			attr(span, "id", "select-madu-" + /*componentId*/ ctx[24] + "-value");
+			attr(span, "id", "select-madu-" + /*componentId*/ ctx[25] + "-value");
 			attr(span, "role", "textbox");
 			attr(span, "aria-readonly", "true");
 			attr(span, "title", span_title_value = /*selected*/ ctx[1][/*keys*/ ctx[0].text]);
@@ -3708,7 +3745,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (260:28) 
+// (273:28) 
 function create_if_block_3(ctx) {
 	let t;
 
@@ -3728,7 +3765,7 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (251:4) {#if search && isOpen}
+// (262:4) {#if search && isOpen}
 function create_if_block_2$1(ctx) {
 	let input;
 	let setAttribute_action;
@@ -3742,11 +3779,16 @@ function create_if_block_2$1(ctx) {
 			attr(input, "class", "select-madu-input");
 			attr(input, "placeholder", "Search");
 			attr(input, "tabindex", 0);
-			set_style(input, "width", /*inputWidth*/ ctx[16] + "em");
+			set_style(input, "width", /*inputWidth*/ ctx[17] + "em");
 			set_style(input, "min-width", "50px");
 			set_style(input, "max-width", "100%");
 			set_style(input, "border", "none");
 			set_style(input, "outline", "0");
+			set_style(input, "padding", "0");
+			set_style(input, "margin", "0");
+			set_style(input, "box-sizing", "border-box");
+			set_style(input, "font-family", "inherit");
+			set_style(input, "font-size", "inherit");
 			attr(input, "aria-autocomplete", "list");
 			attr(input, "autocorrect", "off");
 			attr(input, "autocapitalize", "none");
@@ -3754,43 +3796,43 @@ function create_if_block_2$1(ctx) {
 			attr(input, "autocomplete", "off");
 			attr(input, "role", "searchbox");
 			attr(input, "aria-label", "Search");
-			attr(input, "aria-controls", "select-madu-" + /*componentId*/ ctx[24] + "-options");
+			attr(input, "aria-controls", "select-madu-" + /*componentId*/ ctx[25] + "-options");
 		},
 		m(target, anchor) {
 			insert(target, input, anchor);
-			/*input_binding*/ ctx[38](input);
-			set_input_value(input, /*searchValue*/ ctx[9]);
+			/*input_binding*/ ctx[39](input);
+			set_input_value(input, /*searchValue*/ ctx[10]);
 
 			if (!mounted) {
 				dispose = [
-					listen(input, "input", /*input_input_handler*/ ctx[39]),
-					action_destroyer(setAttribute_action = setAttribute.call(null, input, /*ariaDescribedBy*/ ctx[20]))
+					listen(input, "input", /*input_input_handler*/ ctx[40]),
+					action_destroyer(setAttribute_action = setAttribute.call(null, input, /*ariaDescribedBy*/ ctx[21]))
 				];
 
 				mounted = true;
 			}
 		},
 		p(ctx, dirty) {
-			if (dirty[0] & /*inputWidth*/ 65536) {
-				set_style(input, "width", /*inputWidth*/ ctx[16] + "em");
+			if (dirty[0] & /*inputWidth*/ 131072) {
+				set_style(input, "width", /*inputWidth*/ ctx[17] + "em");
 			}
 
-			if (dirty[0] & /*searchValue*/ 512) {
-				set_input_value(input, /*searchValue*/ ctx[9]);
+			if (dirty[0] & /*searchValue*/ 1024) {
+				set_input_value(input, /*searchValue*/ ctx[10]);
 			}
 
-			if (setAttribute_action && is_function(setAttribute_action.update) && dirty[0] & /*ariaDescribedBy*/ 1048576) setAttribute_action.update.call(null, /*ariaDescribedBy*/ ctx[20]);
+			if (setAttribute_action && is_function(setAttribute_action.update) && dirty[0] & /*ariaDescribedBy*/ 2097152) setAttribute_action.update.call(null, /*ariaDescribedBy*/ ctx[21]);
 		},
 		d(detaching) {
 			if (detaching) detach(input);
-			/*input_binding*/ ctx[38](null);
+			/*input_binding*/ ctx[39](null);
 			mounted = false;
 			run_all(dispose);
 		}
 	};
 }
 
-// (279:4) {:else}
+// (292:4) {:else}
 function create_else_block$2(ctx) {
 	let div;
 
@@ -3810,7 +3852,7 @@ function create_else_block$2(ctx) {
 	};
 }
 
-// (274:4) {#if state === States.Loading}
+// (287:4) {#if state === States.Loading}
 function create_if_block_1$2(ctx) {
 	let div1;
 
@@ -3830,27 +3872,28 @@ function create_if_block_1$2(ctx) {
 	};
 }
 
-// (289:0) {#if isOpen}
+// (302:0) {#if isOpen}
 function create_if_block$2(ctx) {
 	let optiondropdown;
 	let current;
 
 	let optiondropdown_props = {
-		componentId: /*componentId*/ ctx[24],
-		parent: /*baseRef*/ ctx[14],
+		componentId: /*componentId*/ ctx[25],
+		parent: /*baseRef*/ ctx[15],
 		classes: /*classes*/ ctx[2],
 		optionComponent: /*optionComponent*/ ctx[7],
-		options: /*options*/ ctx[11],
+		options: /*options*/ ctx[12],
 		keys: /*keys*/ ctx[0],
 		selected: /*selected*/ ctx[1],
 		multiple: /*multiple*/ ctx[5],
-		state: /*state*/ ctx[12],
-		animate: /*animate*/ ctx[8]
+		state: /*state*/ ctx[13],
+		animate: /*animate*/ ctx[8],
+		paddingPerLevel: /*paddingPerLevel*/ ctx[9]
 	};
 
 	optiondropdown = new OptionDropdown({ props: optiondropdown_props });
-	/*optiondropdown_binding*/ ctx[41](optiondropdown);
-	optiondropdown.$on("selection", /*onSelection*/ ctx[29]);
+	/*optiondropdown_binding*/ ctx[42](optiondropdown);
+	optiondropdown.$on("selection", /*onSelection*/ ctx[30]);
 
 	return {
 		c() {
@@ -3862,15 +3905,16 @@ function create_if_block$2(ctx) {
 		},
 		p(ctx, dirty) {
 			const optiondropdown_changes = {};
-			if (dirty[0] & /*baseRef*/ 16384) optiondropdown_changes.parent = /*baseRef*/ ctx[14];
+			if (dirty[0] & /*baseRef*/ 32768) optiondropdown_changes.parent = /*baseRef*/ ctx[15];
 			if (dirty[0] & /*classes*/ 4) optiondropdown_changes.classes = /*classes*/ ctx[2];
 			if (dirty[0] & /*optionComponent*/ 128) optiondropdown_changes.optionComponent = /*optionComponent*/ ctx[7];
-			if (dirty[0] & /*options*/ 2048) optiondropdown_changes.options = /*options*/ ctx[11];
+			if (dirty[0] & /*options*/ 4096) optiondropdown_changes.options = /*options*/ ctx[12];
 			if (dirty[0] & /*keys*/ 1) optiondropdown_changes.keys = /*keys*/ ctx[0];
 			if (dirty[0] & /*selected*/ 2) optiondropdown_changes.selected = /*selected*/ ctx[1];
 			if (dirty[0] & /*multiple*/ 32) optiondropdown_changes.multiple = /*multiple*/ ctx[5];
-			if (dirty[0] & /*state*/ 4096) optiondropdown_changes.state = /*state*/ ctx[12];
+			if (dirty[0] & /*state*/ 8192) optiondropdown_changes.state = /*state*/ ctx[13];
 			if (dirty[0] & /*animate*/ 256) optiondropdown_changes.animate = /*animate*/ ctx[8];
+			if (dirty[0] & /*paddingPerLevel*/ 512) optiondropdown_changes.paddingPerLevel = /*paddingPerLevel*/ ctx[9];
 			optiondropdown.$set(optiondropdown_changes);
 		},
 		i(local) {
@@ -3883,7 +3927,7 @@ function create_if_block$2(ctx) {
 			current = false;
 		},
 		d(detaching) {
-			/*optiondropdown_binding*/ ctx[41](null);
+			/*optiondropdown_binding*/ ctx[42](null);
 			destroy_component(optiondropdown, detaching);
 		}
 	};
@@ -3907,8 +3951,8 @@ function create_fragment$4(ctx) {
 	let if_block0 = show_if && create_if_block_5(ctx);
 
 	function select_block_type(ctx, dirty) {
-		if (/*search*/ ctx[6] && /*isOpen*/ ctx[10]) return create_if_block_2$1;
-		if (/*isPlaceHolder*/ ctx[15]) return create_if_block_3;
+		if (/*search*/ ctx[6] && /*isOpen*/ ctx[11]) return create_if_block_2$1;
+		if (/*isPlaceHolder*/ ctx[16]) return create_if_block_3;
 		if (!/*multiple*/ ctx[5]) return create_if_block_4;
 	}
 
@@ -3916,13 +3960,13 @@ function create_fragment$4(ctx) {
 	let if_block1 = current_block_type && current_block_type(ctx);
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*state*/ ctx[12] === States.Loading) return create_if_block_1$2;
+		if (/*state*/ ctx[13] === States.Loading) return create_if_block_1$2;
 		return create_else_block$2;
 	}
 
 	let current_block_type_1 = select_block_type_1(ctx);
 	let if_block2 = current_block_type_1(ctx);
-	let if_block3 = /*isOpen*/ ctx[10] && create_if_block$2(ctx);
+	let if_block3 = /*isOpen*/ ctx[11] && create_if_block$2(ctx);
 
 	return {
 		c() {
@@ -3940,8 +3984,8 @@ function create_fragment$4(ctx) {
 			attr(div0, "class", "select-madu-inner");
 			attr(div1, "class", "select-madu-arrow");
 			attr(div1, "role", "presentation");
-			toggle_class(div1, "loading", /*state*/ ctx[12] === States.Loading);
-			attr(div2, "class", /*parentClass*/ ctx[19]);
+			toggle_class(div1, "loading", /*state*/ ctx[13] === States.Loading);
+			attr(div2, "class", /*parentClass*/ ctx[20]);
 			attr(div2, "tabindex", 0);
 			set_style(div2, "position", "relative");
 			set_style(div2, "border-width", "1px");
@@ -3949,14 +3993,14 @@ function create_fragment$4(ctx) {
 			attr(div2, "aria-disabled", /*disabled*/ ctx[4]);
 			attr(div2, "role", "combobox");
 			attr(div2, "aria-haspopup", "listbox");
-			attr(div2, "aria-expanded", /*isOpen*/ ctx[10]);
+			attr(div2, "aria-expanded", /*isOpen*/ ctx[11]);
 			attr(div2, "dir", "ltr");
 			toggle_class(div2, "multiple", /*multiple*/ ctx[5]);
-			toggle_class(div2, "open", /*isOpen*/ ctx[10]);
-			toggle_class(div2, "focus", /*focus*/ ctx[13] || /*isOpen*/ ctx[10]);
+			toggle_class(div2, "open", /*isOpen*/ ctx[11]);
+			toggle_class(div2, "focus", /*focus*/ ctx[14] || /*isOpen*/ ctx[11]);
 			toggle_class(div2, "search", /*search*/ ctx[6]);
 			toggle_class(div2, "disabled", /*disabled*/ ctx[4]);
-			toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[15]);
+			toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[16]);
 			toggle_class(div2, "animate", /*animate*/ ctx[8]);
 		},
 		m(target, anchor) {
@@ -3968,7 +4012,7 @@ function create_fragment$4(ctx) {
 			append(div2, t1);
 			append(div2, div1);
 			if_block2.m(div1, null);
-			/*div2_binding*/ ctx[40](div2);
+			/*div2_binding*/ ctx[41](div2);
 			insert(target, t2, anchor);
 			if (if_block3) if_block3.m(target, anchor);
 			insert(target, if_block3_anchor, anchor);
@@ -3976,15 +4020,15 @@ function create_fragment$4(ctx) {
 
 			if (!mounted) {
 				dispose = [
-					listen(window, "click", /*checkAndClose*/ ctx[25]),
-					listen(div0, "click", /*checkAndOpen*/ ctx[26]),
-					listen(div1, "click", /*toggle*/ ctx[27]),
-					listen(div2, "keydown", /*onKeyDown*/ ctx[30]),
-					listen(div2, "focus", /*onFocusIn*/ ctx[31]),
-					listen(div2, "blur", /*onFocusOut*/ ctx[32]),
-					action_destroyer(setAttribute_action = setAttribute.call(null, div2, /*ariaOwns*/ ctx[21])),
-					action_destroyer(setAttribute_action_1 = setAttribute.call(null, div2, /*ariaLabelledBy*/ ctx[22])),
-					action_destroyer(setAttribute_action_2 = setAttribute.call(null, div2, /*ariaControls*/ ctx[23]))
+					listen(window, "click", /*checkAndClose*/ ctx[26]),
+					listen(div0, "click", /*checkAndOpen*/ ctx[27]),
+					listen(div1, "click", /*toggle*/ ctx[28]),
+					listen(div2, "keydown", /*onKeyDown*/ ctx[31]),
+					listen(div2, "focus", /*onFocusIn*/ ctx[32]),
+					listen(div2, "blur", /*onFocusOut*/ ctx[33]),
+					action_destroyer(setAttribute_action = setAttribute.call(null, div2, /*ariaOwns*/ ctx[22])),
+					action_destroyer(setAttribute_action_1 = setAttribute.call(null, div2, /*ariaLabelledBy*/ ctx[23])),
+					action_destroyer(setAttribute_action_2 = setAttribute.call(null, div2, /*ariaControls*/ ctx[24]))
 				];
 
 				mounted = true;
@@ -4038,59 +4082,59 @@ function create_fragment$4(ctx) {
 				}
 			}
 
-			if (dirty[0] & /*state*/ 4096) {
-				toggle_class(div1, "loading", /*state*/ ctx[12] === States.Loading);
+			if (dirty[0] & /*state*/ 8192) {
+				toggle_class(div1, "loading", /*state*/ ctx[13] === States.Loading);
 			}
 
-			if (!current || dirty[0] & /*parentClass*/ 524288) {
-				attr(div2, "class", /*parentClass*/ ctx[19]);
+			if (!current || dirty[0] & /*parentClass*/ 1048576) {
+				attr(div2, "class", /*parentClass*/ ctx[20]);
 			}
 
 			if (!current || dirty[0] & /*disabled*/ 16) {
 				attr(div2, "aria-disabled", /*disabled*/ ctx[4]);
 			}
 
-			if (!current || dirty[0] & /*isOpen*/ 1024) {
-				attr(div2, "aria-expanded", /*isOpen*/ ctx[10]);
+			if (!current || dirty[0] & /*isOpen*/ 2048) {
+				attr(div2, "aria-expanded", /*isOpen*/ ctx[11]);
 			}
 
-			if (setAttribute_action && is_function(setAttribute_action.update) && dirty[0] & /*ariaOwns*/ 2097152) setAttribute_action.update.call(null, /*ariaOwns*/ ctx[21]);
-			if (setAttribute_action_1 && is_function(setAttribute_action_1.update) && dirty[0] & /*ariaLabelledBy*/ 4194304) setAttribute_action_1.update.call(null, /*ariaLabelledBy*/ ctx[22]);
-			if (setAttribute_action_2 && is_function(setAttribute_action_2.update) && dirty[0] & /*ariaControls*/ 8388608) setAttribute_action_2.update.call(null, /*ariaControls*/ ctx[23]);
+			if (setAttribute_action && is_function(setAttribute_action.update) && dirty[0] & /*ariaOwns*/ 4194304) setAttribute_action.update.call(null, /*ariaOwns*/ ctx[22]);
+			if (setAttribute_action_1 && is_function(setAttribute_action_1.update) && dirty[0] & /*ariaLabelledBy*/ 8388608) setAttribute_action_1.update.call(null, /*ariaLabelledBy*/ ctx[23]);
+			if (setAttribute_action_2 && is_function(setAttribute_action_2.update) && dirty[0] & /*ariaControls*/ 16777216) setAttribute_action_2.update.call(null, /*ariaControls*/ ctx[24]);
 
-			if (dirty[0] & /*parentClass, multiple*/ 524320) {
+			if (dirty[0] & /*parentClass, multiple*/ 1048608) {
 				toggle_class(div2, "multiple", /*multiple*/ ctx[5]);
 			}
 
-			if (dirty[0] & /*parentClass, isOpen*/ 525312) {
-				toggle_class(div2, "open", /*isOpen*/ ctx[10]);
+			if (dirty[0] & /*parentClass, isOpen*/ 1050624) {
+				toggle_class(div2, "open", /*isOpen*/ ctx[11]);
 			}
 
-			if (dirty[0] & /*parentClass, focus, isOpen*/ 533504) {
-				toggle_class(div2, "focus", /*focus*/ ctx[13] || /*isOpen*/ ctx[10]);
+			if (dirty[0] & /*parentClass, focus, isOpen*/ 1067008) {
+				toggle_class(div2, "focus", /*focus*/ ctx[14] || /*isOpen*/ ctx[11]);
 			}
 
-			if (dirty[0] & /*parentClass, search*/ 524352) {
+			if (dirty[0] & /*parentClass, search*/ 1048640) {
 				toggle_class(div2, "search", /*search*/ ctx[6]);
 			}
 
-			if (dirty[0] & /*parentClass, disabled*/ 524304) {
+			if (dirty[0] & /*parentClass, disabled*/ 1048592) {
 				toggle_class(div2, "disabled", /*disabled*/ ctx[4]);
 			}
 
-			if (dirty[0] & /*parentClass, isPlaceHolder*/ 557056) {
-				toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[15]);
+			if (dirty[0] & /*parentClass, isPlaceHolder*/ 1114112) {
+				toggle_class(div2, "placeholder", /*isPlaceHolder*/ ctx[16]);
 			}
 
-			if (dirty[0] & /*parentClass, animate*/ 524544) {
+			if (dirty[0] & /*parentClass, animate*/ 1048832) {
 				toggle_class(div2, "animate", /*animate*/ ctx[8]);
 			}
 
-			if (/*isOpen*/ ctx[10]) {
+			if (/*isOpen*/ ctx[11]) {
 				if (if_block3) {
 					if_block3.p(ctx, dirty);
 
-					if (dirty[0] & /*isOpen*/ 1024) {
+					if (dirty[0] & /*isOpen*/ 2048) {
 						transition_in(if_block3, 1);
 					}
 				} else {
@@ -4129,7 +4173,7 @@ function create_fragment$4(ctx) {
 			}
 
 			if_block2.d();
-			/*div2_binding*/ ctx[40](null);
+			/*div2_binding*/ ctx[41](null);
 			if (detaching) detach(t2);
 			if (if_block3) if_block3.d(detaching);
 			if (detaching) detach(if_block3_anchor);
@@ -4168,17 +4212,18 @@ function instance$4($$self, $$props, $$invalidate) {
 	let { textKey = "text" } = $$props;
 	let { valueKey = textKey } = $$props;
 	let { childKey = "children" } = $$props;
+	let { paddingPerLevel = 12 } = $$props;
 	let { keys } = $$props;
 	let { value: selected } = $$props;
 	let { datasource = [] } = $$props;
-	let { selectFirstElement = true } = $$props;
+	let { selectFirstOption = true } = $$props;
 	let searchValue = "";
 	let options = [];
 	let state = States.Loading;
 	let fetchPromise;
 
-	const setOptions = (_datasource, _searchVal, _multiple, _selectFirstElement, _keys) => {
-		$$invalidate(12, state = States.Loading);
+	const setOptions = (_datasource, _searchVal, _multiple, _selectFirstOption, _keys) => {
+		$$invalidate(13, state = States.Loading);
 
 		if (typeof fetchPromise !== "undefined") {
 			fetchPromise.cancel();
@@ -4188,10 +4233,10 @@ function instance$4($$self, $$props, $$invalidate) {
 
 		fetchPromise.then(
 			res => {
-				$$invalidate(11, options = res);
-				$$invalidate(12, state = States.Ready);
+				$$invalidate(12, options = res);
+				$$invalidate(13, state = States.Ready);
 
-				if (!_multiple && _selectFirstElement && options.length > 0 && !selected) {
+				if (!_multiple && _selectFirstOption && options.length > 0 && !selected) {
 					let [_selected] = options;
 
 					while (_selected[_keys.child]) {
@@ -4204,10 +4249,10 @@ function instance$4($$self, $$props, $$invalidate) {
 				return options;
 			},
 			() => {
-				$$invalidate(12, state = States.Error);
+				$$invalidate(13, state = States.Error);
 			}
 		).catch(() => {
-			$$invalidate(12, state = States.Error);
+			$$invalidate(13, state = States.Error);
 		});
 	};
 
@@ -4238,14 +4283,14 @@ function instance$4($$self, $$props, $$invalidate) {
 	}
 
 	function open() {
-		$$invalidate(10, isOpen = true);
+		$$invalidate(11, isOpen = true);
 		const promise = tick();
 		promise.then(() => focusSearch()).catch(() => null);
 	}
 
 	function close() {
-		$$invalidate(10, isOpen = false);
-		$$invalidate(9, searchValue = "");
+		$$invalidate(11, isOpen = false);
+		$$invalidate(10, searchValue = "");
 	}
 
 	function checkAndClose(event) {
@@ -4289,7 +4334,18 @@ function instance$4($$self, $$props, $$invalidate) {
 	function onSelection(event) {
 		if (multiple) {
 			if (Array.isArray(selected)) {
-				if (!selected.find(elem => elem[keys.value] === event.detail[keys.value])) {
+				let index = -1;
+
+				for (let i = 0; i < selected.length; i += 1) {
+					if (selected[i][keys.value] === event.detail[keys.value]) {
+						index = i;
+						break;
+					}
+				}
+
+				if (index > -1) {
+					removeElement(index);
+				} else {
 					$$invalidate(1, selected = [...selected, event.detail]);
 				}
 			} else {
@@ -4347,7 +4403,7 @@ function instance$4($$self, $$props, $$invalidate) {
 					const lastElement = selected[selected.length - 1];
 					removeElement(selected.length - 1);
 
-					$$invalidate(9, searchValue = `${((_a = lastElement[keys.text]) === null || _a === void 0
+					$$invalidate(10, searchValue = `${((_a = lastElement[keys.text]) === null || _a === void 0
 					? void 0
 					: _a.toString()) || ""} `);
 				}
@@ -4356,36 +4412,36 @@ function instance$4($$self, $$props, $$invalidate) {
 	}
 
 	function onFocusIn() {
-		$$invalidate(13, focus = true);
+		$$invalidate(14, focus = true);
 	}
 
 	function onFocusOut() {
-		$$invalidate(13, focus = false);
+		$$invalidate(14, focus = false);
 	}
 
 	function input_binding($$value) {
 		binding_callbacks[$$value ? "unshift" : "push"](() => {
 			searchInputRef = $$value;
-			$$invalidate(17, searchInputRef);
+			$$invalidate(18, searchInputRef);
 		});
 	}
 
 	function input_input_handler() {
 		searchValue = this.value;
-		$$invalidate(9, searchValue);
+		$$invalidate(10, searchValue);
 	}
 
 	function div2_binding($$value) {
 		binding_callbacks[$$value ? "unshift" : "push"](() => {
 			baseRef = $$value;
-			$$invalidate(14, baseRef);
+			$$invalidate(15, baseRef);
 		});
 	}
 
 	function optiondropdown_binding($$value) {
 		binding_callbacks[$$value ? "unshift" : "push"](() => {
 			optionDropdownRef = $$value;
-			$$invalidate(18, optionDropdownRef);
+			$$invalidate(19, optionDropdownRef);
 		});
 	}
 
@@ -4397,21 +4453,22 @@ function instance$4($$self, $$props, $$invalidate) {
 		if ("search" in $$props) $$invalidate(6, search = $$props.search);
 		if ("optionComponent" in $$props) $$invalidate(7, optionComponent = $$props.optionComponent);
 		if ("animate" in $$props) $$invalidate(8, animate = $$props.animate);
-		if ("textKey" in $$props) $$invalidate(33, textKey = $$props.textKey);
-		if ("valueKey" in $$props) $$invalidate(34, valueKey = $$props.valueKey);
-		if ("childKey" in $$props) $$invalidate(35, childKey = $$props.childKey);
+		if ("textKey" in $$props) $$invalidate(34, textKey = $$props.textKey);
+		if ("valueKey" in $$props) $$invalidate(35, valueKey = $$props.valueKey);
+		if ("childKey" in $$props) $$invalidate(36, childKey = $$props.childKey);
+		if ("paddingPerLevel" in $$props) $$invalidate(9, paddingPerLevel = $$props.paddingPerLevel);
 		if ("keys" in $$props) $$invalidate(0, keys = $$props.keys);
 		if ("value" in $$props) $$invalidate(1, selected = $$props.value);
-		if ("datasource" in $$props) $$invalidate(36, datasource = $$props.datasource);
-		if ("selectFirstElement" in $$props) $$invalidate(37, selectFirstElement = $$props.selectFirstElement);
+		if ("datasource" in $$props) $$invalidate(37, datasource = $$props.datasource);
+		if ("selectFirstOption" in $$props) $$invalidate(38, selectFirstOption = $$props.selectFirstOption);
 	};
 
 	$$self.$$.update = () => {
 		if ($$self.$$.dirty[0] & /*classes*/ 4) {
-			$$invalidate(19, parentClass = ["select-madu", Array.isArray(classes) ? classes.join(" ") : classes].join(" ").trim());
+			$$invalidate(20, parentClass = ["select-madu", Array.isArray(classes) ? classes.join(" ") : classes].join(" ").trim());
 		}
 
-		if ($$self.$$.dirty[1] & /*textKey, valueKey, childKey*/ 28) {
+		if ($$self.$$.dirty[1] & /*textKey, valueKey, childKey*/ 56) {
 			$$invalidate(0, keys = {
 				text: textKey,
 				value: valueKey,
@@ -4419,33 +4476,33 @@ function instance$4($$self, $$props, $$invalidate) {
 			});
 		}
 
-		if ($$self.$$.dirty[0] & /*searchValue, multiple, keys*/ 545 | $$self.$$.dirty[1] & /*datasource, selectFirstElement*/ 96) {
+		if ($$self.$$.dirty[0] & /*searchValue, multiple, keys*/ 1057 | $$self.$$.dirty[1] & /*datasource, selectFirstOption*/ 192) {
 			// Option setter
-			setOptions(datasource, searchValue, multiple, selectFirstElement, keys);
+			setOptions(datasource, searchValue, multiple, selectFirstOption, keys);
 		}
 
 		if ($$self.$$.dirty[0] & /*selected, multiple*/ 34) {
-			$$invalidate(15, isPlaceHolder = !selected || multiple && Array.isArray(selected) && selected.length === 0);
+			$$invalidate(16, isPlaceHolder = !selected || multiple && Array.isArray(selected) && selected.length === 0);
 		}
 
-		if ($$self.$$.dirty[0] & /*searchValue*/ 512) {
-			$$invalidate(16, inputWidth = (searchValue.length + 1) * 0.6);
-		}
-
-		if ($$self.$$.dirty[0] & /*multiple*/ 32) {
-			$$invalidate(20, ariaDescribedBy = getAriaValue("aria-describedby", `select-madu-${componentId}-value`, multiple));
-		}
-
-		if ($$self.$$.dirty[0] & /*isOpen*/ 1024) {
-			$$invalidate(21, ariaOwns = getAriaValue("aria-owns", `select-madu-${componentId}-options`, isOpen));
+		if ($$self.$$.dirty[0] & /*searchValue*/ 1024) {
+			$$invalidate(17, inputWidth = (searchValue.length + 1) * 0.6);
 		}
 
 		if ($$self.$$.dirty[0] & /*multiple*/ 32) {
-			$$invalidate(22, ariaLabelledBy = getAriaValue("aria-labelledby", `select-madu-${componentId}-value`, !multiple));
+			$$invalidate(21, ariaDescribedBy = getAriaValue("aria-describedby", `select-madu-${componentId}-value`, multiple));
+		}
+
+		if ($$self.$$.dirty[0] & /*isOpen*/ 2048) {
+			$$invalidate(22, ariaOwns = getAriaValue("aria-owns", `select-madu-${componentId}-options`, isOpen));
 		}
 
 		if ($$self.$$.dirty[0] & /*multiple*/ 32) {
-			$$invalidate(23, ariaControls = getAriaValue("aria-controls", `select-madu-${componentId}-value`, !multiple));
+			$$invalidate(23, ariaLabelledBy = getAriaValue("aria-labelledby", `select-madu-${componentId}-value`, !multiple));
+		}
+
+		if ($$self.$$.dirty[0] & /*multiple*/ 32) {
+			$$invalidate(24, ariaControls = getAriaValue("aria-controls", `select-madu-${componentId}-value`, !multiple));
 		}
 	};
 
@@ -4459,6 +4516,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		search,
 		optionComponent,
 		animate,
+		paddingPerLevel,
 		searchValue,
 		isOpen,
 		options,
@@ -4487,7 +4545,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		valueKey,
 		childKey,
 		datasource,
-		selectFirstElement,
+		selectFirstOption,
 		input_binding,
 		input_input_handler,
 		div2_binding,
@@ -4513,13 +4571,14 @@ class Main extends SvelteComponent {
 				search: 6,
 				optionComponent: 7,
 				animate: 8,
-				textKey: 33,
-				valueKey: 34,
-				childKey: 35,
+				textKey: 34,
+				valueKey: 35,
+				childKey: 36,
+				paddingPerLevel: 9,
 				keys: 0,
 				value: 1,
-				datasource: 36,
-				selectFirstElement: 37
+				datasource: 37,
+				selectFirstOption: 38
 			},
 			[-1, -1]
 		);
