@@ -1,12 +1,19 @@
 $base-color: #adadad;
 $highlight-color: #339dff;
 $disabled-text-color: #979797;
+$disabled-text-dark-color: #777;
 
 .select-madu {
   vertical-align: middle;
   cursor: pointer;
   border-color: rgba($base-color, 0.4);
   border-radius: 5px;
+
+  &.disabled {
+    pointer-events: none;
+    background: rgba($base-color, 0.1);
+    color: $disabled-text-dark-color;
+  }
 
   &-inner {
     padding: 9px 12px;
@@ -48,6 +55,7 @@ $disabled-text-color: #979797;
 
     input[type='search'].select-madu-input {
       min-height: 18px;
+      line-height: inherit;
 
       &::-webkit-search-decoration,
       &::-webkit-search-cancel-button,
@@ -70,6 +78,8 @@ $disabled-text-color: #979797;
     width: 18px;
     height: 18px;
     position: relative;
+    transform: translateY(-50%);
+    top: 50%;
 
     .spinner-border {
       color: rgba($base-color, 0.8);
@@ -103,9 +113,15 @@ $disabled-text-color: #979797;
     }
   }
 
+  &-arrow &-icon {
+    transform: translateY(-50%);
+    top: 50%;
+    position: relative;
+  }
+
   &.open &-arrow &-icon {
-    transform: rotate(180deg);
-    -webkit-transform: rotate(180deg);
+    transform: translateY(-50%) rotate(180deg);
+    -webkit-transform: translateY(-50%) rotate(180deg);
   }
 
   &.animate &-arrow &-icon {
@@ -172,6 +188,12 @@ $disabled-text-color: #979797;
         li {
           padding: 9px 18px;
         }
+      }
+
+      li.disabled {
+        pointer-events: none;
+        background: rgba($base-color, 0.1);
+        color: $disabled-text-dark-color;
       }
     }
   }

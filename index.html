@@ -75,15 +75,29 @@
                     text: "Parent Option",
                     children: [
                       { text: "Child 1", value: 1 },
-                      { text: "Child 2", value: 2 }
+                      { text: "Child 2", value: 2, disabled: true }
                     ]
                   },
                   { text: "Option 2", value: 3 },
-                  { text: "Option 3", value: 4 }
+                  { text: "Option 3", value: 4, disabled: true }
                 ])
-              }, 2000);
+              }, 600000);
             });
           }
+        }
+      });
+
+      var sm3 = new SelectMadu({
+        target: document.querySelector("#parent"),
+        props: {
+          disabled: true,
+          textKey: "t1",
+          valueKey: "value",
+          datasource: [
+            { t1: "A 1", value: "cv1" },
+            { t1: "A 2", value: "cv2" },
+            { t1: "A 3", value: "cv3" }
+          ]
         }
       });
     </script>

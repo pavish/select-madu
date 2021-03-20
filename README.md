@@ -22,6 +22,7 @@ To get started, checkout documentation and examples at https://pavishkrg.com/sel
 * Dynamic state changes.
 * Multi-level nesting of options as groups.
 * Support for custom animations.
+* Pass custom option components.
 * Easily themable.
 * Better Accessibility.
 

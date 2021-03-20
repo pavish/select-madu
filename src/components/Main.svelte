@@ -171,9 +171,11 @@
   }
 
   function open() {
-    isOpen = true;
-    const promise: Promise<void> = tick();
-    promise.then(() => focusSearch()).catch(() => null);
+    if (!disabled) {
+      isOpen = true;
+      const promise: Promise<void> = tick();
+      promise.then(() => focusSearch()).catch(() => null);
+    }
   }
 
   function close() {
@@ -219,32 +221,41 @@
   }
 
   function onSelection(event: { detail: Option }) {
+    const option = event.detail;
     if (multiple) {
-      if (Array.isArray(selected)) {
-        let index = -1;
-        for (let i = 0; i < selected.length; i += 1) {
-          if (selected[i][keys.value] === event.detail[keys.value]) {
-            index = i;
-            break;
+      if (!option.disabled) {
+        if (Array.isArray(selected)) {
+          let index = -1;
+          for (let i = 0; i < selected.length; i += 1) {
+            if (selected[i][keys.value] === option[keys.value]) {
+              index = i;
+              break;
+            }
           }
-        }
-        if (index > -1) {
-          removeElement(index);
+          if (index > -1) {
+            removeElement(index);
+          } else {
+            selected = [...selected, option];
+          }
         } else {
-          selected = [...selected, event.detail];
+          selected = [option];
         }
-      } else {
-        selected = [event.detail];
       }
       focusSearch();
     } else {
-      selected = event.detail;
+      if (!option.disabled) {
+        selected = option;
+      }
       close();
       focusBase();
     }
   }
 
-  function onKeyDown(event: KeyboardEvent) {
+  function onKeyDown(event: KeyboardEvent): void {
+    if (disabled) {
+      return;
+    }
+
     switch (event.key) {
       case 'Enter':
         if (isOpen) {

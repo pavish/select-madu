@@ -97,9 +97,9 @@ export const sameWidthModifier = {
 };
 
 function getHovered(scrollParentRef: HTMLElement): HTMLElement {
-  let hoveredElem = scrollParentRef.querySelector('li.o.hovered');
+  let hoveredElem = scrollParentRef.querySelector('li.o.hovered:not(.disabled)');
   if (!hoveredElem) {
-    hoveredElem = scrollParentRef.querySelector('li.o');
+    hoveredElem = scrollParentRef.querySelector('li.o:not(.disabled)');
   }
   return hoveredElem as HTMLElement;
 }
@@ -110,7 +110,7 @@ export const arrowDown = (scrollParentRef: HTMLElement): void => {
     let nextElem: HTMLElement;
 
     if (elem.classList.contains('hovered')) {
-      const nodeList = scrollParentRef.querySelectorAll('li.o');
+      const nodeList = scrollParentRef.querySelectorAll('li.o:not(.disabled)');
       if (nodeList.length > 0) {
         let index = 0;
         for (let i = 0; i < nodeList.length; i += 1) {
@@ -139,7 +139,7 @@ export const arrowUp = (scrollParentRef: HTMLElement): void => {
   if (elem) {
     let prevElem: HTMLElement;
 
-    const nodeList = scrollParentRef.querySelectorAll('li.o');
+    const nodeList = scrollParentRef.querySelectorAll('li.o:not(.disabled)');
     if (nodeList.length > 0) {
       if (elem.classList.contains('hovered')) {
         let index = nodeList.length - 1;
@@ -165,7 +165,7 @@ export const arrowUp = (scrollParentRef: HTMLElement): void => {
 };
 
 export const chooseHovered = (scrollParentRef: HTMLElement): void => {
-  const hoveredElem = scrollParentRef.querySelector('li.o.hovered');
+  const hoveredElem = scrollParentRef.querySelector('li.o.hovered:not(.disabled)');
   if (hoveredElem) {
     // TODO: Change to custom event
     const helem = hoveredElem as HTMLElement;
