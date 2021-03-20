@@ -319,6 +319,10 @@
   function onFocusOut() {
     focus = false;
   }
+
+  export function getSelected(): Selected {
+    return selected;
+  }
 </script>
 
 <svelte:window on:click={checkAndClose}/>
