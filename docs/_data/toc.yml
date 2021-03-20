@@ -1,32 +1,35 @@
-- data:
-  - title: "About"
-    url: "index"
-  - title: "Getting Started"
-    url: "getting-started"
-    links:
-      - title: Installation
-        url: "getting-started#installation"
-      - title: Basic Usage
-        url: "getting-started#basic-usage"
-  - title: "API"
-    url: "api"
-    links:
-      - title: Properties
-        url: "api#properties"
-      - title: Methods
-        url: "api#methods"
-  - title: "Examples"
-    url: "examples"
-    links:
-      - title: Nested options
-        url: "examples#nested"
-      - title: Search
-        url: "examples#search"
-      - title: Ajax (async data)
-        url: "examples#asyncdata"
-      - title: Multiple selection
-        url: "examples#multiple"
-      - title: "Identifier keys"
-        url: "examples#keys"
-  - title: Contribution
-    url: "contribution"
+- title: "About"
+  url: "index"
+- title: "Getting Started"
+  url: "getting-started"
+  links:
+    - title: Installation
+      url: "getting-started#installation"
+    - title: Basic Usage
+      url: "getting-started#basic-usage"
+- title: "API"
+  url: "api"
+  links:
+    - title: Properties
+      url: "api#properties"
+    - title: Methods
+      url: "api#methods"
+- title: "Examples"
+  url: "examples"
+  links:
+    - title: Nested options
+      url: "examples#nested"
+    - title: Search
+      url: "examples#search"
+    - title: Ajax (async data)
+      url: "examples#asyncdata"
+    - title: Multiple selection
+      url: "examples#multiple"
+    - title: "Identifier keys"
+      url: "examples#keys"
+- title: "Migration Guide"
+  url: "migration"
+- title: "v1.x"
+  url: "v1"
+- title: Contribution
+  url: "contribution"

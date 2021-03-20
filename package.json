@@ -65,6 +65,7 @@
   },
   "files": [
     "src",
+    "styles",
     "nodesrc",
     "dist"
   ],
