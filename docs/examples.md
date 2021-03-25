@@ -4,8 +4,8 @@ title: SelectMadu - Examples
 permalink: /examples
 ---
 
-<script type="text/javascript" src="https://unpkg.com/select-madu@2.1.1/dist/selectmadu.min.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/select-madu@2.1.1/dist/selectmadu.css">
+<script type="text/javascript" src="https://unpkg.com/select-madu@2.2.0/dist/selectmadu.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/select-madu@2.2.0/dist/selectmadu.css">
 <style>
   .select-madu-arrow .select-madu-spinner .spinner-border {
     top: -41%;
